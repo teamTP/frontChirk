@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-abstract class InterfaceTemplate{
+abstract class AbstractPage extends StatefulWidget {
   String title;
 
-  InterfaceTemplate(this.title);
-
-  Widget createBody();
-
+  AbstractPage(this.title, {super.key});
 }
