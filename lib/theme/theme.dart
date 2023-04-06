@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 
-ThemeData lightYellowTheme() {
-  return ThemeData(
-      brightness: Brightness.light,
-      primarySwatch: Colors.yellow,
-      scaffoldBackgroundColor: Colors.yellow[50],
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: Colors.black,
-      ),
-      canvasColor: Colors.yellow[50],
-      iconTheme: IconThemeData()
-  );
+class ColorThem{
+  static const Color onSurfaceMedium = Color.fromRGBO(0, 0, 0, 0.6);
+  static const Color onSurfaceDisabled = Color.fromRGBO(0, 0, 0, 0.38);
+  static const Color onSurfaceHigh = Color.fromRGBO(0, 0, 0, 0.87);
+
+  static const Color onPrimaryHigh = Color.fromRGBO(255, 255, 255, 1);
+  static const Color onPrimaryMedium = Color.fromRGBO(255, 255, 255, 0.74);
+  static const Color onPrimaryDisabled = Color.fromRGBO(255, 255, 255, 0.38);
+
+  final MaterialColor _primaryColor;
+
+  ColorThem(this._primaryColor);
+  
+  ThemeData getLightTheme(){
+    return ThemeData(
+        primarySwatch: _primaryColor,
+        scaffoldBackgroundColor: _primaryColor[50],
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: onSurfaceMedium,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: onSurfaceHigh,
+          unselectedItemColor: onSurfaceMedium,
+        ),
+        canvasColor: _primaryColor[500],
+        iconTheme: const IconThemeData());
+  }
 }
