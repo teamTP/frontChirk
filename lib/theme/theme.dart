@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ColorThem{
+class ColorTheme {
   static const Color onSurfaceMedium = Color.fromRGBO(0, 0, 0, 0.6);
   static const Color onSurfaceDisabled = Color.fromRGBO(0, 0, 0, 0.38);
   static const Color onSurfaceHigh = Color.fromRGBO(0, 0, 0, 0.87);
@@ -11,9 +11,9 @@ class ColorThem{
 
   final MaterialColor _primaryColor;
 
-  ColorThem(this._primaryColor);
-  
-  ThemeData getLightTheme(){
+  ColorTheme(this._primaryColor);
+
+  ThemeData getLightTheme() {
     return ThemeData(
         primarySwatch: _primaryColor,
         scaffoldBackgroundColor: _primaryColor[50],
@@ -26,5 +26,15 @@ class ColorThem{
         ),
         canvasColor: _primaryColor[500],
         iconTheme: const IconThemeData());
+  }
+
+  ThemeData getDarkTheme() {
+    return ThemeData(
+      brightness: Brightness.dark,
+      primarySwatch: _primaryColor,
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: _primaryColor,
+      ),
+    );
   }
 }
