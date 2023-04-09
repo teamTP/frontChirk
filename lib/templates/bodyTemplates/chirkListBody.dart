@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 
-import '../models/chirkMessage.dart';
+import '../../models/chirkMessage.dart';
 
 class CardList {
   static Widget addCardList(BuildContext context, List<Chirk> chirkList) {
