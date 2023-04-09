@@ -7,11 +7,13 @@ class Chirk{
   final int _iconId;
   final String _userName;
   final String _userSurname;
-  bool _liked;
+  int _likeCount;
+  int _disLikeCount;
+  bool? _liked;
 
 
   Chirk(this._chirkId, this._dateTime, this._text, this._userId, this._iconId,
-      this._userName, this._userSurname, this._liked);
+      this._userName, this._userSurname, [this._liked, this._likeCount=0, this._disLikeCount=0]);
 
   String get userSurname => _userSurname;
 
@@ -21,15 +23,28 @@ class Chirk{
 
   int get userId => _userId;
 
-  bool get isLiked => _liked;
-
   String get text => _text;
 
   DateTime get dateTime => _dateTime;
 
   int get chirkId => _chirkId;
 
-  set liked(bool value) {
+
+  int get likeCount => _likeCount;
+
+  int get disLikeCount => _disLikeCount;
+
+  bool? get liked => _liked;
+
+  set liked(bool? value) {
     _liked = value;
+  }
+
+  set disLikeCount(int value) {
+    _disLikeCount = value;
+  }
+
+  set likeCount(int value) {
+    _likeCount = value;
   }
 }
