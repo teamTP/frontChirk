@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../../models/user.dart';
+
 class ProfileBody {
-  static Widget addProfileBody() {
-    double fntSize = 20;
+  static Widget addProfileBody(User user) {
+    double fntSize = 24;
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.only(
-            left: fntSize / 2,
-            right: fntSize / 2,
-            top: fntSize / 2,
-            bottom: fntSize / 2),
-        child: Column(
+        child: ListView(
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: fntSize/2),
+              margin: EdgeInsets.only(bottom: fntSize/2, top: fntSize/2),
               child: Row(
                 children: [
-                  const CircleAvatar(
+                  const CircleAvatar(//todo иконка по id
                       radius: 64, backgroundImage: AssetImage('img/hasta.jpg')),
                   Row(
                     children: [
@@ -25,18 +21,20 @@ class ProfileBody {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Иван",
+                            Text(user.name,
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: fntSize,
                                 )),
                             Row(
                               children: [
-                                const Text("Сидоров",
+                                Text(user.surname,
                                     style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: fntSize,
                                     )),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      //todo перреход на редактирование профиля
+                                    },
                                     icon: const Icon(Icons.edit)),
                               ],
                             ),
@@ -61,7 +59,9 @@ class ProfileBody {
                             fontSize: fntSize, fontWeight: FontWeight.bold),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          //todo переход на ленту мои чирки
+                        },
                         child: ListTile(
                           leading: Icon(Icons.edit),
                           title: Text(
@@ -71,7 +71,10 @@ class ProfileBody {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                          //todo переход на ленту понравившееся
+                        },
                         child: ListTile(
                           leading: Icon(Icons.thumb_up),
                           title: Text(
@@ -81,7 +84,9 @@ class ProfileBody {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                  //todo переход на ленту не понравившееся
+                  },
                         child: ListTile(
                           leading: Icon(Icons.thumb_down),
                           title: Text(
@@ -113,7 +118,7 @@ class ProfileBody {
                           style: TextStyle(fontSize: fntSize),
                         ),
                         title: Text(
-                          "Иван Сидоров",
+                          "${user.name} ${user.surname}",
                           style: TextStyle(fontSize: fntSize),
                         ),
                       ),
@@ -123,7 +128,7 @@ class ProfileBody {
                           style: TextStyle(fontSize: fntSize),
                         ),
                         title: Text(
-                          "ivan@sidorov.ru",
+                          user.login,
                           style: TextStyle(fontSize: fntSize),
                         ),
                       ),
@@ -178,7 +183,6 @@ class ProfileBody {
               ),
             ),*/ //старая карточка
           ],
-        ),
       ),
     );
   }

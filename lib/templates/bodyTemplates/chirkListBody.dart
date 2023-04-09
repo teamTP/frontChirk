@@ -4,7 +4,7 @@ import 'package:jiffy/jiffy.dart';
 import '../../models/chirkMessage.dart';
 
 class CardList {
-  static Widget addCardList(BuildContext context, List<Chirk> chirkList) {
+  static Widget addCardList(List<Chirk> chirkList) {
     return ListView.builder(
       itemCount: chirkList.length,
       itemBuilder: (BuildContext context, int index) {

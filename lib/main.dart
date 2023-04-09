@@ -1,5 +1,4 @@
 import 'package:chirk/pages/homePage.dart';
-import 'package:chirk/pages/profilePage.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -9,11 +8,10 @@ void main(){
 
 
   runApp(MaterialApp(
-      theme: colorThem.getLightTheme(),
+      theme: colorThem.getDarkTheme(),
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
-        '/profile': (context) => ProfilePage(),
       },
     ));
     }
