@@ -25,11 +25,15 @@ abstract class AbstractNavigationState extends State<StatefulWidget>
       ),
       body: createBody(),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (value) {
+          if (value == 0) Navigator.pushNamed(context, '/');
+        if (value == 2) Navigator.pushNamed(context, '/profile');
+      },
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(Icons.list), label: "Лента чирков"),
           BottomNavigationBarItem(icon: Icon(Icons.add), label: "Создать чирк"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
+          BottomNavigationBarItem( icon: Icon(Icons.person ), label: "Профиль"),
         ],
       ),
     );
