@@ -4,7 +4,7 @@ import '../../models/user.dart';
 import '../userIcons.dart';
 
 class ProfileBody {
-  static Widget addProfileBody(User user) {
+  static Widget addProfileBody(BuildContext context, User user) {
     double fntSize = 24;
     return SafeArea(
       child: ListView(
@@ -15,7 +15,7 @@ class ProfileBody {
               children: [
                 CircleAvatar(
                     //todo иконка по id
-                    radius: 64,
+                    radius: fntSize * 3,
                     backgroundImage: UserIcon.getImageById(user.iconId)),
                 Row(
                   children: [
@@ -24,16 +24,16 @@ class ProfileBody {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(user.name,
-                              style: TextStyle(
-                                fontSize: fntSize,
-                              )),
+                          Text(
+                            user.name,
+                            style: TextStyle(fontSize: fntSize),
+                          ),
                           Row(
                             children: [
-                              Text(user.surname,
-                                  style: TextStyle(
-                                    fontSize: fntSize,
-                                  )),
+                              Text(
+                                user.surname,
+                                style: TextStyle(fontSize: fntSize),
+                              ),
                               IconButton(
                                   onPressed: () {
                                     //todo перреход на редактирование профиля
@@ -187,5 +187,13 @@ class ProfileBody {
         ],
       ),
     );
+  }
+
+  static TextStyle? textStaleMedium(BuildContext context) {
+    return Theme.of(context).textTheme.bodyMedium;
+  }
+
+  static TextStyle? textStaleLarge(BuildContext context) {
+    return Theme.of(context).textTheme.titleLarge;
   }
 }

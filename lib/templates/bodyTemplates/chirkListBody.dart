@@ -5,7 +5,7 @@ import '../../models/chirkMessage.dart';
 import '../../theme/theme.dart';
 
 class CardList{
-  static Widget addCardList(List<Chirk> chirkList){
+  static Widget addCardList(BuildContext context, List<Chirk> chirkList){
     return ListView.builder(
       itemCount: chirkList.length,
       itemBuilder: (BuildContext context, int index) {

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:chirk/pages/loginPage.dart';
 import 'package:chirk/templates/bodyTemplates/profileBody.dart';
 import 'package:flutter/material.dart';
 
@@ -15,19 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
-  List<String> _titleOptions = [];
-  List<Widget> _widgetOptions = [];
 
-  _MyState() {
-    _titleOptions = <String>["Лента чирков", "Создать чирк", "Профиль"];
-    _widgetOptions = <Widget>[
-      CardList.addCardList(initChirkList()),
-      const Text(
-        'Реализация позже',
-      ),
-      ProfileBody.addProfileBody(initUser()),
-    ];
-  }
 
   @override
   Widget build(BuildContext context) => navigatorBarPage(context);
@@ -43,10 +32,23 @@ class _MyState extends State<StatefulWidget> {
       appBar: AppBar(
         title: Title(
           color: Colors.black,
-          child: Text(_titleOptions[_selectedIndex]),
+          child: <Widget>[
+            Text("Лента чирков"),
+            Text("Создать чирк"),
+            Text("Профиль"),
+          ][_selectedIndex]
         ),
+        actions: [
+            _selectedIndex==2? IconButton(onPressed: (){
+              Navigator.pushNamed(context, "/login");
+            }, icon: Icon(Icons.exit_to_app)):Text("")
+        ],
       ),
-      body: _widgetOptions[_selectedIndex],
+      body: <Widget>[
+        CardList.addCardList(context, initChirkList()),
+        Text("В разработке"),
+        ProfileBody.addProfileBody(context, initUser()),
+      ][_selectedIndex],
       bottomNavigationBar:
           BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.list), label: "Лента чирков"),
@@ -79,4 +81,6 @@ class _MyState extends State<StatefulWidget> {
   User initUser() {
     return User(1, 1, "Иван", "Сидоров", "ivan@sidorov.ru");
   }
+
+
 }
