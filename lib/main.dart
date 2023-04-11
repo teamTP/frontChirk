@@ -11,6 +11,7 @@ void main(){
   runApp(MaterialApp(
       theme: colorThem.getLightTheme(),
       darkTheme: colorThem.getDarkTheme(),
+      themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),

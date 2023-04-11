@@ -1,13 +1,49 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
 import '../userIcons.dart';
 
-class ProfileBody {
-  static Widget addProfileBody(BuildContext context, User user) {
+class ProfileWidget extends StatefulWidget {
+  User _user;
+
+  ProfileWidget(this._user, {super.key});
+
+  @override
+  State<StatefulWidget> createState() => _profileState(_user);
+}
+
+class _profileState extends State<ProfileWidget> {
+  User _user;
+
+  _profileState(this._user);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Title(
+          color: Colors.black,
+          child: Text("Профиль"),
+        ),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/login");
+              },
+              icon: Icon(Icons.exit_to_app)),
+        ],
+      ),
+      body: addProfileBody(context),
+    );
+  }
+
+  Widget addProfileBody(BuildContext context) {
     double fntSize = 24;
     return SafeArea(
       child: ListView(
+        scrollDirection: Axis.vertical,
         children: [
           Container(
             margin: EdgeInsets.only(bottom: fntSize / 2, top: fntSize / 2),
@@ -15,8 +51,10 @@ class ProfileBody {
               children: [
                 CircleAvatar(
                     //todo иконка по id
-                    radius: fntSize * 3,
-                    backgroundImage: UserIcon.getImageById(user.iconId)),
+                    radius:
+                        Theme.of(context).textTheme.headlineMedium!.fontSize! *
+                            2,
+                    backgroundImage: UserIcon.getImageById(_user.iconId)),
                 Row(
                   children: [
                     Container(
@@ -25,14 +63,15 @@ class ProfileBody {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            user.name,
-                            style: TextStyle(fontSize: fntSize),
+                            _user.name,
+                            style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           Row(
                             children: [
                               Text(
-                                user.surname,
-                                style: TextStyle(fontSize: fntSize),
+                                _user.surname,
+                                style:
+                                    Theme.of(context).textTheme.headlineMedium,
                               ),
                               IconButton(
                                   onPressed: () {
@@ -55,48 +94,14 @@ class ProfileBody {
               child: Container(
                 padding: EdgeInsets.all(fntSize / 2),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Чирки",
-                      style: TextStyle(
-                          fontSize: fntSize, fontWeight: FontWeight.bold),
+                      "Персональные данные",
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    TextButton(
-                      onPressed: () {
-                        //todo переход на ленту мои чирки
-                      },
-                      child: ListTile(
-                        leading: Icon(Icons.edit),
-                        title: Text(
-                          "Мои чирки",
-                          style: TextStyle(fontSize: fntSize),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        //todo переход на ленту понравившееся
-                      },
-                      child: ListTile(
-                        leading: Icon(Icons.thumb_up),
-                        title: Text(
-                          "Понравившееся",
-                          style: TextStyle(fontSize: fntSize),
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        //todo переход на ленту не понравившееся
-                      },
-                      child: ListTile(
-                        leading: Icon(Icons.thumb_down),
-                        title: Text(
-                          "Не понравившееся",
-                          style: TextStyle(fontSize: fntSize),
-                        ),
-                      ),
-                    ),
+                    Text("Имя: ${_user.name} ${_user.surname}"),
+                    Text("Логин: ${_user.login}"),
                   ],
                 ),
               ),
@@ -108,30 +113,46 @@ class ProfileBody {
               child: Container(
                 padding: EdgeInsets.all(fntSize / 2),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Персональные данные",
-                      style: TextStyle(
-                          fontSize: fntSize, fontWeight: FontWeight.bold),
+                      "Чирки",
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    ListTile(
-                      leading: Text(
-                        "Имя:",
-                        style: TextStyle(fontSize: fntSize),
+                    TextButton.icon(
+                      onPressed: () {
+                        //todo переход на ленту мои чирки
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
                       ),
-                      title: Text(
-                        "${user.name} ${user.surname}",
-                        style: TextStyle(fontSize: fntSize),
+                      icon: Icon(Icons.edit),
+                      label: Text(
+                        "Мои чирки",
                       ),
                     ),
-                    ListTile(
-                      leading: Text(
-                        "Логин:",
-                        style: TextStyle(fontSize: fntSize),
+                    TextButton.icon(
+                      onPressed: () {
+                        //todo переход на ленту понравившееся
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
                       ),
-                      title: Text(
-                        user.login,
-                        style: TextStyle(fontSize: fntSize),
+                      icon: Icon(Icons.thumb_up),
+                      label: Text(
+                        "Понравившееся",
+                      ),
+                    ),
+                    TextButton.icon(
+                      onPressed: () {
+                        //todo переход на ленту не понравившееся
+                      },
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.black,
+                      ),
+                      icon: Icon(Icons.thumb_down),
+                      label: Text(
+                        "Не понравившееся",
                       ),
                     ),
                   ],
@@ -187,13 +208,5 @@ class ProfileBody {
         ],
       ),
     );
-  }
-
-  static TextStyle? textStaleMedium(BuildContext context) {
-    return Theme.of(context).textTheme.bodyMedium;
-  }
-
-  static TextStyle? textStaleLarge(BuildContext context) {
-    return Theme.of(context).textTheme.titleLarge;
   }
 }

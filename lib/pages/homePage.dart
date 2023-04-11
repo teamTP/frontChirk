@@ -1,11 +1,11 @@
 import 'dart:math';
 import 'package:chirk/pages/loginPage.dart';
-import 'package:chirk/templates/bodyTemplates/profileBody.dart';
+import 'package:chirk/templates/bodyTemplates/profileWidget.dart';
 import 'package:flutter/material.dart';
 
 import '../models/chirkMessage.dart';
 import '../models/user.dart';
-import '../templates/bodyTemplates/chirkListBody.dart';
+import '../templates/bodyTemplates/chirkListWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,6 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
+  final List<Widget> _widgetOptions = <Widget>[
+    ChirkListWidget(initChirkList()),
+    Text("В разработке"),
+    ProfileWidget(initUser()),
+  ];
 
 
   @override
@@ -29,26 +34,7 @@ class _MyState extends State<StatefulWidget> {
 
   Widget navigatorBarPage(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Title(
-          color: Colors.black,
-          child: <Widget>[
-            Text("Лента чирков"),
-            Text("Создать чирк"),
-            Text("Профиль"),
-          ][_selectedIndex]
-        ),
-        actions: [
-            _selectedIndex==2? IconButton(onPressed: (){
-              Navigator.pushNamed(context, "/login");
-            }, icon: Icon(Icons.exit_to_app)):Text("")
-        ],
-      ),
-      body: <Widget>[
-        CardList.addCardList(context, initChirkList()),
-        Text("В разработке"),
-        ProfileBody.addProfileBody(context, initUser()),
-      ][_selectedIndex],
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar:
           BottomNavigationBar(items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(icon: Icon(Icons.list), label: "Лента чирков"),
@@ -58,7 +44,7 @@ class _MyState extends State<StatefulWidget> {
     );
   }
 
-  List<Chirk> initChirkList() {
+  static List<Chirk> initChirkList() {
     List<Chirk> chirkList = [];
     var rnd = Random();
     for (int i = 0; i < 10; i++) {
@@ -78,7 +64,7 @@ class _MyState extends State<StatefulWidget> {
     return chirkList;
   }
 
-  User initUser() {
+  static User initUser() {
     return User(1, 1, "Иван", "Сидоров", "ivan@sidorov.ru");
   }
 
