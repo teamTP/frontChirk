@@ -37,6 +37,7 @@ class ColorTheme {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: _primaryColor,
       ),
+      textTheme: getTextTheme(Colors.white),
     );
   }
 
