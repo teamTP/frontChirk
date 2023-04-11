@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:chirk/pages/loginPage.dart';
+
 import 'package:chirk/templates/bodyTemplates/profileWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
     ChirkListWidget(initChirkList()),
-    Text("В разработке"),
+    const Text("В разработке"),
     ProfileWidget(initUser()),
   ];
 

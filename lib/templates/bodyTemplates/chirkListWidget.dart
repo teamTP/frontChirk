@@ -1,41 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-
 import '../../models/chirkMessage.dart';
-import '../../theme/theme.dart';
 
-class ChirkListWidget extends StatefulWidget{
-  List<Chirk> _chirkList;
+class ChirkListWidget extends StatefulWidget {
+  final List<Chirk> _chirkList;
 
-
-  ChirkListWidget(this._chirkList);
+  const ChirkListWidget(this._chirkList, {super.key});
 
   @override
-  State<StatefulWidget> createState() => _chirkListState(_chirkList);
+  State<StatefulWidget> createState() => _ChirkListWidgetState();
 }
 
-class _chirkListState extends State<ChirkListWidget>{
-  List<Chirk> _chirkList;
-
-  _chirkListState(this._chirkList);
-
+class _ChirkListWidgetState extends State<ChirkListWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-        AppBar(
-          title: Text("Лента чирков"),
-        ),
-        body:addCardList(),
+      appBar: AppBar(
+        title: const Text("Лента чирков"),
+      ),
+      body: addCardList(),
     );
   }
 
-
-  Widget addCardList(){
+  Widget addCardList() {
     return ListView.builder(
-      itemCount: _chirkList.length,
+      itemCount: widget._chirkList.length,
       itemBuilder: (BuildContext context, int index) {
-        return _chirkCard(context, _chirkList[index]);
+        return _chirkCard(context, widget._chirkList[index]);
       },
     );
   }
@@ -98,19 +89,20 @@ class _chirkListState extends State<ChirkListWidget>{
     }
     return _getColorLike(context, chirk.liked);
   }
-    List<Color?> _getColorLike(BuildContext context, bool? likeState) {
-      Color? likeColor;
-      Color? dislikeColor;
-      if (likeState == null) {
-        likeColor = Theme.of(context).primaryIconTheme.color;
-        dislikeColor = Theme.of(context).primaryIconTheme.color;
-      } else if (likeState ?? true) {
-        likeColor = Theme.of(context).canvasColor;
-        dislikeColor = Theme.of(context).primaryIconTheme.color;
-      } else {
-        dislikeColor = Theme.of(context).canvasColor;
-        likeColor = Theme.of(context).primaryIconTheme.color;
-      }
-      return [likeColor, dislikeColor];
+
+  List<Color?> _getColorLike(BuildContext context, bool? likeState) {
+    Color? likeColor;
+    Color? dislikeColor;
+    if (likeState == null) {
+      likeColor = Theme.of(context).primaryIconTheme.color;
+      dislikeColor = Theme.of(context).primaryIconTheme.color;
+    } else if (likeState) {
+      likeColor = Theme.of(context).canvasColor;
+      dislikeColor = Theme.of(context).primaryIconTheme.color;
+    } else {
+      dislikeColor = Theme.of(context).canvasColor;
+      likeColor = Theme.of(context).primaryIconTheme.color;
     }
+    return [likeColor, dislikeColor];
+  }
 }

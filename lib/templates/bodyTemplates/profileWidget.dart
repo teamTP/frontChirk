@@ -1,23 +1,19 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
 import '../userIcons.dart';
 
 class ProfileWidget extends StatefulWidget {
-  User _user;
+  final User _user;
 
-  ProfileWidget(this._user, {super.key});
+  const ProfileWidget(this._user, {super.key});
 
   @override
-  State<StatefulWidget> createState() => _profileState(_user);
+  State<StatefulWidget> createState() => _ProfileWidgetState();
 }
 
-class _profileState extends State<ProfileWidget> {
-  User _user;
-
-  _profileState(this._user);
+class _ProfileWidgetState extends State<ProfileWidget> {
+  double fntSize = 24;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +21,14 @@ class _profileState extends State<ProfileWidget> {
       appBar: AppBar(
         title: Title(
           color: Colors.black,
-          child: Text("Профиль"),
+          child: const Text("Профиль"),
         ),
         actions: <Widget>[
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, "/login");
               },
-              icon: Icon(Icons.exit_to_app)),
+              icon: const Icon(Icons.exit_to_app)),
         ],
       ),
       body: addProfileBody(context),
@@ -40,7 +36,6 @@ class _profileState extends State<ProfileWidget> {
   }
 
   Widget addProfileBody(BuildContext context) {
-    double fntSize = 24;
     return SafeArea(
       child: ListView(
         scrollDirection: Axis.vertical,
@@ -54,7 +49,7 @@ class _profileState extends State<ProfileWidget> {
                     radius:
                         Theme.of(context).textTheme.headlineMedium!.fontSize! *
                             2,
-                    backgroundImage: UserIcon.getImageById(_user.iconId)),
+                    backgroundImage: UserIcon.getImageById(widget._user.iconId)),
                 Row(
                   children: [
                     Container(
@@ -63,13 +58,13 @@ class _profileState extends State<ProfileWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _user.name,
+                            widget._user.name,
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                           Row(
                             children: [
                               Text(
-                                _user.surname,
+                                widget._user.surname,
                                 style:
                                     Theme.of(context).textTheme.headlineMedium,
                               ),
@@ -100,8 +95,8 @@ class _profileState extends State<ProfileWidget> {
                       "Персональные данные",
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
-                    Text("Имя: ${_user.name} ${_user.surname}"),
-                    Text("Логин: ${_user.login}"),
+                    Text("Имя: ${widget._user.name} ${widget._user.surname}"),
+                    Text("Логин: ${widget._user.login}"),
                   ],
                 ),
               ),
@@ -126,8 +121,8 @@ class _profileState extends State<ProfileWidget> {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
                       ),
-                      icon: Icon(Icons.edit),
-                      label: Text(
+                      icon: const Icon(Icons.edit),
+                      label: const Text(
                         "Мои чирки",
                       ),
                     ),
@@ -138,8 +133,8 @@ class _profileState extends State<ProfileWidget> {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
                       ),
-                      icon: Icon(Icons.thumb_up),
-                      label: Text(
+                      icon: const Icon(Icons.thumb_up),
+                      label: const Text(
                         "Понравившееся",
                       ),
                     ),
@@ -150,8 +145,8 @@ class _profileState extends State<ProfileWidget> {
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.black,
                       ),
-                      icon: Icon(Icons.thumb_down),
-                      label: Text(
+                      icon: const Icon(Icons.thumb_down),
+                      label: const Text(
                         "Не понравившееся",
                       ),
                     ),

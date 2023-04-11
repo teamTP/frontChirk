@@ -14,7 +14,7 @@ void main(){
       themeMode: ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
       },
     ));
