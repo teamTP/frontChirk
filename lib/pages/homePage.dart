@@ -1,26 +1,59 @@
 import 'dart:math';
-
-import 'package:chirk/templates/abstractPage.dart';
-import 'package:chirk/templates/abstractStandartState.dart';
-import 'package:chirk/models/chirkMessage.dart';
+import 'package:chirk/templates/bodyTemplates/profileBody.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
-import '../templates/cardListChirk.dart';
+import '../models/chirkMessage.dart';
+import '../models/user.dart';
+import '../templates/bodyTemplates/chirkListBody.dart';
 
-class HomePage extends AbstractPage {
-  HomePage() : super('Тест');
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _homeState(title);
+  State<StatefulWidget> createState() => _MyState();
 }
 
-class _homeState extends AbstractNavigationState {
-  _homeState(super.title);
+class _MyState extends State<StatefulWidget> {
+  int _selectedIndex = 0;
+  List<String> _titleOptions = [];
+  List<Widget> _widgetOptions = [];
+
+  _MyState() {
+    _titleOptions = <String>["Лента чирков", "Создать чирк", "Профиль"];
+    _widgetOptions = <Widget>[
+      CardList.addCardList(initChirkList()),
+      const Text(
+        'Реализация позже',
+      ),
+      ProfileBody.addProfileBody(initUser()),
+    ];
+  }
 
   @override
-  Widget createBody() {
-    return CardList.addCardList(context, initChirkList());
+  Widget build(BuildContext context) => navigatorBarPage(context);
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget navigatorBarPage(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Title(
+          color: Colors.black,
+          child: Text(_titleOptions[_selectedIndex]),
+        ),
+      ),
+      body: _widgetOptions[_selectedIndex],
+      bottomNavigationBar:
+          BottomNavigationBar(items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.list), label: "Лента чирков"),
+        BottomNavigationBarItem(icon: Icon(Icons.add), label: "Создать чирк"),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
+      ], currentIndex: _selectedIndex, onTap: (value) => _onItemTapped(value)),
+    );
   }
 
   List<Chirk> initChirkList() {
@@ -41,5 +74,9 @@ class _homeState extends AbstractNavigationState {
       chirkList.add(chrk);
     }
     return chirkList;
+  }
+
+  User initUser() {
+    return User(1, 1, "Иван", "Сидоров", "ivan@sidorov.ru");
   }
 }
