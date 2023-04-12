@@ -32,14 +32,13 @@ class _ChirkListWidgetState extends State<ChirkListWidget> {
   }
 
   Widget _chirkCard(BuildContext context, Chirk chirk) {
-    List<Color?> likeColors = _getColorLike(context, chirk.liked);
     Jiffy.setLocale("ru");
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: const Icon(Icons.person_2_rounded),
-            title: Text("${chirk.userSurname} ${chirk.userName}"),
+            title: Text("${chirk.user.surname} ${chirk.user.name}"),
             subtitle: Text(Jiffy.parseFromDateTime(chirk.dateTime).fromNow()),
             trailing: IconButton(
               onPressed: () {
@@ -61,7 +60,6 @@ class _ChirkListWidgetState extends State<ChirkListWidget> {
                 },
                 icon: Icon(
                   Icons.thumb_up,
-                  color: likeColors.first,
                 ),
               ),
               IconButton(
@@ -70,7 +68,6 @@ class _ChirkListWidgetState extends State<ChirkListWidget> {
                 },
                 icon: Icon(
                   Icons.thumb_down,
-                  color: likeColors.last,
                 ),
               ),
             ],
@@ -78,31 +75,5 @@ class _ChirkListWidgetState extends State<ChirkListWidget> {
         ],
       ),
     );
-  }
-
-  List<Color?> _pressLikeButton(
-      BuildContext context, bool pressedButton, Chirk chirk) {
-    if (chirk.liked == pressedButton) {
-      chirk.liked = null;
-    } else {
-      chirk.liked = pressedButton;
-    }
-    return _getColorLike(context, chirk.liked);
-  }
-
-  List<Color?> _getColorLike(BuildContext context, bool? likeState) {
-    Color? likeColor;
-    Color? dislikeColor;
-    if (likeState == null) {
-      likeColor = Theme.of(context).primaryIconTheme.color;
-      dislikeColor = Theme.of(context).primaryIconTheme.color;
-    } else if (likeState) {
-      likeColor = Theme.of(context).canvasColor;
-      dislikeColor = Theme.of(context).primaryIconTheme.color;
-    } else {
-      dislikeColor = Theme.of(context).canvasColor;
-      likeColor = Theme.of(context).primaryIconTheme.color;
-    }
-    return [likeColor, dislikeColor];
   }
 }

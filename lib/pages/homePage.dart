@@ -54,11 +54,14 @@ class _MyState extends State<StatefulWidget> {
           "Ntcnjdsq ntrcn j njv xnj gbitn xtkjdtr lkz njuj xnj ,s dbltnm dtcm "
               "ntttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
               "tttttttttttttttttttttttttttttttttttttttt",
-          i + 1,
-          rnd.nextInt(6),
-          "Петр",
-          "Николаевич",
-          true);
+          User(
+            i + 1,
+            rnd.nextInt(6),
+            "Петр",
+            "Николаевич",
+            "petr@nicol.com",
+          ),
+      );
       chirkList.add(chrk);
     }
     return chirkList;

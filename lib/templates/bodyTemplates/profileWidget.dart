@@ -1,3 +1,4 @@
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
@@ -70,6 +71,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               ),
                               IconButton(
                                   onPressed: () {
+                                    setState(() {
+                                      });
                                     //todo перреход на редактирование профиля
                                   },
                                   icon: const Icon(Icons.edit)),
@@ -119,7 +122,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         //todo переход на ленту мои чирки
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
+                        foregroundColor: _getAccentColor(),
                       ),
                       icon: const Icon(Icons.edit),
                       label: const Text(
@@ -131,7 +134,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         //todo переход на ленту понравившееся
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
+                        foregroundColor:_getAccentColor(),
                       ),
                       icon: const Icon(Icons.thumb_up),
                       label: const Text(
@@ -143,7 +146,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         //todo переход на ленту не понравившееся
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.black,
+                        foregroundColor: _getAccentColor(),
                       ),
                       icon: const Icon(Icons.thumb_down),
                       label: const Text(
@@ -155,6 +158,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               ),
             ),
           ),
+          EasyDynamicThemeBtn(),
           /*Card(
               child: Row(
                 children: [
@@ -203,5 +207,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         ],
       ),
     );
+  }
+
+  Color? _getAccentColor(){
+    return Theme.of(context).brightness==Brightness.light? Colors.black:null;
   }
 }

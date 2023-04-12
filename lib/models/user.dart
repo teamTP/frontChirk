@@ -1,19 +1,13 @@
 class User {
-  int _id;
-  int _iconId;
-  String _name="";
-  String _surname="";
-  String _login="";
+  final int _id;
+  int iconId;
+  String name;
+  String surname;
+  final String _login;
 
-  User(this._id, this._iconId, this._name, this._surname, this._login);
+  User(this._id, this.iconId, this.name, this.surname, this._login);
 
   String get login => _login;
 
-  String get surname => _surname;
-
-  String get name => _name;
-
-  int get iconId => _iconId;
-
-  int get Id => _id;
+  int get id => _id;
 }
