@@ -27,6 +27,9 @@ class ColorTheme {
       canvasColor: _primaryColor[500],
       iconTheme: const IconThemeData(),
       textTheme: getTextTheme(Colors.black),
+      buttonTheme: ButtonThemeData(
+        textTheme: ButtonTextTheme.normal,
+      )
     );
   }
 
