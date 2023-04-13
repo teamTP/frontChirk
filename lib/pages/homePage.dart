@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:chirk/templates/bodyTemplates/profileBody.dart';
+import 'package:chirk/templates/bodyTemplates/registerBody.dart';
+
 import 'package:flutter/material.dart';
 
 import '../models/chirkMessage.dart';
@@ -22,9 +24,7 @@ class _MyState extends State<StatefulWidget> {
     _titleOptions = <String>["Лента чирков", "Создать чирк", "Профиль"];
     _widgetOptions = <Widget>[
       CardList.addCardList(initChirkList()),
-      const Text(
-        'Реализация позже',
-      ),
+      RegisterBody.addRegisterBody(),
       ProfileBody.addProfileBody(initUser()),
     ];
   }

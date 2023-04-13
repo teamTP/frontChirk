@@ -8,7 +8,7 @@ void main(){
 
 
   runApp(MaterialApp(
-      theme: colorThem.getDarkTheme(),
+      theme: colorThem.getLightTheme(),
       initialRoute: '/',
       routes: {
         '/': (context) => HomePage(),
