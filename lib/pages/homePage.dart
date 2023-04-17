@@ -71,7 +71,6 @@ class _MyState extends State<StatefulWidget> {
     }
     return chirkList;
   }
-
   static User initUser() {
     return User(
         id: 1,
