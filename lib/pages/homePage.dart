@@ -1,10 +1,11 @@
 import 'dart:math';
-import 'package:chirk/templates/bodyTemplates/profileBody.dart';
+
+import 'package:chirk/templates/bodyTemplates/profileWidget.dart';
 import 'package:flutter/material.dart';
 
-import '../models/chirkMessage.dart';
+import '../models/chirk.dart';
 import '../models/user.dart';
-import '../templates/bodyTemplates/chirkListBody.dart';
+import '../templates/bodyTemplates/chirkListWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,19 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
-  List<String> _titleOptions = [];
-  List<Widget> _widgetOptions = [];
-
-  _MyState() {
-    _titleOptions = <String>["Лента чирков", "Создать чирк", "Профиль"];
-    _widgetOptions = <Widget>[
-      CardList.addCardList(initChirkList()),
-      const Text(
-        'Реализация позже',
-      ),
-      ProfileBody.addProfileBody(initUser()),
-    ];
-  }
+  final List<Widget> _widgetOptions = <Widget>[
+    ChirkListWidget(initChirkList()),
+    const Text("В разработке"),
+    ProfileWidget(initUser()),
+  ];
 
   @override
   Widget build(BuildContext context) => navigatorBarPage(context);
@@ -40,43 +33,52 @@ class _MyState extends State<StatefulWidget> {
 
   Widget navigatorBarPage(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Title(
-          color: Colors.black,
-          child: Text(_titleOptions[_selectedIndex]),
-        ),
-      ),
       body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar:
-          BottomNavigationBar(items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(icon: Icon(Icons.list), label: "Лента чирков"),
-        BottomNavigationBarItem(icon: Icon(Icons.add), label: "Создать чирк"),
-        BottomNavigationBarItem(icon: Icon(Icons.person), label: "Профиль"),
-      ], currentIndex: _selectedIndex, onTap: (value) => _onItemTapped(value)),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (value) => _onItemTapped(value),
+        destinations: const <NavigationDestination>[
+          NavigationDestination(icon: Icon(Icons.list), label: "Лента чирков"),
+          NavigationDestination(icon: Icon(Icons.add), label: "Создать чирк"),
+          NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
+        ],
+      ),
     );
   }
 
-  List<Chirk> initChirkList() {
+  static List<Chirk> initChirkList() {
     List<Chirk> chirkList = [];
     var rnd = Random();
     for (int i = 0; i < 10; i++) {
-      var chrk = Chirk(
-          i * 3,
-          DateTime.now(),
-          "Ntcnjdsq ntrcn j njv xnj gbitn xtkjdtr lkz njuj xnj ,s dbltnm dtcm "
-              "ntttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
-              "tttttttttttttttttttttttttttttttttttttttt",
-          i + 1,
-          rnd.nextInt(6),
-          "Петр",
-          "Николаевич",
-          true);
-      chirkList.add(chrk);
+      var chirk = Chirk(
+        id: i * 3,
+        dateTime: DateTime.now(),
+        text:
+            "Ntcnjdsq ntrcn j njv xnj gbitn xtkjdtr lkz njuj xnj ,s dbltnm dtcm "
+            "ntttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+            "tttttttttttttttttttttttttttttttttttttttt",
+        user: User(
+            id: i + 1,
+            iconId: rnd.nextInt(6),
+            name: "Петр",
+            surname: "Николаевич",
+            login: "petr@nicol.com",
+            password: ":OHG:25L:JHG"),
+        likeCount: i * 5,
+        disLikeCount: i * 4,
+      );
+      chirkList.add(chirk);
     }
     return chirkList;
   }
 
-  User initUser() {
-    return User(1, 1, "Иван", "Сидоров", "ivan@sidorov.ru");
+  static User initUser() {
+    return User(
+        id: 1,
+        iconId: 1,
+        name: "Иван",
+        surname: "Сидоров",
+        login: "ivan@sidorov.ru",
+        password: ":OHG:25L:JHG");
   }
 }

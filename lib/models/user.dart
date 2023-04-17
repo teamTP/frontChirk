@@ -1,19 +1,17 @@
 class User {
-  int _id;
-  int _iconId;
-  String _name="";
-  String _surname="";
-  String _login="";
+  final int id;
+  final String login;
+  final String password;
+  int iconId;
+  String name;
+  String surname;
 
-  User(this._id, this._iconId, this._name, this._surname, this._login);
-
-  String get login => _login;
-
-  String get surname => _surname;
-
-  String get name => _name;
-
-  int get iconId => _iconId;
-
-  int get Id => _id;
+  User({
+    required this.id,
+    required this.login,
+    required this.password,
+    required this.iconId,
+    required this.name,
+    required this.surname,
+  });
 }
