@@ -12,7 +12,19 @@ class ColorTheme {
   final MaterialColor _primaryColor;
 
   ColorTheme(this._primaryColor);
-
+  ThemeData getLightMatDisign(){
+    return ThemeData(
+        useMaterial3: true,
+      colorSchemeSeed: _primaryColor,
+    );
+  }
+  ThemeData getDarkMatDisign(){
+    return ThemeData(
+        useMaterial3: true,
+      colorSchemeSeed: _primaryColor,
+      brightness: Brightness.dark
+    );
+  }
   ThemeData getLightTheme() {
     return ThemeData(
       primarySwatch: _primaryColor,

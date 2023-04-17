@@ -1,13 +1,17 @@
 class User {
-  final int _id;
+  final int id;
+  final String login;
+  final String password;
   int iconId;
   String name;
   String surname;
-  final String _login;
 
-  User(this._id, this.iconId, this.name, this.surname, this._login);
-
-  String get login => _login;
-
-  int get id => _id;
+  User({
+    required this.id,
+    required this.login,
+    required this.password,
+    required this.iconId,
+    required this.name,
+    required this.surname,
+  });
 }

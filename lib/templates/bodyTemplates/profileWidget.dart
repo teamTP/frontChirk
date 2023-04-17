@@ -14,10 +14,10 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-  double fntSize = 24;
 
   @override
   Widget build(BuildContext context) {
+    double size = Theme.of(context).textTheme.headlineMedium!.fontSize!;
     return Scaffold(
       appBar: AppBar(
         title: Title(
@@ -32,134 +32,118 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               icon: const Icon(Icons.exit_to_app)),
         ],
       ),
-      body: addProfileBody(context),
-    );
-  }
-
-  Widget addProfileBody(BuildContext context) {
-    return SafeArea(
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Container(
-            margin: EdgeInsets.only(bottom: fntSize / 2, top: fntSize / 2),
-            child: Row(
-              children: [
-                CircleAvatar(
+      body: SafeArea(
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Container(
+              margin: EdgeInsets.only(bottom: size / 2, top: size / 2),
+              child: Row(
+                children: [
+                  CircleAvatar(
                     //todo иконка по id
-                    radius:
-                        Theme.of(context).textTheme.headlineMedium!.fontSize! *
-                            2,
-                    backgroundImage: UserIcon.getImageById(widget._user.iconId)),
-                Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(left: fntSize),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget._user.name,
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                widget._user.surname,
-                                style:
-                                    Theme.of(context).textTheme.headlineMedium,
-                              ),
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
+                      radius:
+                      Theme.of(context).textTheme.headlineMedium!.fontSize! * 2,
+                      backgroundImage: UserIcon.getImageById(widget._user.iconId)),
+                  Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(left: size),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget._user.name,
+                              style: Theme.of(context).textTheme.headlineMedium,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  widget._user.surname,
+                                  style:
+                                  Theme.of(context).textTheme.headlineMedium,
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
                                       });
-                                    //todo перреход на редактирование профиля
-                                  },
-                                  icon: const Icon(Icons.edit)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                )
-              ],
+                                      //todo перреход на редактирование профиля
+                                    },
+                                    icon: const Icon(Icons.edit)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: fntSize / 2),
-            child: Card(
-              child: Container(
-                padding: EdgeInsets.all(fntSize / 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Персональные данные",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    Text("Имя: ${widget._user.name} ${widget._user.surname}"),
-                    Text("Логин: ${widget._user.login}"),
-                  ],
+            Container(
+              margin: EdgeInsets.only(bottom: size / 2),
+              child: Card(
+                child: Container(
+                  padding: EdgeInsets.all(size / 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Персональные данные",
+                        style: Theme.of(context).textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                      ),
+                      Text("Имя: ${widget._user.name} ${widget._user.surname}"),
+                      Text("Логин: ${widget._user.login}"),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: fntSize / 2),
-            child: Card(
-              child: Container(
-                padding: EdgeInsets.all(fntSize / 2),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Чирки",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    TextButton.icon(
-                      onPressed: () {
-                        //todo переход на ленту мои чирки
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: _getAccentColor(),
+            Container(
+              margin: EdgeInsets.only(bottom: size / 2),
+              child: Card(
+                child: Container(
+                  padding: EdgeInsets.all(size / 2),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Чирки",
+                        style: Theme.of(context).textTheme.titleMedium?.apply(fontWeightDelta: 1),
                       ),
-                      icon: const Icon(Icons.edit),
-                      label: const Text(
-                        "Мои чирки",
+                      TextButton.icon(
+                        onPressed: () {
+                          //todo переход на ленту мои чирки
+                        },
+                        icon: const Icon(Icons.edit),
+                        label: const Text(
+                          "Мои чирки",
+                        ),
                       ),
-                    ),
-                    TextButton.icon(
-                      onPressed: () {
-                        //todo переход на ленту понравившееся
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor:_getAccentColor(),
+                      TextButton.icon(
+                        onPressed: () {
+                          //todo переход на ленту понравившееся
+                        },
+                        icon: const Icon(Icons.thumb_up),
+                        label: const Text(
+                          "Понравившееся",
+                        ),
                       ),
-                      icon: const Icon(Icons.thumb_up),
-                      label: const Text(
-                        "Понравившееся",
+                      TextButton.icon(
+                        onPressed: () {
+                          //todo переход на ленту не понравившееся
+                        },
+                        icon: const Icon(Icons.thumb_down),
+                        label: const Text(
+                          "Не понравившееся",
+                        ),
                       ),
-                    ),
-                    TextButton.icon(
-                      onPressed: () {
-                        //todo переход на ленту не понравившееся
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: _getAccentColor(),
-                      ),
-                      icon: const Icon(Icons.thumb_down),
-                      label: const Text(
-                        "Не понравившееся",
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ),
-          EasyDynamicThemeBtn(),
-          /*Card(
+            ),EasyDynamicThemeBtn(),
+            /*Card(
               child: Row(
                 children: [
                   Row(
@@ -204,12 +188,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 ],
               ),
             ),*/ //старая карточка
-        ],
+          ],
+        ),
       ),
     );
-  }
-
-  Color? _getAccentColor(){
-    return Theme.of(context).brightness==Brightness.light? Colors.black:null;
   }
 }

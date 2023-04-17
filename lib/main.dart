@@ -12,6 +12,8 @@ void main() {
 }
 
 class ChirkApp extends StatefulWidget {
+  const ChirkApp({super.key});
+
   @override
   State<StatefulWidget> createState() => _ChirkAppState();
 }
@@ -22,8 +24,8 @@ class _ChirkAppState extends State<ChirkApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: colorThem.getLightTheme(),
-      darkTheme: colorThem.getDarkTheme(),
+      theme: colorThem.getLightMatDisign(),
+      darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/',
       routes: {
