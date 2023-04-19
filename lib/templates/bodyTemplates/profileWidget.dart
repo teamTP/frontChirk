@@ -68,6 +68,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       setState(() {
                                       });
                                       //todo перреход на редактирование профиля
+                                      Navigator.pushNamed(context, "/editProfile");
                                     },
                                     icon: const Icon(Icons.edit)),
                               ],

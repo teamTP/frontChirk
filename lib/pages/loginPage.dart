@@ -12,24 +12,22 @@ class _LoginPageState extends State<LoginPage> {
   String? _email;
   String? _password;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Text("Авторизация"),
       ),
-
       body: addLoginBody(),
     );
-
   }
-  Widget addLoginBody(){
+
+  Widget addLoginBody() {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.all(20.0),
@@ -84,6 +82,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-
 }

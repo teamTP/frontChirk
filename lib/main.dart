@@ -1,3 +1,4 @@
+import 'package:chirk/pages/editProfilePage.dart';
 import 'package:chirk/pages/homePage.dart';
 import 'package:chirk/pages/loginPage.dart';
 import 'package:chirk/theme/theme.dart';
@@ -31,6 +32,7 @@ class _ChirkAppState extends State<ChirkApp> {
       routes: {
         '/': (context) => const HomePage(),
         '/login': (context) => LoginPage(),
+        '/editProfile': (context) => EditProfilePage(),
       },
     );
   }
