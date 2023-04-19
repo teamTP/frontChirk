@@ -3,6 +3,10 @@ import 'dart:math';
 import 'package:chirk/templates/bodyTemplates/profileWidget.dart';
 import 'package:flutter/material.dart';
 
+import '../elementaryTest/model/chirk_list_model.dart';
+import '../elementaryTest/service/chirl_list_service.dart';
+import '../elementaryTest/widget/chirk_list_widget.dart';
+import '../elementaryTest/widgetModel/chirk_list_wm.dart';
 import '../models/chirk.dart';
 import '../models/user.dart';
 import '../templates/bodyTemplates/chirkListWidget.dart';
@@ -17,8 +21,9 @@ class HomePage extends StatefulWidget {
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
-    ChirkListWidget(initChirkList()),
-    const Text("В разработке"),
+    //ChirkListWidget(initChirkList()),
+    ChirkListWidgetEl((context) => ChirkListWM(ChirkListModel(ChirkListServiceList()))),
+    Text("В разработке"),
     ProfileWidget(initUser()),
   ];
 
