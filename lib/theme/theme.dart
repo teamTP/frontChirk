@@ -12,20 +12,37 @@ class ColorTheme {
   final MaterialColor _primaryColor;
 
   ColorTheme(this._primaryColor);
-
+  ThemeData getLightMatDisign(){
+    return ThemeData(
+        useMaterial3: true,
+      colorSchemeSeed: _primaryColor,
+    );
+  }
+  ThemeData getDarkMatDisign(){
+    return ThemeData(
+        useMaterial3: true,
+      colorSchemeSeed: _primaryColor,
+      brightness: Brightness.dark
+    );
+  }
   ThemeData getLightTheme() {
     return ThemeData(
-        primarySwatch: _primaryColor,
-        scaffoldBackgroundColor: _primaryColor[50],
-        bottomAppBarTheme: const BottomAppBarTheme(
-          color: onSurfaceMedium,
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          selectedItemColor: onSurfaceHigh,
-          unselectedItemColor: onSurfaceMedium,
-        ),
-        canvasColor: _primaryColor[500],
-        iconTheme: const IconThemeData());
+      primarySwatch: _primaryColor,
+      scaffoldBackgroundColor: _primaryColor[50],
+      bottomAppBarTheme: const BottomAppBarTheme(
+        color: onSurfaceMedium,
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: onSurfaceHigh,
+        unselectedItemColor: onSurfaceMedium,
+      ),
+      canvasColor: _primaryColor[500],
+      iconTheme: const IconThemeData(),
+      textTheme: getTextTheme(Colors.black),
+      buttonTheme: ButtonThemeData(
+        textTheme: ButtonTextTheme.normal,
+      )
+    );
   }
 
   ThemeData getDarkTheme() {
@@ -34,6 +51,50 @@ class ColorTheme {
       primarySwatch: _primaryColor,
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: _primaryColor,
+      ),
+      textTheme: getTextTheme(Colors.white),
+    );
+  }
+
+  static TextTheme getTextTheme(Color textColor) {
+    return TextTheme(
+      displayLarge: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      displayMedium: TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      displaySmall: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      headlineMedium: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      headlineSmall: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      titleLarge: TextStyle(
+        fontSize: 20,
+        //fontWeight: FontWeight.bold,
+        color: textColor,
+      ),
+      bodyLarge: TextStyle(
+        fontSize: 16,
+        color: textColor,
+      ),
+      bodyMedium: TextStyle(
+        fontSize: 14,
+        color: textColor,
       ),
     );
   }
