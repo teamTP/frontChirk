@@ -12,34 +12,32 @@ class _LoginPageState extends State<LoginPage> {
   String? _email;
   String? _password;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text("Авторизация"),
+        title: const Text("Авторизация"),
       ),
-
       body: addLoginBody(),
     );
-
   }
-  Widget addLoginBody(){
+
+  Widget addLoginBody() {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: GlobalKey<FormState>(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 100.0),
-              Center(
+              const SizedBox(height: 100.0),
+              const Center(
                 child: Text(
                   'Login',
                   style: TextStyle(
@@ -48,42 +46,54 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextFormField(
                 validator: (input) {
                   return null;
                 },
                 onSaved: (input) => _email = input,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               TextFormField(
                 validator: (input) {
                   return null;
                 },
                 onSaved: (input) => _password = input,
                 obscureText: true,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                 ),
               ),
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Center(
                 child: TextButton(
                   onPressed: () {
                     // TODO: Perform login action
                   },
-                  child: Text('Login'),
+                  child: const Text('Login'),
                 ),
               ),
+              const SizedBox(height: 100.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Еще нет аккаунта? ?",
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/register");
+                      },
+                      child: const Text('Зарегистрироваться'))
+                ],
+              )
             ],
           ),
         ),
       ),
     );
   }
-
-
 }
