@@ -14,6 +14,9 @@ class _RegisterPageState extends State<RegisterPage> {
   String _confirmPassword = '';
   String _firstName = '';
   String _lastName = '';
+  bool isTransitioning = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "/login");
+                        Navigator.pop(context);
                       },
                       child: const Text('Авторизоваться'))
                 ],
