@@ -137,7 +137,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.pushNamed(context, "/login");
                       },
                       child: const Text('Авторизоваться'))
                 ],
