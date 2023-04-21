@@ -1,18 +1,18 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+
 import '../../models/chirk.dart';
 import '../../models/user.dart';
 
 abstract class IChirkListService{
-  List<Chirk> get chirks;
+  ValueNotifier<List<Chirk>> getChirks();
 }
 
 class ChirkListServiceList implements IChirkListService{
-  @override
-  List<Chirk> get chirks => initChirkList();
 
 
-  static List<Chirk> initChirkList() {
+  static List<Chirk> _initChirkList() {
     List<Chirk> chirkList = [];
     var rnd = Random();
     for (int i = 0; i < 10; i++) {
@@ -38,7 +38,7 @@ class ChirkListServiceList implements IChirkListService{
     return chirkList;
   }
 
-  static User initUser() {
+  static User _initUser() {
     return User(
         id: 1,
         iconId: 1,
@@ -46,5 +46,10 @@ class ChirkListServiceList implements IChirkListService{
         surname: "Сидоров",
         login: "ivan@sidorov.ru",
         password: ":OHG:25L:JHG");
+  }
+
+  @override
+  ValueNotifier<List<Chirk>> getChirks() {
+    return ValueNotifier(_initChirkList());
   }
 }
