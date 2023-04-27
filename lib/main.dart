@@ -1,3 +1,4 @@
+import 'package:chirk/widget/edit_profile_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
@@ -31,6 +32,7 @@ class _ChirkAppState extends State<ChirkApp> {
       routes: {
         '/': (context) => const HomeWidget(),
         '/login': (context) => LoginWidget(),
+        '/edit' : (context) => EditProfileWidget(),
       },
     );
   }
