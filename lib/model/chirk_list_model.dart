@@ -1,7 +1,7 @@
-import 'package:chirk/models/chirk.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../entity/chirk.dart';
 import '../service/chirl_list_service.dart';
 
 class ChirkListModel extends ElementaryModel{

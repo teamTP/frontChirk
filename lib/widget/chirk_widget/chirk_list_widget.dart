@@ -1,11 +1,11 @@
-import 'package:chirk/elementaryTest/widgetModel/chirk_list_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import '../../templates/bodyTemplates/chirk_widget.dart';
+import '../../widgetModel/chirk_list_wm.dart';
+import 'chirk_widget.dart';
 
-class ChirkListWidgetEl extends ElementaryWidget<IChirkListWM>{
-  ChirkListWidgetEl(super.wmFactory);
+class ChirkListWidget extends ElementaryWidget<IChirkListWM>{
+  ChirkListWidget(super.wmFactory);
   TextEditingController My_controller = new TextEditingController();
 
 
