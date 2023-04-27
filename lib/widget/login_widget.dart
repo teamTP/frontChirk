@@ -81,7 +81,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Еще нет аккаунта? ?",
+                    "Еще нет аккаунта?",
                   ),
                   TextButton(
                       onPressed: () {
