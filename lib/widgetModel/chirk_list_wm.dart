@@ -1,12 +1,12 @@
-import 'package:chirk/elementaryTest/model/chirk_list_model.dart';
-import 'package:chirk/elementaryTest/widget/chirk_list_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../models/chirk.dart';
+import '../entity/chirk.dart';
+import '../model/chirk_list_model.dart';
+import '../widget/chirk_widget/chirk_list_widget.dart';
 
-class ChirkListWM extends WidgetModel<ChirkListWidgetEl, ChirkListModel>
+class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
 
   ChirkListWM(ChirkListModel model) : super(model);
