@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({super.key});
+class EditProfileWidget extends StatefulWidget {
+  const EditProfileWidget({super.key});
 
   @override
-  _EditProfilePageState createState() => _EditProfilePageState();
+  _EditProfileWidgetState createState() => _EditProfileWidgetState();
 }
 
-class _EditProfilePageState extends State<EditProfilePage> {
+class _EditProfileWidgetState extends State<EditProfileWidget> {
   final _formKey = GlobalKey<FormState>();
   String? _name;
   String? _surname;
@@ -18,11 +18,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: const Text("Редактировать"),
       ),
       body: addEditBody(),
