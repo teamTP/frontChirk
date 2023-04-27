@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 
-import '../../models/chirk.dart';
+import '../../entity/chirk.dart';
+
 
 class ChirkWidget extends StatefulWidget{
   Chirk chirk;

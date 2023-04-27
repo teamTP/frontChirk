@@ -1,6 +1,5 @@
-import 'package:chirk/pages/editProfilePage.dart';
-import 'package:chirk/pages/homePage.dart';
-import 'package:chirk/pages/loginPage.dart';
+import 'package:chirk/widget/home_widget.dart';
+import 'package:chirk/widget/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +29,8 @@ class _ChirkAppState extends State<ChirkApp> {
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomePage(),
-        '/login': (context) => LoginPage(),
-        '/editProfile': (context) => EditProfilePage(),
+        '/': (context) => const HomeWidget(),
+        '/login': (context) => LoginWidget(),
       },
     );
   }

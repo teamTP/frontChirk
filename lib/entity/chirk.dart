@@ -1,4 +1,5 @@
-import 'package:chirk/models/user.dart';
+
+import 'package:chirk/entity/user.dart';
 
 class Chirk {
   final int id;
