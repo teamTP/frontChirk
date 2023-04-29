@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginWidgetState createState() => _LoginWidgetState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginWidgetState extends State<LoginWidget> {
   final _formKey = GlobalKey<FormState>();
   String? _email;
   String? _password;
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Еще нет аккаунта? ?",
+                    "Еще нет аккаунта?",
                   ),
                   TextButton(
                       onPressed: () {

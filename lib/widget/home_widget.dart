@@ -1,14 +1,17 @@
 import 'dart:math';
 
-import 'package:chirk/templates/bodyTemplates/profileWidget.dart';
 import 'package:flutter/material.dart';
 
-import '../models/chirk.dart';
-import '../models/user.dart';
-import '../templates/bodyTemplates/chirkListWidget.dart';
+import '../entity/chirk.dart';
+import '../entity/user.dart';
+import '../model/chirk_list_model.dart';
+import '../service/chirk_list_service_list/chirk_list_service_list.dart';
+import 'chirk_widget/chirk_list_widget.dart';
+import 'profileWidget.dart';
+import '../widgetModel/chirk_list_wm.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeWidget extends StatefulWidget {
+  const HomeWidget({super.key});
 
   @override
   State<StatefulWidget> createState() => _MyState();
@@ -17,8 +20,9 @@ class HomePage extends StatefulWidget {
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
-    ChirkListWidget(initChirkList()),
-    const Text("В разработке"),
+    //ChirkListWidget(initChirkList()),
+    ChirkListWidget((context) => ChirkListWM(ChirkListModel(ChirkListServiceList()))),
+    Text("В разработке"),
     ProfileWidget(initUser()),
   ];
 
