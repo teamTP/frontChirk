@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterWidget extends StatefulWidget {
+  const RegisterWidget({super.key});
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  _RegisterWidgetState createState() => _RegisterWidgetState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterWidgetState extends State<RegisterWidget> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
