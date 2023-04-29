@@ -16,11 +16,6 @@ class _LoginWidgetState extends State<LoginWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
         title: const Text("Авторизация"),
       ),
       body: addLoginBody(),
@@ -85,6 +80,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   TextButton(
                       onPressed: () {
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                         Navigator.pushNamed(context, "/register");
                       },
                       child: const Text('Зарегистрироваться'))
