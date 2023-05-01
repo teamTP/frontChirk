@@ -115,6 +115,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/myChirk");
                           //todo переход на ленту мои чирки
                         },
                         icon: const Icon(Icons.edit),
@@ -124,6 +125,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/likedChirk");
                           //todo переход на ленту понравившееся
                         },
                         icon: const Icon(Icons.thumb_up),
@@ -133,6 +135,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/dislikedChirk");
                           //todo переход на ленту не понравившееся
                         },
                         icon: const Icon(Icons.thumb_down),
