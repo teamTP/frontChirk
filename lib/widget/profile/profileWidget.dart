@@ -1,8 +1,8 @@
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/user.dart';
-import '../service/userIcons.dart';
+import '../../entity/user.dart';
+import '../../service/userIcons.dart';
 
 
 class ProfileWidget extends StatefulWidget {

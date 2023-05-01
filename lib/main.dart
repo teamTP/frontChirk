@@ -1,9 +1,9 @@
-import 'package:chirk/widget/edit_profile_widget.dart';
+import 'package:chirk/widget/profile/edit_profile_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
-import 'package:chirk/widget/login_widget.dart';
+import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
-import 'package:chirk/widget/register_widget.dart';
+import 'package:chirk/widget/login/register_widget.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 

@@ -7,7 +7,7 @@ import '../entity/user.dart';
 import '../model/chirk_list_model.dart';
 import '../service/chirk_list_service_list/chirk_list_service_list.dart';
 import 'chirk_widget/chirk_list_widget.dart';
-import 'profileWidget.dart';
+import 'profile/profileWidget.dart';
 import '../widgetModel/chirk_list_wm.dart';
 
 class HomeWidget extends StatefulWidget {
