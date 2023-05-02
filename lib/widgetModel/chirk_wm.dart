@@ -8,6 +8,9 @@ import '../widget/chirk_widget/chirk_widget_el.dart';
 
 class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel> implements IChirkWM{
   ChirkWM(super.model);
+  @override
+  final EntityStateNotifier<Chirk> chirkState = EntityStateNotifier();
+
 
   @override
   void initWidgetModel() {
@@ -40,7 +43,15 @@ class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel> implements IChirkWM
       newChirk.liked=null;
       chirk = newChirk;
     }
+    chirkState.content(chirk);
     // TODO: implement onTapChirkLike
+  }
+
+  @override
+  void dispose() {
+    chirkState.dispose();
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -55,6 +66,7 @@ class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel> implements IChirkWM
 abstract class IChirkWM extends IWidgetModel{
   Chirk get chirk;
   set chirk(Chirk value);
+  EntityStateNotifier<Chirk> get chirkState;
 
   void onTapLike();
 

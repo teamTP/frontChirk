@@ -8,6 +8,8 @@ import '../widget/chirk_widget/chirk_list_widget.dart';
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
 
+
+
   ChirkListWM(ChirkListModel model) : super(model);
 
   @override

@@ -7,7 +7,7 @@ import 'package:jiffy/jiffy.dart';
 import '../../entity/chirk.dart';
 import '../../service/userIcons.dart';
 
-class ChirkWidgetEl extends ElementaryWidget<ChirkWM>{
+class ChirkWidgetEl extends ElementaryWidget<ChirkWM> {
   ChirkWidgetEl(super.wmFactory);
 
   @override
@@ -22,10 +22,9 @@ class ChirkWidgetEl extends ElementaryWidget<ChirkWM>{
               radius: Theme.of(wm.context).textTheme.headlineMedium!.fontSize!,
               backgroundImage: wm.getImage(),
             ),
-            title:
-            Text("${wm.chirk.user.surname} ${wm.chirk.user.name}"),
+            title: Text("${wm.chirk.user.surname} ${wm.chirk.user.name}"),
             subtitle:
-            Text(Jiffy.parseFromDateTime(wm.chirk.dateTime).fromNow()),
+                Text(Jiffy.parseFromDateTime(wm.chirk.dateTime).fromNow()),
             /*trailing: IconButton(
               onPressed: () {
                 //todo реализовать нажатие и отображение кнопки delete
@@ -42,27 +41,38 @@ class ChirkWidgetEl extends ElementaryWidget<ChirkWM>{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                IconButton(
-                  style: IconButton.styleFrom(
-                    foregroundColor: (wm.chirk.liked ?? false)
-                        ? colors.onPrimary
-                        : colors.primary,
-                    backgroundColor: (wm.chirk.liked ?? false)
-                        ? colors.primary
-                        : colors.surfaceVariant,
-                    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-                    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-                  ),
-                  isSelected: wm.chirk.liked,
-                  onPressed: () {
-                    print(wm.chirk.liked);
-                    wm.onTapLike();
-                    print(wm.chirk.liked);
-                    //todo реализвать нажатие кнопки like
+                EntityStateNotifierBuilder(
+                  listenableEntityState: wm.chirkState,
+                  builder: (context, chirk) {
+                    if(chirk == null){
+                      return Container();
+                    }
+
+                    return IconButton(
+                      style: IconButton.styleFrom(
+                        foregroundColor: (chirk.liked ?? false)
+                            ? colors.onPrimary
+                            : colors.primary,
+                        backgroundColor: (chirk.liked ?? false)
+                            ? colors.primary
+                            : colors.surfaceVariant,
+                        disabledForegroundColor:
+                            colors.onSurface.withOpacity(0.38),
+                        disabledBackgroundColor:
+                            colors.onSurface.withOpacity(0.12),
+                      ),
+                      isSelected: chirk.liked,
+                      onPressed: () {
+                        print(wm.chirk.liked);
+                        wm.onTapLike();
+                        print(wm.chirk.liked);
+                        //todo реализвать нажатие кнопки like
+                      },
+                      icon: const Icon(
+                        Icons.thumb_up,
+                      ),
+                    );
                   },
-                  icon: const Icon(
-                    Icons.thumb_up,
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
@@ -101,5 +111,4 @@ class ChirkWidgetEl extends ElementaryWidget<ChirkWM>{
       ),
     );
   }
-
 }

@@ -39,7 +39,10 @@ class _MyState extends State<StatefulWidget> {
 
   Widget navigatorBarPage(BuildContext context) {
     return Scaffold(
-        body: _widgetOptions[_selectedIndex],
+        body: IndexedStack(
+          index: _selectedIndex,
+          children: _widgetOptions,
+        ),
         bottomNavigationBar: NavigationBar(
           selectedIndex: _selectedIndex,
           onDestinationSelected: (value) => _onItemTapped(value),
