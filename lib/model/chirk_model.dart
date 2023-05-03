@@ -5,13 +5,10 @@ import '../entity/chirk.dart';
 
 class ChirkModel extends ElementaryModel {
   IChirkService _chirkService;
+  final EntityStateNotifier<Chirk> chirkState = EntityStateNotifier();
 
-  ChirkModel(this._chirkService);
-
-  Chirk get chirk => _chirkService.chirk;
-
-  set chirk(Chirk value) {
-    _chirkService.chirk = value;
+  ChirkModel(this._chirkService){
+    chirkState.content(_chirkService.chirk);
   }
 }
 

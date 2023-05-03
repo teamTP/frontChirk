@@ -22,9 +22,9 @@ class ChirkWidgetEl extends ElementaryWidget<ChirkWM> {
               radius: Theme.of(wm.context).textTheme.headlineMedium!.fontSize!,
               backgroundImage: wm.getImage(),
             ),
-            title: Text("${wm.chirk.user.surname} ${wm.chirk.user.name}"),
+            title: Text("${wm.chirkState.value!.data!.user.surname} ${wm.chirkState.value!.data!.user.name}"),
             subtitle:
-                Text(Jiffy.parseFromDateTime(wm.chirk.dateTime).fromNow()),
+                Text(Jiffy.parseFromDateTime(wm.chirkState.value!.data!.dateTime).fromNow()),
             /*trailing: IconButton(
               onPressed: () {
                 //todo реализовать нажатие и отображение кнопки delete
@@ -34,78 +34,75 @@ class ChirkWidgetEl extends ElementaryWidget<ChirkWM> {
           ),
           Container(
             margin: const EdgeInsets.all(16),
-            child: Text(wm.chirk.text),
+            child: Text(wm.chirkState.value!.data!.text),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 6, 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                EntityStateNotifierBuilder(
+            child:  EntityStateNotifierBuilder(
                   listenableEntityState: wm.chirkState,
                   builder: (context, chirk) {
-                    if(chirk == null){
-                      return Container();
+                    if (chirk == null) {
+                      return CircularProgressIndicator();
                     }
 
-                    return IconButton(
-                      style: IconButton.styleFrom(
-                        foregroundColor: (chirk.liked ?? false)
-                            ? colors.onPrimary
-                            : colors.primary,
-                        backgroundColor: (chirk.liked ?? false)
-                            ? colors.primary
-                            : colors.surfaceVariant,
-                        disabledForegroundColor:
-                            colors.onSurface.withOpacity(0.38),
-                        disabledBackgroundColor:
-                            colors.onSurface.withOpacity(0.12),
-                      ),
-                      isSelected: chirk.liked,
-                      onPressed: () {
-                        print(wm.chirk.liked);
-                        wm.onTapLike();
-                        print(wm.chirk.liked);
-                        //todo реализвать нажатие кнопки like
-                      },
-                      icon: const Icon(
-                        Icons.thumb_up,
-                      ),
-                    );
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              foregroundColor: (chirk.liked ?? false)
+                                  ? colors.onPrimary
+                                  : colors.primary,
+                              backgroundColor: (chirk.liked ?? false)
+                                  ? colors.primary
+                                  : colors.surfaceVariant,
+                              disabledForegroundColor:
+                                  colors.onSurface.withOpacity(0.38),
+                              disabledBackgroundColor:
+                                  colors.onSurface.withOpacity(0.12),
+                            ),
+                            isSelected: chirk.liked,
+                            onPressed: () {
+                              wm.onTapLike();
+                              //todo реализвать нажатие кнопки like
+                            },
+                            icon: const Icon(
+                              Icons.thumb_up,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                            child: Text("${chirk.likeCount} : "),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                            child: Text("${chirk.disLikeCount}"),
+                          ),
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              foregroundColor: !(chirk.liked ?? true)
+                                  ? colors.onPrimary
+                                  : colors.primary,
+                              backgroundColor: !(chirk.liked ?? true)
+                                  ? colors.primary
+                                  : colors.surfaceVariant,
+                              disabledForegroundColor: colors.onSurface.withOpacity(0.38),
+                              disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+                            ),
+                            isSelected: !(chirk.liked ?? true),
+                            onPressed: () {
+                              print(chirk.liked);
+                              wm.onTapDislike();
+                              print(chirk.liked);
+                              //todo реализвать нажатие кнопки dislike
+                            },
+                            icon: const Icon(
+                              Icons.thumb_down,
+                            ),
+                          ),
+                        ]);
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
-                  child: Text("${wm.chirk.likeCount} : "),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                  child: Text("${wm.chirk.disLikeCount}"),
-                ),
-                IconButton(
-                  style: IconButton.styleFrom(
-                    foregroundColor: !(wm.chirk.liked ?? true)
-                        ? colors.onPrimary
-                        : colors.primary,
-                    backgroundColor: !(wm.chirk.liked ?? true)
-                        ? colors.primary
-                        : colors.surfaceVariant,
-                    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-                    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
-                  ),
-                  isSelected: !(wm.chirk.liked ?? true),
-                  onPressed: () {
-                    print(wm.chirk.liked);
-                    wm.onTapDislike();
-                    print(wm.chirk.liked);
-                    //todo реализвать нажатие кнопки dislike
-                  },
-                  icon: const Icon(
-                    Icons.thumb_down,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

@@ -21,8 +21,8 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
       body: ListView.builder(
         itemCount: wm.chirks.value.length,
         itemBuilder: (BuildContext context, int index) {
-          //return ChirkWidgetEl((context) => ChirkWM(ChirkModel(ChirkService(wm.chirks.value[index]))));
-          return ChirkWidget(wm.chirks.value[index]);
+          return ChirkWidgetEl((context) => ChirkWM(ChirkModel(ChirkService(wm.chirks.value[index]))));
+          //return ChirkWidget(wm.chirks.value[index]);
         },
       ),
     );
