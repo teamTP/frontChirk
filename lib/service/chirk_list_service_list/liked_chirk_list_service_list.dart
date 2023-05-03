@@ -7,9 +7,13 @@ import 'ichirk_list_service_list.dart';
 
 class LikedChirkListServiceList implements IChirkListServiceList{
   int _userId;
+  @override
+  List<Chirk> chirkList=[];
 
 
-  LikedChirkListServiceList(this._userId);
+  LikedChirkListServiceList(this._userId){
+    chirkList = initChirkList();
+  }
   @override
   List<Chirk> initChirkList() {
     List<Chirk> chirkList = [];
@@ -37,7 +41,11 @@ class LikedChirkListServiceList implements IChirkListServiceList{
   }
 
   @override
-  List<Chirk> getChirks() {
-    return initChirkList();
+  List<Chirk> get chirks =>chirkList;
+
+  @override
+  void pagination() {
+    chirkList.addAll(initChirkList());
   }
+
 }

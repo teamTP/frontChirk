@@ -6,6 +6,7 @@ import '../entity/chirk.dart';
 import '../entity/user.dart';
 
 abstract class IChirkListService{
-  List<Chirk> getChirks();
+  List<Chirk> get chirks;
+  void pagination();
 }
 

@@ -1,4 +1,5 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 import '../entity/chirk.dart';
@@ -7,6 +8,7 @@ import '../widget/chirk_widget/chirk_list_widget.dart';
 
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
+  final scrollController = ScrollController();
 
 
 
@@ -15,20 +17,34 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   @override
   void initWidgetModel() {
     super.initWidgetModel();
+
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent == scrollController.offset){
+        fetch();
+      }
+    });
   }
 
 
 
   @override
-  ValueListenable<List<Chirk>> get chirks => model.chirkList;
+  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkList;
 
   @override
   // TODO: implement chirksOnPagination
-  ValueListenable<List<Chirk>> get chirksOnPagination => throw UnimplementedError();
+  EntityStateNotifier<List<Chirk>> get chirksOnPagination => throw UnimplementedError();
+
+  Future fetch() async{
+    model.pagination();
+  }
+
+  @override
+  // TODO: implement controller
+  get controller => scrollController;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
-  ValueListenable<List<Chirk>> get chirks;
-
-  ValueListenable<List<Chirk>> get chirksOnPagination;
+  EntityStateNotifier<List<Chirk>> get chirksState;
+  get controller;
+ EntityStateNotifier<List<Chirk>> get chirksOnPagination;
 }

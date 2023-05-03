@@ -18,13 +18,29 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
       appBar: AppBar(
         title: Text(_title),
       ),
-      body: ListView.builder(
-        itemCount: wm.chirks.value.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ChirkWidgetEl((context) => ChirkWM(ChirkModel(ChirkService(wm.chirks.value[index]))));
-          //return ChirkWidget(wm.chirks.value[index]);
+      body: EntityStateNotifierBuilder(
+        listenableEntityState: wm.chirksState,
+        builder: (context, chirks){
+          if(chirks==null){
+            return Center(child: CircularProgressIndicator(),);
+          }
+          return ListView.builder(
+            controller: wm.controller,
+            itemCount: chirks.length + 1,
+            itemBuilder: (BuildContext context, int index) {
+              if (index < chirks.length) {
+                return ChirkWidgetEl((context) =>
+                    ChirkWM(ChirkModel(ChirkService(chirks[index]))));
+              } else {
+                return Padding(padding: EdgeInsets.symmetric(vertical: 32),
+                  child: Center(child: CircularProgressIndicator(),),);
+              }
+              //return ChirkWidget(wm.chirks.value[index]);
+            },
+          );
         },
       ),
+
     );
   }
 }

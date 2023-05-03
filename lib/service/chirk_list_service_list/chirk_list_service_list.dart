@@ -6,10 +6,16 @@ import '../../entity/user.dart';
 import 'ichirk_list_service_list.dart';
 
 class ChirkListServiceList implements IChirkListServiceList{
+  @override
+  List<Chirk> chirkList =[];
 
-@override
+  ChirkListServiceList(){
+   chirkList = initChirkList();
+  }
+
+  @override
   List<Chirk> initChirkList() {
-    List<Chirk> chirkList = [];
+    List<Chirk> _chirkList = [];
     var rnd = Random();
     for (int i = 0; i < 10; i++) {
       var chirk = Chirk(
@@ -27,12 +33,15 @@ class ChirkListServiceList implements IChirkListServiceList{
         likeCount: i * 5,
         disLikeCount: i * 4,
       );
-      chirkList.add(chirk);
+      _chirkList.add(chirk);
     }
-    return chirkList;
+    return _chirkList;
   }
   @override
-  List<Chirk> getChirks() {
-    return initChirkList();
+  List<Chirk> get chirks => chirkList;
+
+  @override
+  void pagination() {
+    chirkList.addAll(initChirkList());
   }
 }
