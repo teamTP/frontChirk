@@ -31,20 +31,30 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   EntityStateNotifier<List<Chirk>> get chirksState => model.chirkList;
 
   @override
-  // TODO: implement chirksOnPagination
   EntityStateNotifier<List<Chirk>> get chirksOnPagination => throw UnimplementedError();
+
+  @override
+  void dispose() {
+    chirksState.dispose();
+    super.dispose();
+  }
 
   Future fetch() async{
     model.pagination();
   }
 
   @override
-  // TODO: implement controller
   get controller => scrollController;
+
+  @override
+  void update() {
+    model.update();
+  }
 }
 
 abstract class IChirkListWM extends IWidgetModel {
   EntityStateNotifier<List<Chirk>> get chirksState;
   get controller;
  EntityStateNotifier<List<Chirk>> get chirksOnPagination;
+ void update();
 }

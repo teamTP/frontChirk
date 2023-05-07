@@ -13,4 +13,8 @@ abstract class IChirkListServiceList implements IChirkListService {
   @override void pagination() {
     chirkList.addAll(initChirkList());
   }
+  @override
+  void update() {
+    chirkList = initChirkList();
+  }
 }

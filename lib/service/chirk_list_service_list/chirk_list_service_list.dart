@@ -44,4 +44,9 @@ class ChirkListServiceList implements IChirkListServiceList{
   void pagination() {
     chirkList.addAll(initChirkList());
   }
+
+  @override
+  void update() {
+    chirkList = initChirkList();
+  }
 }

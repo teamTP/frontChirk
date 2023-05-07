@@ -33,7 +33,6 @@ class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel>
       newChirk.likeCount += 1;
     }
     chirkState.content(newChirk);
-// TODO: implement onTabChirkDislike
   }
 
   @override
@@ -48,13 +47,11 @@ class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel>
       newChirk.disLikeCount += 1;
     }
     chirkState.content(newChirk);
-    // TODO: implement onTapChirkLike
   }
 
   @override
   void dispose() {
     chirkState.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 

@@ -51,5 +51,11 @@ class MyChirkListServiceList implements IChirkListServiceList{
     chirkList.addAll(initChirkList());
   }
 
+  @override
+  void update() {
+    chirkList = initChirkList();
+  }
+
+
 
 }

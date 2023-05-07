@@ -17,6 +17,12 @@ class ChirkListModel extends ElementaryModel{
     chirkList.content(_chirkListService.chirks);
   }
 
+  void update() {
+    _chirkListService.update();
+    chirkList.content(_chirkListService.chirks);
+    print("update");
+  }
+
 
 
 }
