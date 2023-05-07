@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class UserIcon {
   static final Map<int, String> images= {
-    0: 'img/hasta.jpg',
-    1: 'img/hasta.jpg',
-    2: 'img/hasta.jpg',
+    0: 'assets/img/icon_1.png',
+    1: 'assets/img/icon_1.png',
+    2: 'assets/img/icon_1.png',
   };
 
 
   static AssetImage getImageById(int index){
-    return AssetImage(images[index]??'img/hasta.jpg');
+    return AssetImage(images[index]??'assets/img/icon_1.png');
   }
 
 }

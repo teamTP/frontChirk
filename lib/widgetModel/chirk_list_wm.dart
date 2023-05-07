@@ -8,48 +8,54 @@ import '../widget/chirk_widget/chirk_list_widget.dart';
 
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
+  final scrollController = ScrollController();
 
   ChirkListWM(ChirkListModel model) : super(model);
 
   @override
   void initWidgetModel() {
     super.initWidgetModel();
+
+    scrollController.addListener(() {
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.offset) {
+        fetch();
+      }
+    });
   }
 
   @override
-  void onTabChirkDislike(Chirk chirk) {
-    if(chirk.liked==null || !chirk.liked!){
-      chirk.liked=true;
-    }else{
-      chirk.liked=null;
-    }
-    // TODO: implement onTabChirkDislike
+  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkList;
+
+  @override
+  EntityStateNotifier<List<Chirk>> get chirksOnPagination =>
+      throw UnimplementedError();
+
+  @override
+  void dispose() {
+    chirksState.dispose();
+    super.dispose();
+  }
+
+  Future fetch() async {
+    model.pagination();
   }
 
   @override
-  void onTapChirkLike(Chirk chirk) {
-    if(chirk.liked==null || chirk.liked!){
-      chirk.liked=false;
-    }else{
-      chirk.liked=null;
-    }
-    // TODO: implement onTapChirkLike
+  get controller => scrollController;
+
+  @override
+  void update() {
+    model.update();
   }
-
-  @override
-  ValueListenable<List<Chirk>> get chirks => model.chirkList;
-
-  @override
-  // TODO: implement chirksOnPagination
-  ValueListenable<List<Chirk>> get chirksOnPagination => throw UnimplementedError();
 }
 
 abstract class IChirkListWM extends IWidgetModel {
-  ValueListenable<List<Chirk>> get chirks;
+  EntityStateNotifier<List<Chirk>> get chirksState;
 
-  void onTapChirkLike(Chirk chirk);
+  get controller;
 
-  void onTabChirkDislike(Chirk chirk);
+  EntityStateNotifier<List<Chirk>> get chirksOnPagination;
 
-  ValueListenable<List<Chirk>> get chirksOnPagination;
+  void update();
 }

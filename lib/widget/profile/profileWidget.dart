@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../entity/user.dart';
 import '../../service/userIcons.dart';
 
-
 class ProfileWidget extends StatefulWidget {
   final User _user;
 
@@ -15,7 +14,6 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-
   @override
   Widget build(BuildContext context) {
     double size = Theme.of(context).textTheme.headlineMedium!.fontSize!;
@@ -42,10 +40,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    //todo иконка по id
-                      radius:
-                      Theme.of(context).textTheme.headlineMedium!.fontSize! * 2,
-                      backgroundImage: UserIcon.getImageById(widget._user.iconId)),
+                      //todo иконка по id
+                      radius: Theme.of(context)
+                              .textTheme
+                              .headlineMedium!
+                              .fontSize! *
+                          2,
+                      backgroundImage:
+                          UserIcon.getImageById(widget._user.iconId)),
                   Row(
                     children: [
                       Container(
@@ -61,13 +63,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               children: [
                                 Text(
                                   widget._user.surname,
-                                  style:
-                                  Theme.of(context).textTheme.headlineMedium,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineMedium,
                                 ),
                                 IconButton(
                                     onPressed: () {
-                                      setState(() {
-                                      });
+                                      setState(() {});
                                       //todo перреход на редактирование профиля
                                       Navigator.pushNamed(context, "/edit");
                                     },
@@ -92,7 +94,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     children: [
                       Text(
                         "Персональные данные",
-                        style: Theme.of(context).textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.apply(fontWeightDelta: 1),
                       ),
                       Text("Имя: ${widget._user.name} ${widget._user.surname}"),
                       Text("Логин: ${widget._user.login}"),
@@ -111,10 +116,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     children: [
                       Text(
                         "Чирки",
-                        style: Theme.of(context).textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.apply(fontWeightDelta: 1),
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/myChirk");
                           //todo переход на ленту мои чирки
                         },
                         icon: const Icon(Icons.edit),
@@ -124,6 +133,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/likedChirk");
                           //todo переход на ленту понравившееся
                         },
                         icon: const Icon(Icons.thumb_up),
@@ -133,6 +143,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                       ),
                       TextButton.icon(
                         onPressed: () {
+                          Navigator.of(context).pushNamed("/dislikedChirk");
                           //todo переход на ленту не понравившееся
                         },
                         icon: const Icon(Icons.thumb_down),
@@ -144,7 +155,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                   ),
                 ),
               ),
-            ),EasyDynamicThemeBtn(),
+            ),
+            EasyDynamicThemeBtn(),
             /*Card(
               child: Row(
                 children: [

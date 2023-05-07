@@ -6,11 +6,22 @@ import '../service/chirl_list_service.dart';
 
 class ChirkListModel extends ElementaryModel{
   final IChirkListService _chirkListService;
-  final ValueNotifier<List<Chirk>> chirkList = ValueNotifier([]);
+  final EntityStateNotifier<List<Chirk>> chirkList = EntityStateNotifier();
 
   ChirkListModel(this._chirkListService){
-   chirkList.value = _chirkListService.getChirks();
+   chirkList.content(_chirkListService.chirks);
   }
+
+  void pagination(){
+    _chirkListService.pagination();
+    chirkList.content(_chirkListService.chirks);
+  }
+
+  void update() {
+    _chirkListService.update();
+    chirkList.content(_chirkListService.chirks);
+  }
+
 
 
 }

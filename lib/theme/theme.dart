@@ -12,37 +12,38 @@ class ColorTheme {
   final MaterialColor _primaryColor;
 
   ColorTheme(this._primaryColor);
-  ThemeData getLightMatDisign(){
+
+  ThemeData getLightMatDisign() {
     return ThemeData(
-        useMaterial3: true,
+      useMaterial3: true,
       colorSchemeSeed: _primaryColor,
     );
   }
-  ThemeData getDarkMatDisign(){
+
+  ThemeData getDarkMatDisign() {
     return ThemeData(
         useMaterial3: true,
-      colorSchemeSeed: _primaryColor,
-      brightness: Brightness.dark
-    );
+        colorSchemeSeed: _primaryColor,
+        brightness: Brightness.dark);
   }
+
   ThemeData getLightTheme() {
     return ThemeData(
-      primarySwatch: _primaryColor,
-      scaffoldBackgroundColor: _primaryColor[50],
-      bottomAppBarTheme: const BottomAppBarTheme(
-        color: onSurfaceMedium,
-      ),
-      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: onSurfaceHigh,
-        unselectedItemColor: onSurfaceMedium,
-      ),
-      canvasColor: _primaryColor[500],
-      iconTheme: const IconThemeData(),
-      textTheme: getTextTheme(Colors.black),
-      buttonTheme: ButtonThemeData(
-        textTheme: ButtonTextTheme.normal,
-      )
-    );
+        primarySwatch: _primaryColor,
+        scaffoldBackgroundColor: _primaryColor[50],
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: onSurfaceMedium,
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          selectedItemColor: onSurfaceHigh,
+          unselectedItemColor: onSurfaceMedium,
+        ),
+        canvasColor: _primaryColor[500],
+        iconTheme: const IconThemeData(),
+        textTheme: getTextTheme(Colors.black),
+        buttonTheme: ButtonThemeData(
+          textTheme: ButtonTextTheme.normal,
+        ));
   }
 
   ThemeData getDarkTheme() {
