@@ -39,22 +39,22 @@ class _MyState extends State<StatefulWidget> {
 
   Widget navigatorBarPage(BuildContext context) {
     return Scaffold(
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: _widgetOptions,
-        ),
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: _selectedIndex,
-          onDestinationSelected: (value) => _onItemTapped(value),
-          destinations: const <NavigationDestination>[
-            NavigationDestination(
-                icon: Icon(Icons.list), label: "Лента чирков"),
-            NavigationDestination(icon: Icon(Icons.add), label: "Создать чирк"),
-            NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
-          ],
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: _selectedIndex,
+        onDestinationSelected: (value) => _onItemTapped(value),
+        destinations: const <NavigationDestination>[
+          NavigationDestination(icon: Icon(Icons.list), label: "Лента чирков"),
+          NavigationDestination(icon: Icon(Icons.add), label: "Создать чирк"),
+          NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
+        ],
+      ),
     );
   }
+
   static User initUser() {
     return User(
         id: 1,

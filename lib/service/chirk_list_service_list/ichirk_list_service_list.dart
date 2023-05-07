@@ -7,12 +7,16 @@ import '../../entity/user.dart';
 import '../chirl_list_service.dart';
 
 abstract class IChirkListServiceList implements IChirkListService {
-  List<Chirk> chirkList=[];
+  List<Chirk> chirkList = [];
+
   @protected
   List<Chirk> initChirkList();
-  @override void pagination() {
+
+  @override
+  void pagination() {
     chirkList.addAll(initChirkList());
   }
+
   @override
   void update() {
     chirkList = initChirkList();

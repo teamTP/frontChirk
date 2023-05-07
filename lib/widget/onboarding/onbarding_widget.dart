@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-
 class OnBoardingWidget extends StatelessWidget {
   const OnBoardingWidget({Key? key}) : super(key: key);
 
@@ -19,13 +18,12 @@ class OnBoardingWidget extends StatelessWidget {
         showNextButton: true,
         showBackButton: false,
         showDoneButton: true,
-        skip: Text("Пропустить"),
-        next: Text("Далее"),
-        done: Text("Начать"),
+        skip: const Text("Пропустить"),
+        next: const Text("Далее"),
+        done: const Text("Начать"),
         onDone: () {
           Navigator.pop(context);
         },
-
       ),
     );
   }
@@ -55,21 +53,23 @@ class OnBoardingWidget extends StatelessWidget {
           child: Image.asset("assets/img/onboarding_3.png"),
         ),
         decoration: _getPageDecoration(context),
-        footer: Container(padding: EdgeInsets.fromLTRB(48, 0, 48, 0),
+        footer: Container(
+          padding: const EdgeInsets.fromLTRB(48, 0, 48, 0),
           alignment: Alignment.center,
-          child:ElevatedButton(
+          child: ElevatedButton(
             onPressed: () {
               Navigator.pushNamed(context, "/login");
             },
-            child: Text("Авторизоватся"),
-          ),),
+            child: const Text("Авторизоватся"),
+          ),
+        ),
       ),
     ];
   }
 
   PageDecoration _getPageDecoration(BuildContext context) => PageDecoration(
-    imagePadding: EdgeInsets.all(24),
-    footerPadding: EdgeInsets.all(24),
-    pageColor: Theme.of(context).colorScheme.background,
-  );
+        imagePadding: const EdgeInsets.all(24),
+        footerPadding: const EdgeInsets.all(24),
+        pageColor: Theme.of(context).colorScheme.background,
+      );
 }

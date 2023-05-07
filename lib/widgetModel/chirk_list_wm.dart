@@ -10,8 +10,6 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
 
-
-
   ChirkListWM(ChirkListModel model) : super(model);
 
   @override
@@ -19,19 +17,19 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     super.initWidgetModel();
 
     scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent == scrollController.offset){
+      if (scrollController.position.maxScrollExtent ==
+          scrollController.offset) {
         fetch();
       }
     });
   }
 
-
-
   @override
   EntityStateNotifier<List<Chirk>> get chirksState => model.chirkList;
 
   @override
-  EntityStateNotifier<List<Chirk>> get chirksOnPagination => throw UnimplementedError();
+  EntityStateNotifier<List<Chirk>> get chirksOnPagination =>
+      throw UnimplementedError();
 
   @override
   void dispose() {
@@ -39,7 +37,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     super.dispose();
   }
 
-  Future fetch() async{
+  Future fetch() async {
     model.pagination();
   }
 
@@ -54,7 +52,10 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
 
 abstract class IChirkListWM extends IWidgetModel {
   EntityStateNotifier<List<Chirk>> get chirksState;
+
   get controller;
- EntityStateNotifier<List<Chirk>> get chirksOnPagination;
- void update();
+
+  EntityStateNotifier<List<Chirk>> get chirksOnPagination;
+
+  void update();
 }

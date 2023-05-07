@@ -4,26 +4,29 @@ import 'package:flutter/material.dart';
 import '../entity/chirk.dart';
 
 class ChirkModel extends ElementaryModel {
-  IChirkService _chirkService;
+  final IChirkService _chirkService;
   final EntityStateNotifier<Chirk> chirkState = EntityStateNotifier();
 
-  ChirkModel(this._chirkService){
+  ChirkModel(this._chirkService) {
     chirkState.content(_chirkService.chirk);
   }
 }
 
 abstract class IChirkService {
   Chirk get chirk;
+
   set chirk(Chirk value);
 }
-class ChirkService implements IChirkService{
 
+class ChirkService implements IChirkService {
   Chirk _chirk;
 
   ChirkService(this._chirk);
-@override
+
+  @override
   Chirk get chirk => _chirk;
-@override
+
+  @override
   set chirk(Chirk value) {
     _chirk = value;
   }

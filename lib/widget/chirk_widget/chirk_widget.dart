@@ -60,9 +60,9 @@ class _ChirkWidgetState extends State<ChirkWidget> {
                   isSelected: widget.chirk.liked,
                   onPressed: () {
                     setState(() {
-                      if (widget.chirk.liked ?? false){
-                        widget.chirk.liked=null;
-                      }else{
+                      if (widget.chirk.liked ?? false) {
+                        widget.chirk.liked = null;
+                      } else {
                         widget.chirk.liked = true;
                       }
                     });
@@ -94,9 +94,9 @@ class _ChirkWidgetState extends State<ChirkWidget> {
                   isSelected: !(widget.chirk.liked ?? true),
                   onPressed: () {
                     setState(() {
-                      if (!(widget.chirk.liked ?? true)){
-                        widget.chirk.liked=null;
-                      }else{
+                      if (!(widget.chirk.liked ?? true)) {
+                        widget.chirk.liked = null;
+                      } else {
                         widget.chirk.liked = false;
                       }
                     });

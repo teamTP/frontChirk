@@ -80,7 +80,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context).popUntil((route) => route.isFirst);
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                         Navigator.pushNamed(context, "/register");
                       },
                       child: const Text('Зарегистрироваться'))

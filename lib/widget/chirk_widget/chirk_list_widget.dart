@@ -20,32 +20,31 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
       ),
       body: EntityStateNotifierBuilder(
         listenableEntityState: wm.chirksState,
-        builder: (context, chirks) {
-          if (chirks == null) {
+        builder: (context, chirkList) {
+          if (chirkList == null) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           return RefreshIndicator(
-              child: ListView.builder(
-                controller: wm.controller,
-                itemCount: chirks.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  if (index < chirks.length) {
-                    return ChirkWidgetEl((context) =>
-                        ChirkWM(ChirkModel(ChirkService(chirks[index]))));
-                  } else {
-                    return const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 32),
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                  //return ChirkWidget(wm.chirks.value[index]);
-                },
-              ),
-              onRefresh: () async => wm.update(),
+            child: ListView.builder(
+              controller: wm.controller,
+              itemCount: chirkList.length + 1,
+              itemBuilder: (BuildContext context, int index) {
+                if (index < chirkList.length) {
+                  return ChirkWidgetEl((context) =>
+                      ChirkWM(ChirkModel(ChirkService(chirkList[index]))));
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 32),
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+              },
+            ),
+            onRefresh: () async => wm.update(),
           );
         },
       ),

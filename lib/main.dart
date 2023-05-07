@@ -46,7 +46,7 @@ class _ChirkAppState extends State<ChirkApp> {
         '/edit': (context) => const EditProfileWidget(),
         '/myChirk': (context) => ChirkListWidget(
             "Мои чирки",
-                (context) => ChirkListWM(
+            (context) => ChirkListWM(
                 ChirkListModel(MyChirkListServiceList(initUser().id)))),
         '/likedChirk': (context) => ChirkListWidget(
             "Понравившиеся чирки",

@@ -1,19 +1,18 @@
-
 import 'dart:math';
 
 import '../../entity/chirk.dart';
 import '../../entity/user.dart';
 import 'ichirk_list_service_list.dart';
 
-class LikedChirkListServiceList implements IChirkListServiceList{
+class LikedChirkListServiceList implements IChirkListServiceList {
   int _userId;
   @override
-  List<Chirk> chirkList=[];
+  List<Chirk> chirkList = [];
 
-
-  LikedChirkListServiceList(this._userId){
+  LikedChirkListServiceList(this._userId) {
     chirkList = initChirkList();
   }
+
   @override
   List<Chirk> initChirkList() {
     List<Chirk> chirkList = [];
@@ -23,7 +22,7 @@ class LikedChirkListServiceList implements IChirkListServiceList{
         id: i * 3,
         dateTime: DateTime.now(),
         text:
-        "Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все так.",
+            "Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все так.",
         user: User(
             id: i + 1,
             iconId: rnd.nextInt(6),
@@ -41,17 +40,15 @@ class LikedChirkListServiceList implements IChirkListServiceList{
   }
 
   @override
-  List<Chirk> get chirks =>chirkList;
+  List<Chirk> get chirks => chirkList;
 
   @override
   void pagination() {
     chirkList.addAll(initChirkList());
   }
 
-
   @override
   void update() {
     chirkList = initChirkList();
   }
-
 }
