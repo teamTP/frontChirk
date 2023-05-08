@@ -12,10 +12,10 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
       appBar: AppBar(
         title: Text("Регистрация"),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(32),
-          child: Center(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,7 +98,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                         TextFormField(
                           controller: wm.nameController,
                           validator: (name) =>
-                          name == '' ? 'Поле не должно быть пустым' : null,
+                              name == '' ? 'Поле не должно быть пустым' : null,
                           decoration: InputDecoration(
                             labelText: 'Введите имя',
                             border: OutlineInputBorder(),
@@ -108,8 +108,10 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                         TextFormField(
                           controller: wm.surnameController,
                           validator: (surname) =>
-                          //todo реализовать ошибку или забить
-                          surname == null || surname.isEmpty ? 'Поле не должно быть пустым' : null,
+                              //todo реализовать ошибку или забить
+                              surname == null || surname.isEmpty
+                                  ? 'Поле не должно быть пустым'
+                                  : null,
                           decoration: InputDecoration(
                             labelText: 'Введите фамилию',
                             border: OutlineInputBorder(),
@@ -117,9 +119,8 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                            onPressed: (){},
-                            child: Text('Зарегистрироватся'),
-
+                          onPressed: () {},
+                          child: Text('Зарегистрироватся'),
                         ),
                       ],
                     ),

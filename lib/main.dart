@@ -1,4 +1,5 @@
 import 'package:chirk/model/chirk_list_model.dart';
+import 'package:chirk/model/signUp/login_model.dart';
 import 'package:chirk/service/chirk_list_service_list/disliked_chirk_list_service_list.dart';
 import 'package:chirk/service/chirk_list_service_list/liked_chirk_list_service_list.dart';
 import 'package:chirk/service/chirk_list_service_list/my_chirk_list_service_list.dart';
@@ -10,6 +11,7 @@ import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
 import 'package:chirk/widgetModel/chirk_list_wm.dart';
+import 'package:chirk/widgetModel/signUp/login_wm.dart';
 import 'package:chirk/widgetModel/signUp/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +45,7 @@ class _ChirkAppState extends State<ChirkApp> {
       routes: {
         '/onBoarding': (context) => const OnBoardingWidget(),
         '/': (context) => const HomeWidget(),
-        '/login': (context) => const LoginWidget(),
+        '/login': (context) => LoginWidget((context) => LoginWM(LoginModel())),
         '/register': (context) => SignUpWidget((context) => SignUpWM(SignUpModel())),
         '/edit': (context) => const EditProfileWidget(),
         '/myChirk': (context) => ChirkListWidget(

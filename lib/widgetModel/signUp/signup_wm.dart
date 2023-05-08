@@ -76,9 +76,8 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   bool validatePassword(value) {
-    RegExp regex =
-        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
-     return regex.hasMatch(value);
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    return regex.hasMatch(value);
   }
 
   @override

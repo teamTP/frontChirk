@@ -1,93 +1,94 @@
+import 'package:email_validator/email_validator.dart';
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+import '../../widgetModel/signUp/login_wm.dart';
+
+class LoginWidget extends ElementaryWidget<ILoginWM> {
+  LoginWidget(super.wmFactory);
 
   @override
-  _LoginWidgetState createState() => _LoginWidgetState();
-}
-
-class _LoginWidgetState extends State<LoginWidget> {
-  final _formKey = GlobalKey<FormState>();
-  String? _email;
-  String? _password;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(ILoginWM wm) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Авторизация"),
+        title: Text("Авторизация"),
       ),
-      body: addLoginBody(),
-    );
-  }
-
-  Widget addLoginBody() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Form(
-          key: GlobalKey<FormState>(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 100.0),
-              const Center(
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(32),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Авторизация',
+                  style: wm.theme.textTheme.titleLarge,
+                ),
+                const SizedBox(height: 32),
+                EntityStateNotifierBuilder(
+                  listenableEntityState: wm.userState,
+                  builder: (context, user) => Form(
+                    key: wm.key,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          keyboardType: TextInputType.emailAddress,
+                          autocorrect: false,
+                          controller: wm.emailController,
+                          validator: (email) =>
+                              email != null && !EmailValidator.validate(email)
+                                  ? 'Введите правильный email'
+                                  : null,
+                          decoration: const InputDecoration(
+                            labelText: 'Введите email',
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        TextFormField(
+                          autocorrect: false,
+                          controller: wm.passwordController,
+                          obscureText: wm.isHiddenPassword,
+                          enableSuggestions: false,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          decoration: InputDecoration(
+                            labelText: 'Введите пароль',
+                            border: OutlineInputBorder(),
+                            suffixIcon: GestureDetector(
+                              onTap: wm.togglePasswordView,
+                              child: Icon(
+                                wm.isHiddenPassword
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text('Авторизоватся'),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _email = input,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _password = input,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: Perform login action
-                  },
-                  child: const Text('Login'),
-                ),
-              ),
-              const SizedBox(height: 100.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Еще нет аккаунта?",
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        //Navigator.of(context).popUntil((route) => route.isFirst);
-                        //Navigator.pushNamed(context, "/register");
-                        Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => route.isFirst);
-                      },
-                      child: const Text('Зарегистрируйтесь'))
-                ],
-              )
-            ],
+                const SizedBox(height: 32),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Еще нет аккаунта?",
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          wm.goSignIn();
+                        },
+                        child: const Text('Зарегистрируйтесь'))
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
