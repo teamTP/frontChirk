@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import '../entity/chirk.dart';
 import '../model/chirk_model.dart';
 import '../service/userIcons.dart';
-import '../widget/chirk_widget/chirk_widget_el.dart';
+import '../widget/chirk_widget/chirk_widget.dart';
 
-class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel>
+class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
   ChirkWM(super.model);
 

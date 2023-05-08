@@ -1,35 +1,32 @@
+import 'package:chirk/widgetModel/chirk_wm.dart';
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:jiffy/jiffy.dart';
 
 import '../../entity/chirk.dart';
 import '../../service/userIcons.dart';
 
-class ChirkWidget extends StatefulWidget {
-  Chirk chirk;
-
-  ChirkWidget(this.chirk, {super.key});
+class ChirkWidget extends ElementaryWidget<IChirkWM> {
+  ChirkWidget(super.wmFactory);
 
   @override
-  State<StatefulWidget> createState() => _ChirkWidgetState();
-}
-
-class _ChirkWidgetState extends State<ChirkWidget> {
-  @override
-  Widget build(BuildContext context) {
-    ColorScheme colors = Theme.of(context).colorScheme;
+  Widget build(IChirkWM wm) {
+    ColorScheme colors = wm.theme.colorScheme;
     Jiffy.setLocale("ru");
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(
-              radius: Theme.of(context).textTheme.headlineMedium!.fontSize!,
-              backgroundImage: UserIcon.getImageById(widget.chirk.user.iconId),
+              radius: wm.theme.textTheme.headlineMedium!.fontSize!,
+              backgroundImage: wm.getImage(),
             ),
-            title:
-                Text("${widget.chirk.user.surname} ${widget.chirk.user.name}"),
-            subtitle:
-                Text(Jiffy.parseFromDateTime(widget.chirk.dateTime).fromNow()),
+            title: Text(
+                "${wm.chirkState.value!.data!.user.surname} ${wm.chirkState.value!.data!.user.name}"),
+            subtitle: Text(
+                Jiffy.parseFromDateTime(wm.chirkState.value!.data!.dateTime)
+                    .fromNow()),
             /*trailing: IconButton(
               onPressed: () {
                 //todo реализовать нажатие и отображение кнопки delete
@@ -39,74 +36,74 @@ class _ChirkWidgetState extends State<ChirkWidget> {
           ),
           Container(
             margin: const EdgeInsets.all(16),
-            child: Text(widget.chirk.text),
+            child: Text(wm.chirkState.value!.data!.text),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 6, 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  style: IconButton.styleFrom(
-                    foregroundColor: (widget.chirk.liked ?? false)
-                        ? colors.onPrimary
-                        : colors.primary,
-                    backgroundColor: (widget.chirk.liked ?? false)
-                        ? colors.primary
-                        : colors.surfaceVariant,
-                    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-                    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+            child: EntityStateNotifierBuilder(
+              listenableEntityState: wm.chirkState,
+              builder: (context, chirk) {
+                if (chirk == null) {
+                  return CircularProgressIndicator();
+                }
+
+                return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  IconButton(
+                    style: IconButton.styleFrom(
+                      foregroundColor: (chirk.liked ?? false)
+                          ? colors.onPrimary
+                          : colors.primary,
+                      backgroundColor: (chirk.liked ?? false)
+                          ? colors.primary
+                          : colors.surfaceVariant,
+                      disabledForegroundColor:
+                          colors.onSurface.withOpacity(0.38),
+                      disabledBackgroundColor:
+                          colors.onSurface.withOpacity(0.12),
+                    ),
+                    isSelected: chirk.liked,
+                    onPressed: () {
+                      wm.onTapLike();
+                      //todo реализвать нажатие кнопки like
+                    },
+                    icon: const Icon(
+                      Icons.thumb_up,
+                    ),
                   ),
-                  isSelected: widget.chirk.liked,
-                  onPressed: () {
-                    setState(() {
-                      if (widget.chirk.liked ?? false) {
-                        widget.chirk.liked = null;
-                      } else {
-                        widget.chirk.liked = true;
-                      }
-                    });
-                    //todo реализвать нажатие кнопки like
-                  },
-                  icon: const Icon(
-                    Icons.thumb_up,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                    child: Text("${chirk.likeCount} : "),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
-                  child: Text("${widget.chirk.likeCount} : "),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
-                  child: Text("${widget.chirk.disLikeCount}"),
-                ),
-                IconButton(
-                  style: IconButton.styleFrom(
-                    foregroundColor: !(widget.chirk.liked ?? true)
-                        ? colors.onPrimary
-                        : colors.primary,
-                    backgroundColor: !(widget.chirk.liked ?? true)
-                        ? colors.primary
-                        : colors.surfaceVariant,
-                    disabledForegroundColor: colors.onSurface.withOpacity(0.38),
-                    disabledBackgroundColor: colors.onSurface.withOpacity(0.12),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                    child: Text("${chirk.disLikeCount}"),
                   ),
-                  isSelected: !(widget.chirk.liked ?? true),
-                  onPressed: () {
-                    setState(() {
-                      if (!(widget.chirk.liked ?? true)) {
-                        widget.chirk.liked = null;
-                      } else {
-                        widget.chirk.liked = false;
-                      }
-                    });
-                    //todo реализвать нажатие кнопки dislike
-                  },
-                  icon: const Icon(
-                    Icons.thumb_down,
+                  IconButton(
+                    style: IconButton.styleFrom(
+                      foregroundColor: !(chirk.liked ?? true)
+                          ? colors.onPrimary
+                          : colors.primary,
+                      backgroundColor: !(chirk.liked ?? true)
+                          ? colors.primary
+                          : colors.surfaceVariant,
+                      disabledForegroundColor:
+                          colors.onSurface.withOpacity(0.38),
+                      disabledBackgroundColor:
+                          colors.onSurface.withOpacity(0.12),
+                    ),
+                    isSelected: !(chirk.liked ?? true),
+                    onPressed: () {
+                      print(chirk.liked);
+                      wm.onTapDislike();
+                      print(chirk.liked);
+                      //todo реализвать нажатие кнопки dislike
+                    },
+                    icon: const Icon(
+                      Icons.thumb_down,
+                    ),
                   ),
-                ),
-              ],
+                ]);
+              },
             ),
           ),
         ],

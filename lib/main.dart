@@ -9,7 +9,6 @@ import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
-import 'package:chirk/widget/login/register_widget.dart';
 import 'package:chirk/widgetModel/chirk_list_wm.dart';
 import 'package:chirk/widgetModel/signUp/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
