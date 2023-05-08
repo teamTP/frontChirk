@@ -1,12 +1,13 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../entity/chirk.dart';
 import '../model/chirk_model.dart';
 import '../service/userIcons.dart';
-import '../widget/chirk_widget/chirk_widget_el.dart';
+import '../widget/chirk_widget/chirk_widget.dart';
 
-class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel>
+class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
   ChirkWM(super.model);
 
@@ -59,6 +60,9 @@ class ChirkWM extends WidgetModel<ChirkWidgetEl, ChirkModel>
   AssetImage getImage() {
     return UserIcon.getImageById(chirkState.value!.data!.user.iconId);
   }
+
+  @override
+  ThemeData get theme => Theme.of(context);
 }
 
 abstract class IChirkWM extends IWidgetModel {
@@ -67,6 +71,8 @@ abstract class IChirkWM extends IWidgetModel {
   void onTapLike();
 
   void onTapDislike();
+
+  ThemeData get theme;
 
   AssetImage getImage();
 }

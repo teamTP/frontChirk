@@ -58,9 +58,9 @@ class OnBoardingWidget extends StatelessWidget {
           alignment: Alignment.center,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, "/login");
+              Navigator.pushNamed(context, "/register");
             },
-            child: const Text("Авторизоватся"),
+            child: const Text("Зарегистрируйтесь"),
           ),
         ),
       ),

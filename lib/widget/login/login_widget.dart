@@ -80,11 +80,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                   ),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                        Navigator.pushNamed(context, "/register");
+                        //Navigator.of(context).popUntil((route) => route.isFirst);
+                        //Navigator.pushNamed(context, "/register");
+                        Navigator.pushNamedAndRemoveUntil(context, '/register', (route) => route.isFirst);
                       },
-                      child: const Text('Зарегистрироваться'))
+                      child: const Text('Зарегистрируйтесь'))
                 ],
               )
             ],

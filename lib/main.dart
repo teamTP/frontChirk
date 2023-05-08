@@ -3,17 +3,19 @@ import 'package:chirk/service/chirk_list_service_list/disliked_chirk_list_servic
 import 'package:chirk/service/chirk_list_service_list/liked_chirk_list_service_list.dart';
 import 'package:chirk/service/chirk_list_service_list/my_chirk_list_service_list.dart';
 import 'package:chirk/widget/chirk_widget/chirk_list_widget.dart';
+import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/profile/edit_profile_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
-import 'package:chirk/widget/login/register_widget.dart';
 import 'package:chirk/widgetModel/chirk_list_wm.dart';
+import 'package:chirk/widgetModel/signUp/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'entity/user.dart';
+import 'model/signUp/signup_model.dart';
 
 void main() {
   runApp(EasyDynamicThemeWidget(
@@ -42,7 +44,7 @@ class _ChirkAppState extends State<ChirkApp> {
         '/onBoarding': (context) => const OnBoardingWidget(),
         '/': (context) => const HomeWidget(),
         '/login': (context) => const LoginWidget(),
-        '/register': (context) => const RegisterWidget(),
+        '/register': (context) => SignUpWidget((context) => SignUpWM(SignUpModel())),
         '/edit': (context) => const EditProfileWidget(),
         '/myChirk': (context) => ChirkListWidget(
             "Мои чирки",
