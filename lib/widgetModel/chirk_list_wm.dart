@@ -1,6 +1,5 @@
 import 'package:elementary/elementary.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 import '../entity/chirk.dart';
 import '../model/chirk_list_model.dart';

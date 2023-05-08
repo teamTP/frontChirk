@@ -7,19 +7,19 @@ import 'package:jiffy/jiffy.dart';
 import '../../entity/chirk.dart';
 import '../../service/userIcons.dart';
 
-class ChirkWidgetEl extends ElementaryWidget<ChirkWM> {
+class ChirkWidgetEl extends ElementaryWidget<IChirkWM> {
   ChirkWidgetEl(super.wmFactory);
 
   @override
-  Widget build(ChirkWM wm) {
-    ColorScheme colors = Theme.of(wm.context).colorScheme;
+  Widget build(IChirkWM wm) {
+    ColorScheme colors = wm.theme.colorScheme;
     Jiffy.setLocale("ru");
     return Card(
       child: Column(
         children: [
           ListTile(
             leading: CircleAvatar(
-              radius: Theme.of(wm.context).textTheme.headlineMedium!.fontSize!,
+              radius: wm.theme.textTheme.headlineMedium!.fontSize!,
               backgroundImage: wm.getImage(),
             ),
             title: Text(
