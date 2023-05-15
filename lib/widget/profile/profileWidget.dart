@@ -1,3 +1,4 @@
+import 'package:chirk/widget/home_widget.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+  HomeWidget homeWidget = HomeWidget();
+
   @override
   Widget build(BuildContext context) {
     double size = Theme.of(context).textTheme.headlineMedium!.fontSize!;
@@ -26,7 +29,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/login");
+                Navigator.pushNamed(context, "/unlogin");
               },
               icon: const Icon(Icons.exit_to_app)),
         ],

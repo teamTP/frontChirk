@@ -9,6 +9,7 @@ import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
 import 'package:chirk/widget/login/register_widget.dart';
+import 'package:chirk/widget/unlogin/unlogin_widget.dart';
 import 'package:chirk/widgetModel/chirk_list_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -30,11 +31,13 @@ class ChirkApp extends StatefulWidget {
 
 class _ChirkAppState extends State<ChirkApp> {
   ColorTheme colorThem = ColorTheme(Colors.yellow);
-
+  HomeWidget homeWidget =  HomeWidget();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: colorThem.getLightMatDisign(),
+
+
+    theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/onBoarding',
@@ -42,6 +45,9 @@ class _ChirkAppState extends State<ChirkApp> {
         '/onBoarding': (context) => const OnBoardingWidget(),
         '/': (context) => const HomeWidget(),
         '/login': (context) => const LoginWidget(),
+        '/unlogin': (context) =>UnloginWidget() ,
+
+
         '/register': (context) => const RegisterWidget(),
         '/edit': (context) => const EditProfileWidget(),
         '/myChirk': (context) => ChirkListWidget(
