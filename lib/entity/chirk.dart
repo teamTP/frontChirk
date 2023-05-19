@@ -18,4 +18,38 @@ class Chirk {
       this.likeCount = 0,
       this.disLikeCount = 0,
       this.liked});
+
+  factory Chirk.fromJson(Map<String, dynamic> json) {
+    return Chirk(
+      id: json['chirkId'] as int,
+      dateTime: DateTime.parse(json['createdDate'] as String),
+      text: json['text'] as String,
+      user: User(id: 0, iconId: json['userIconId'], name: json['userFirstname'], login: '', password: '', surname: json['userLastname']),
+      likeCount: json['countLike'] as int,
+      disLikeCount: json['countDislike'] as int,
+      liked: json['reaction']=='LIKE'?true:json['reaction']=='DISLIKE'?false:null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'dateTime': dateTime.toIso8601String(),
+    'text': text,
+    'user': user.toJson(),
+    'likeCount': likeCount,
+    'disLikeCount': disLikeCount,
+    'liked': liked,
+  };
+  Map<String, dynamic> toLikeJson() => {
+    'idUser': 1,
+    'idChirk': id,
+    'isLiked': liked,
+  };
+
+  Map<String, dynamic> toRegJson() => {
+    'firstName': "firstName",
+    'lastname': "lastname",
+    'email': "email",
+    'password': "password"
+  };
 }
