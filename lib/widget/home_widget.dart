@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../entity/chirk.dart';
 import '../entity/user.dart';
 import '../model/chirk_list_model.dart';
+import '../service/chirk_list_service_dio.dart';
 import '../service/chirk_list_service_list/chirk_list_service_list.dart';
 import 'chirk_widget/add_chirk.dart';
 import 'chirk_widget/chirk_list_widget.dart';
@@ -23,7 +24,7 @@ class _MyState extends State<StatefulWidget> {
   final List<Widget> _widgetOptions = <Widget>[
     //ChirkListWidget(initChirkList()),
     ChirkListWidget("Лента чирков",
-        (context) => ChirkListWM(ChirkListModel(ChirkListServiceList()))),
+        (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
     const AddChirkWidget(),
     ProfileWidget(initUser()),
   ];

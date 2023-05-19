@@ -31,8 +31,9 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
               itemCount: chirkList.length + 1,
               itemBuilder: (BuildContext context, int index) {
                 if (index < chirkList.length) {
+                  print(index);
                   return ChirkWidget((context) =>
-                      ChirkWM(ChirkModel(ChirkService(chirkList[index]))));
+                      ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index]))));
                 } else {
                   return const Padding(
                     padding: EdgeInsets.symmetric(vertical: 32),

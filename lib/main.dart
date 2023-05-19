@@ -49,15 +49,15 @@ class _ChirkAppState extends State<ChirkApp> {
         '/myChirk': (context) => ChirkListWidget(
             "Мои чирки",
             (context) => ChirkListWM(
-                ChirkListModel(MyChirkListServiceList(initUser().id)))),
+                ChirkListModelDIO(ChirkListType.myList))),
         '/likedChirk': (context) => ChirkListWidget(
             "Понравившиеся чирки",
             (context) => ChirkListWM(
-                ChirkListModel(LikedChirkListServiceList(initUser().id)))),
+                ChirkListModelDIO(ChirkListType.liked))),
         '/dislikedChirk': (context) => ChirkListWidget(
             "Не понравившиеся чирки",
             (context) => ChirkListWM(
-                ChirkListModel(DislikedChirkListServiceList(initUser().id)))),
+                ChirkListModelDIO(ChirkListType.disliked))),
       },
     );
   }

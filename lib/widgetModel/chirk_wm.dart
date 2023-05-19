@@ -33,7 +33,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
       newChirk.liked = true;
       newChirk.likeCount += 1;
     }
-    chirkState.content(newChirk);
+    model.update(newChirk);
   }
 
   @override
@@ -47,7 +47,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
       newChirk.liked = false;
       newChirk.disLikeCount += 1;
     }
-    chirkState.content(newChirk);
+    model.update(newChirk);
   }
 
   @override
