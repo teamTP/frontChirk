@@ -15,6 +15,10 @@ class User {
     required this.name,
     required this.surname,
   });
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'] as int,
@@ -30,9 +34,20 @@ class User {
     'id': id,
     'login': login,
     'password': password,
+<<<<<<< Updated upstream
     'iconId': iconId,
     'firstName': name,
     'lastName': surname,
   };
 
+=======
+    'userIconId': iconId,
+    'firstName': name,
+    'lastName': surname,
+  };
+  Map<String, dynamic> toFeedJson(int page) => {
+    'userId': id,
+    'page': page,
+  };
+>>>>>>> Stashed changes
 }
