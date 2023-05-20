@@ -67,6 +67,11 @@ flutter:
   assets:
     - assets/img/hasta.jpg
     - assets/img/icon_1.png
+    - assets/img/icon_01.png
+    - assets/img/icon_02.png
+    - assets/img/icon_03.png
+    - assets/img/icon_04.png
+    - assets/img/icon_05.png
     - assets/img/onboarding_1.png
     - assets/img/onboarding_2.png
     - assets/img/onboarding_3.png

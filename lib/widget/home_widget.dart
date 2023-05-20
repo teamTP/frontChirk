@@ -59,7 +59,7 @@ class _MyState extends State<StatefulWidget> {
   static User initUser() {
     return User(
         id: 1,
-        iconId: 1,
+        iconId: 0,
         name: "Иван",
         surname: "Сидоров",
         login: "ivan@sidorov.ru",
