@@ -1,29 +1,29 @@
 import 'dart:math';
-
 import 'package:chirk/provider/user_provider.dart';
+import 'package:chirk/widget/unlogin/unlogin_add_chirk_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../entity/chirk.dart';
 import '../entity/user.dart';
 import '../model/chirk_list_model.dart';
 import '../service/chirk_list_service_dio.dart';
 import '../service/chirk_list_service_list/chirk_list_service_list.dart';
-import 'chirk_widget/add_chirk.dart';
+import '../widgetModel/chirk_list_wm.dart';
 import 'chirk_widget/chirk_list_widget.dart';
 import 'profile/profileWidget.dart';
-import '../widgetModel/chirk_list_wm.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({super.key});
+  const HomeWidget( {super.key});
 
   @override
   State<StatefulWidget> createState() => _MyState();
+
+
+
 }
 
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
-  UserRepository userRepository = UserRepository();
 
   List<Widget> _widgetOptions = <Widget>[
   //ChirkListWidget(initChirkList()),
@@ -34,7 +34,6 @@ class _MyState extends State<StatefulWidget> {
   CircularProgressIndicator(),
     CircularProgressIndicator(),
   ];
-
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
@@ -73,6 +72,7 @@ class _MyState extends State<StatefulWidget> {
 
     );
   }
+
 
   void _onItemTapped(int index) {
     setState(() {

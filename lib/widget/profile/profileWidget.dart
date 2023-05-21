@@ -1,3 +1,4 @@
+import 'package:chirk/widget/home_widget.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,8 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
+  HomeWidget homeWidget = HomeWidget();
+
   @override
   Widget build(BuildContext context) {
     double size = Theme.of(context).textTheme.headlineMedium!.fontSize!;

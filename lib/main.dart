@@ -36,11 +36,13 @@ class ChirkApp extends StatefulWidget {
 
 class _ChirkAppState extends State<ChirkApp> {
   ColorTheme colorThem = ColorTheme(Colors.yellow);
-
+  HomeWidget homeWidget =  HomeWidget();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: colorThem.getLightMatDisign(),
+
+
+    theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/onBoarding',
