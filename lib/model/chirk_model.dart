@@ -1,3 +1,4 @@
+import 'package:chirk/service/config.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
@@ -48,65 +49,13 @@ class ChirkServiceDIO implements IChirkService{
 
   set chirk(Chirk value) {
     _chirk = value;
-    //getHttp();
-    postHttp2();
+    postHttp();
   }
-  void getHttp() async {
-    try{
-      BaseOptions options = BaseOptions(
-        baseUrl: "http://10.0.2.2:8080",
-        connectTimeout: Duration(milliseconds: 60000),
-        receiveTimeout: Duration(milliseconds: 30000),
-      );
-      Dio dio = Dio(options);
-      var  response = await dio.get("/user/hello");
-      print(response.data.toString());
-    }catch(e){
-      print(e);
-    }
-  }
-  Future<void> postHttp() async {
-    Response response;
-    /*BaseOptions options = BaseOptions(
-      baseUrl: "http://localhost:8080/",
-      connectTimeout: Duration(milliseconds: 60000),
-      receiveTimeout: Duration(milliseconds: 30000),
-    );*/
-    Dio dio = Dio();
 
-    FormData formData = FormData.fromMap(
-      _chirk.toRegJson(),
-    );
-
-    try {
-      response = await dio.post("http://10.0.2.2:8080/user/register");
-      if (response.statusCode == 200) {
-        // Обработка успешного ответа
-        var data = response.data;
-        print(data);
-      } else {
-        // Обработка ошибки
-        print('Error1: ${response.statusCode}');
-      }
-    } catch (e) {
-      if (e is DioError) {
-        // Обработка ошибки Dio
-        if (e.response != null) {
-          print('Error Response: ${e.response!.data}');
-          print('Error Status Code: ${e.response!.statusCode}');
-        } else {
-          print('Error1: ${e.message}');
-        }
-      } else {
-        // Обработка других исключений
-        print('Error: $e');
-      }
-    }
-  }
-  Future<Null> postHttp2() async {
+  Future<Null> postHttp() async {
     Response response;
     BaseOptions options = BaseOptions(
-      baseUrl: "http://10.0.2.2:8080",
+      baseUrl: Config.apiURL,
       connectTimeout: Duration(milliseconds: 60000),
       receiveTimeout: Duration(milliseconds: 30000),
     );

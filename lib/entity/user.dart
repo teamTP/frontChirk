@@ -29,13 +29,19 @@ class User {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'login': login,
-        'password': password,
-        'userIconId': iconId,
-        'firstName': name,
-        'lastName': surname,
-      };
+    'id': id,
+    'login': login,
+    'password': password,
+    'userIconId': iconId,
+    'firstName': name,
+    'lastName': surname,
+  };
+  Map<String, dynamic> toRegisterJson() => {
+    'email': login,
+    'password': password,
+    'firstname': name,
+    'lastName': surname,
+  };
 
   Map<String, dynamic> toFeedJson(int page) => {
         'userId': id,

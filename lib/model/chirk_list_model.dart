@@ -6,6 +6,7 @@ import 'package:elementary/elementary.dart';
 import '../entity/chirk.dart';
 import '../entity/user.dart';
 import '../service/chirl_list_service.dart';
+import '../service/config.dart';
 
 class ChirkListModelDIO extends ChirkListModel{
   int page = 0;
@@ -17,7 +18,7 @@ class ChirkListModelDIO extends ChirkListModel{
   ChirkListModelDIO(this._chirkListType) {
     page = 0;
     dio.options = BaseOptions(
-      baseUrl: "http://10.0.2.2:8080",
+      baseUrl: Config.apiURL,
       connectTimeout: Duration(milliseconds: 60000),
       receiveTimeout: Duration(milliseconds: 30000),
     );

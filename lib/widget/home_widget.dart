@@ -1,14 +1,13 @@
-import 'dart:math';
 import 'package:chirk/provider/user_provider.dart';
 import 'package:chirk/widget/unlogin/unlogin_add_chirk_widget.dart';
+import 'package:chirk/widget/unlogin/unlogin_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../entity/user.dart';
 import '../model/chirk_list_model.dart';
-import '../service/chirk_list_service_dio.dart';
-import '../service/chirk_list_service_list/chirk_list_service_list.dart';
 import '../widgetModel/chirk_list_wm.dart';
+import 'chirk_widget/add_chirk.dart';
 import 'chirk_widget/chirk_list_widget.dart';
 import 'profile/profileWidget.dart';
 
@@ -49,15 +48,13 @@ class _MyState extends State<StatefulWidget> {
     ),
       body: Consumer<UserProvider>(
           builder: (context, userProvider, child) {
-            Future<User?> user = userProvider.user;
             userProvider.user.then((value) => _widgetOptions = <Widget>[
-              //ChirkListWidget(initChirkList()),
               ChirkListWidget(
                   "Лента чирков",
                       (context) =>
                       ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
-              if (value == null) Text('без пользователя') else AddChirkWidget(),
-              ProfileWidget(initUser()),
+              if (value == null) UnloginAddChirkWidget() else AddChirkWidget(),
+              value == null?UnloginProfileWidget():ProfileWidget(initUser()),
             ]);
             return IndexedStack(
               index: _selectedIndex,
