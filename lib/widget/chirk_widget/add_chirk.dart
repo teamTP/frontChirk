@@ -10,6 +10,7 @@ class AddChirkWidget extends StatefulWidget {
 class _AddChirkWidgetState extends State<AddChirkWidget> {
   bool _isCheced = false;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
