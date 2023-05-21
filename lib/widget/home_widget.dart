@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../entity/user.dart';
 import '../model/chirk_list_model.dart';
+import '../service/chirk_list_service_dio.dart';
 import '../service/chirk_list_service_list/chirk_list_service_list.dart';
 import '../widgetModel/chirk_list_wm.dart';
 import 'chirk_widget/chirk_list_widget.dart';
@@ -24,8 +25,8 @@ class _MyState extends State<StatefulWidget> {
   final List<Widget> _widgetOptions = <Widget>[
     //ChirkListWidget(initChirkList()),
     ChirkListWidget("Лента чирков",
-        (context) => ChirkListWM(ChirkListModel(ChirkListServiceList()))),
-    UnloginAddChirkWidget(),
+        (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
+    const AddChirkWidget(),
     ProfileWidget(initUser()),
   ];
   @override
@@ -59,7 +60,7 @@ class _MyState extends State<StatefulWidget> {
   static User initUser() {
     return User(
         id: 1,
-        iconId: 1,
+        iconId: 0,
         name: "Иван",
         surname: "Сидоров",
         login: "ivan@sidorov.ru",

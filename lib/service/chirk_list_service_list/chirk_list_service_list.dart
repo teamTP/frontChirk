@@ -19,12 +19,12 @@ class ChirkListServiceList implements IChirkListServiceList{
     var rnd = Random();
     for (int i = 0; i < 10; i++) {
       var chirk = Chirk(
-        id: i * 3,
+        id: i,
         dateTime: DateTime.now(),
         text:
         "Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все такое там жили были дед да баба. Проверочный текст, о том как мы пишем чирк все хочяень понятно и все так.",
         user: User(
-            id: i + 1,
+            id: i,
             iconId: rnd.nextInt(6),
             name: "Петр",
             surname: "Николаевич",
