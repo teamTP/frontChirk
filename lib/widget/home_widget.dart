@@ -1,4 +1,4 @@
-import 'package:chirk/widget/unlogin/unlogin_widget.dart';
+import 'package:chirk/widget/unlogin/unlogin_add_chirk_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../entity/user.dart';
@@ -25,7 +25,7 @@ class _MyState extends State<StatefulWidget> {
     //ChirkListWidget(initChirkList()),
     ChirkListWidget("Лента чирков",
         (context) => ChirkListWM(ChirkListModel(ChirkListServiceList()))),
-    const UnloginWidget(),
+    UnloginAddChirkWidget(),
     ProfileWidget(initUser()),
   ];
   @override
