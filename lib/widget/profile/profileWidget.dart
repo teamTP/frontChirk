@@ -1,8 +1,10 @@
 import 'package:chirk/widget/home_widget.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../entity/user.dart';
+import '../../provider/user_provider.dart';
 import '../../service/userIcons.dart';
 
 class ProfileWidget extends StatefulWidget {
@@ -29,7 +31,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, "/unlogin");
+                  final userProvider = Provider.of<UserProvider>(context, listen: false);
+                  userProvider.deleteUser();
+                  Navigator.pushNamed(context, "/login");
               },
               icon: const Icon(Icons.exit_to_app)),
         ],
