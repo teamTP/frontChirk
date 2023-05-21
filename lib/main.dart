@@ -1,8 +1,6 @@
 import 'package:chirk/model/chirk_list_model.dart';
 import 'package:chirk/model/signUp/login_model.dart';
-import 'package:chirk/service/chirk_list_service_list/disliked_chirk_list_service_list.dart';
-import 'package:chirk/service/chirk_list_service_list/liked_chirk_list_service_list.dart';
-import 'package:chirk/service/chirk_list_service_list/my_chirk_list_service_list.dart';
+import 'package:chirk/provider/user_provider.dart';
 import 'package:chirk/widget/chirk_widget/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/profile/edit_profile_widget.dart';
@@ -15,14 +13,18 @@ import 'package:chirk/widgetModel/signUp/login_wm.dart';
 import 'package:chirk/widgetModel/signUp/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'entity/user.dart';
 import 'model/signUp/signup_model.dart';
 
 void main() {
-  runApp(EasyDynamicThemeWidget(
+  runApp( MultiProvider(
+    providers: [
+      ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+    ],
+    child:   EasyDynamicThemeWidget(
     child: const ChirkApp(),
-  ));
+  )));
 }
 
 class ChirkApp extends StatefulWidget {
@@ -62,15 +64,5 @@ class _ChirkAppState extends State<ChirkApp> {
                 ChirkListModelDIO(ChirkListType.disliked))),
       },
     );
-  }
-
-  static User initUser() {
-    return User(
-        id: 1,
-        iconId: 1,
-        name: "Иван",
-        surname: "Сидоров",
-        login: "ivan@sidorov.ru",
-        password: ":OHG:25L:JHG");
   }
 }

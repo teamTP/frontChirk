@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:chirk/provider/user_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../entity/chirk.dart';
 import '../entity/user.dart';
@@ -21,39 +23,61 @@ class HomeWidget extends StatefulWidget {
 
 class _MyState extends State<StatefulWidget> {
   int _selectedIndex = 0;
-  final List<Widget> _widgetOptions = <Widget>[
-    //ChirkListWidget(initChirkList()),
-    ChirkListWidget("Лента чирков",
-        (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
-    const AddChirkWidget(),
-    ProfileWidget(initUser()),
+  UserRepository userRepository = UserRepository();
+
+  List<Widget> _widgetOptions = <Widget>[
+  //ChirkListWidget(initChirkList()),
+  ChirkListWidget(
+  "Лента чирков",
+  (context) =>
+  ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
+  CircularProgressIndicator(),
+    CircularProgressIndicator(),
   ];
 
   @override
-  Widget build(BuildContext context) => navigatorBarPage(context);
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    return Scaffold(
+      bottomNavigationBar: NavigationBar(
+      selectedIndex: _selectedIndex,
+      onDestinationSelected: (value) => _onItemTapped(value),
+      destinations: const <NavigationDestination>[
+        NavigationDestination(icon: Icon(Icons.list), label: "Лента чирков"),
+        NavigationDestination(icon: Icon(Icons.add), label: "Создать чирк"),
+        NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
+      ],
+    ),
+      body: Consumer<UserProvider>(
+          builder: (context, userProvider, child) {
+            Future<User?> user = userProvider.user;
+            userProvider.user.then((value) => _widgetOptions = <Widget>[
+              //ChirkListWidget(initChirkList()),
+              ChirkListWidget(
+                  "Лента чирков",
+                      (context) =>
+                      ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
+              if (value == null) Text('без пользователя') else AddChirkWidget(),
+              ProfileWidget(initUser()),
+            ]);
+            return IndexedStack(
+              index: _selectedIndex,
+              children: _widgetOptions,
+            );
+          }
+      ),
+      /*body: IndexedStack(
+        index: _selectedIndex,
+        children: _widgetOptions,
+      ),*/
+
+    );
+  }
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  Widget navigatorBarPage(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: (value) => _onItemTapped(value),
-        destinations: const <NavigationDestination>[
-          NavigationDestination(icon: Icon(Icons.list), label: "Лента чирков"),
-          NavigationDestination(icon: Icon(Icons.add), label: "Создать чирк"),
-          NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
-        ],
-      ),
-    );
   }
 
   static User initUser() {

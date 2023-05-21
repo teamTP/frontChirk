@@ -1,7 +1,9 @@
+import 'package:chirk/provider/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
+import '../../entity/user.dart';
 import '../../widgetModel/signUp/login_wm.dart';
 
 class LoginWidget extends ElementaryWidget<ILoginWM> {
@@ -66,7 +68,9 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            wm.logIn();
+                          },
                           child: Text('Авторизоватся'),
                         ),
                       ],
