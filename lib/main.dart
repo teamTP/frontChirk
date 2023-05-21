@@ -1,8 +1,5 @@
 import 'package:chirk/model/chirk_list_model.dart';
 import 'package:chirk/model/signUp/login_model.dart';
-import 'package:chirk/service/chirk_list_service_list/disliked_chirk_list_service_list.dart';
-import 'package:chirk/service/chirk_list_service_list/liked_chirk_list_service_list.dart';
-import 'package:chirk/service/chirk_list_service_list/my_chirk_list_service_list.dart';
 import 'package:chirk/widget/chirk_widget/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/profile/edit_profile_widget.dart';
@@ -16,6 +13,7 @@ import 'package:chirk/widgetModel/signUp/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 
+import 'config.dart';
 import 'entity/user.dart';
 import 'model/signUp/signup_model.dart';
 
@@ -38,6 +36,7 @@ class _ChirkAppState extends State<ChirkApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,

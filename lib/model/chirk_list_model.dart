@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chirk/config.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 
@@ -17,7 +18,7 @@ class ChirkListModelDIO extends ChirkListModel{
   ChirkListModelDIO(this._chirkListType) {
     page = 0;
     dio.options = BaseOptions(
-      baseUrl: "http://10.0.2.2:8080",
+      baseUrl: ConfigAPI.apiURL,
       connectTimeout: Duration(milliseconds: 60000),
       receiveTimeout: Duration(milliseconds: 30000),
     );
@@ -46,18 +47,23 @@ class ChirkListModelDIO extends ChirkListModel{
   }
 
   Future<List<Chirk>> getHttp() async {
-    final response = await dio.get(_chirkListType.value,
-        data: User(
-            id: 1,
-            login: '',
-            password: '',
-            iconId: 1,
-            name: '',
-            surname: '')
-            .toFeedJson(page));
-    return response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList();
-    _chirkList.addAll(
-        response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList());
+    try {
+      final response = await dio.get(_chirkListType.value,
+          data: User(
+              id: 1,
+              login: '',
+              password: '',
+              iconId: 1,
+              name: '',
+              surname: '')
+              .toFeedJson(page));
+      print(response.data);
+      return response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk))
+          .toList();
+    }catch(e){
+      print("error: ${e}");
+    }
+    return [];
   }
 
 
@@ -91,25 +97,3 @@ class ChirkListModelList extends ChirkListModel{
 
 }
 
-enum ChirkListType {
-  standard,
-  myList,
-  liked,
-  disliked,
-}
-
-extension ChirkListTypeExtension on ChirkListType {
-  //todo сделать когда будет
-  String get value {
-    switch (this) {
-      case ChirkListType.standard:
-        return '/feed';
-      case ChirkListType.myList:
-        return '/myChirks';
-      case ChirkListType.liked:
-        return '/feed';
-      case ChirkListType.disliked:
-        return '/feed';
-    }
-  }
-}
