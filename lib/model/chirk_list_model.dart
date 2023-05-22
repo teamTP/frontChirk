@@ -49,7 +49,8 @@ class ChirkListModelDIO extends ChirkListModel{
 
   Future<List<Chirk>> getHttp() async {
     final token = await TokenManager.getAccessToken();
-    final response = await dio.get('${_chirkListType.value}?page=$page',
+    final response = await dio.get(_chirkListType.value,
+    queryParameters: {'page': page },
     options: Options(headers: token!=null?{'Authorization': 'Bearer $token'}:null));
     return response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList();
     _chirkList.addAll(
@@ -95,7 +96,6 @@ enum ChirkListType {
 }
 
 extension ChirkListTypeExtension on ChirkListType {
-  //todo сделать когда будет
   String get value {
     switch (this) {
       case ChirkListType.standard:

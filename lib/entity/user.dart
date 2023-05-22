@@ -17,7 +17,7 @@ class User {
     required this.surname,
   });
 
-  factory User.fromAuthorisationJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: 0,
       login: json['email'] as String,

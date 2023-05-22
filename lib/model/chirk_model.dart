@@ -4,6 +4,7 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
 import '../entity/chirk.dart';
+import '../service/managers.dart';
 
 class ChirkModel extends ElementaryModel {
   final IChirkService _chirkService;
@@ -39,7 +40,7 @@ class ChirkService implements IChirkService {
   }
 }
 
-class ChirkServiceDIO implements IChirkService{
+class ChirkServiceDIO implements IChirkService {
   final dio = Dio();
   Chirk _chirk;
 
@@ -52,7 +53,8 @@ class ChirkServiceDIO implements IChirkService{
     postHttp();
   }
 
-  Future<Null> postHttp() async {
+  Future<void> postHttp() async {
+    final token = await TokenManager.getAccessToken();
     Response response;
     BaseOptions options = BaseOptions(
       baseUrl: Config.apiURL,
@@ -60,14 +62,13 @@ class ChirkServiceDIO implements IChirkService{
       receiveTimeout: Duration(milliseconds: 30000),
     );
     Dio dio = Dio(options);
-
-    FormData formData = FormData.fromMap(
-      _chirk.toLikeJson(),
-    );
-    print(_chirk.toLikeJson());
-
     try {
-      response=await  dio.post("/estimate/add", data: _chirk.toLikeJson(), );
+      response = await dio.post(
+        "/estimate/add",
+        options: Options(
+            headers: token != null ? {'Authorization': 'Bearer $token'} : null),
+        data: _chirk.toLikeJson(),
+      );
     } catch (e) {
       print('Error: $e');
     }
