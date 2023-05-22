@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chirk/service/managers.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 
@@ -47,15 +48,9 @@ class ChirkListModelDIO extends ChirkListModel{
   }
 
   Future<List<Chirk>> getHttp() async {
-    final response = await dio.get(_chirkListType.value,
-        data: User(
-            id: 1,
-            login: '',
-            password: '',
-            iconId: 1,
-            name: '',
-            surname: '')
-            .toFeedJson(page));
+    final token = await TokenManager.getAccessToken();
+    final response = await dio.get('${_chirkListType.value}?page=$page',
+    options: Options(headers: token!=null?{'Authorization': 'Bearer $token'}:null));
     return response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList();
     _chirkList.addAll(
         response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList());
