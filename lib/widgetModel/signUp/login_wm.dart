@@ -42,7 +42,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
       name: '',
       surname: '',
       iconId: 0);
-      model.logIn(user);
+      model.logIn(user).then((value) => Navigator.pop(context));
     }
 
     final userProvider = Provider.of<UserProvider>(context, listen: false);

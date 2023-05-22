@@ -18,13 +18,13 @@ import 'package:provider/provider.dart';
 import 'model/signUp/signup_model.dart';
 
 void main() {
-  runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
-        ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
-      ],
-      child: EasyDynamicThemeWidget(
-        child: const ChirkApp(),
+  runApp(EasyDynamicThemeWidget(
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+            ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
+          ],
+          child: const ChirkApp(),
       )));
 }
 
