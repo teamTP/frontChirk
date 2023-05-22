@@ -46,7 +46,11 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   Future signUp() async {
-    if(_validatePassword() && _validateEmail() && _validateLastName() && _validateName() && _validateRepeatPassword()){
+    if (_validatePassword() &&
+        _validateEmail() &&
+        _validateLastName() &&
+        _validateName() &&
+        _validateRepeatPassword()) {
       User user = User(
           id: 0,
           login: _emailTextInputController.text,
@@ -85,8 +89,10 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     model.userState.notifyListeners();
     return isValid;
   }
+
   bool _validateRepeatPassword() {
-    bool isValid = _passwordTextRepeatInputController.text==_passwordTextInputController.text;
+    bool isValid = _passwordTextRepeatInputController.text ==
+        _passwordTextInputController.text;
     isPasswordValid = isValid;
     model.userState.notifyListeners();
     return isValid;
@@ -140,8 +146,6 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 }
 
 abstract class ISignUpWM extends IWidgetModel {
-
-
   bool isFirstNameValid = true;
   bool isLastNameValid = true;
   bool isEmailValid = true;

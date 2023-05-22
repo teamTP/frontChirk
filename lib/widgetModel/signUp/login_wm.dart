@@ -1,5 +1,6 @@
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:elementary/elementary.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _passwordTextInputController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool isEmailValid =true;
+  bool isPasswordValid = true;
 
   LoginWM(super.model);
 
@@ -31,11 +34,40 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    // TODO: implement logIn
+    if (_validatePassword() &&
+        _validateEmail()) {
+      User user = User(id:0,
+      login: _emailTextInputController.text,
+      password: _passwordTextInputController.text,
+      name: '',
+      surname: '',
+      iconId: 0);
+      model.logIn(user);
+    }
 
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     userProvider.setUser(initUser());
     //throw UnimplementedError();
+  }
+
+
+  bool _validateEmail() {
+    bool isValid = EmailValidator.validate(_emailTextInputController.text);
+    isEmailValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validatePassword() {
+    bool isValid = validatePassword(_passwordTextInputController.text);
+    isPasswordValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool validatePassword(value) {
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    return regex.hasMatch(value);
   }
 
   @override

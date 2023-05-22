@@ -18,13 +18,14 @@ import 'package:provider/provider.dart';
 import 'model/signUp/signup_model.dart';
 
 void main() {
-  runApp( MultiProvider(
-    providers: [
-      ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
-    ],
-    child:   EasyDynamicThemeWidget(
-    child: const ChirkApp(),
-  )));
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
+      ],
+      child: EasyDynamicThemeWidget(
+        child: const ChirkApp(),
+      )));
 }
 
 class ChirkApp extends StatefulWidget {
@@ -36,13 +37,12 @@ class ChirkApp extends StatefulWidget {
 
 class _ChirkAppState extends State<ChirkApp> {
   ColorTheme colorThem = ColorTheme(Colors.yellow);
-  HomeWidget homeWidget =  HomeWidget();
+  HomeWidget homeWidget = HomeWidget();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
-
-    theme: colorThem.getLightMatDisign(),
+      theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/onBoarding',
@@ -50,20 +50,17 @@ class _ChirkAppState extends State<ChirkApp> {
         '/onBoarding': (context) => const OnBoardingWidget(),
         '/': (context) => const HomeWidget(),
         '/login': (context) => LoginWidget((context) => LoginWM(LoginModel())),
-        '/register': (context) => SignUpWidget((context) => SignUpWM(SignUpModel())),
+        '/register': (context) =>
+            SignUpWidget((context) => SignUpWM(SignUpModel())),
         '/edit': (context) => const EditProfileWidget(),
-        '/myChirk': (context) => ChirkListWidget(
-            "Мои чирки",
-            (context) => ChirkListWM(
-                ChirkListModelDIO(ChirkListType.myList))),
-        '/likedChirk': (context) => ChirkListWidget(
-            "Понравившиеся чирки",
-            (context) => ChirkListWM(
-                ChirkListModelDIO(ChirkListType.liked))),
+        '/myChirk': (context) => ChirkListWidget("Мои чирки",
+            (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.myList))),
+        '/likedChirk': (context) => ChirkListWidget("Понравившиеся чирки",
+            (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.liked))),
         '/dislikedChirk': (context) => ChirkListWidget(
             "Не понравившиеся чирки",
-            (context) => ChirkListWM(
-                ChirkListModelDIO(ChirkListType.disliked))),
+            (context) =>
+                ChirkListWM(ChirkListModelDIO(ChirkListType.disliked))),
       },
     );
   }

@@ -35,7 +35,7 @@ class _MyState extends State<StatefulWidget> {
   ];
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
+    final tokenProvider = Provider.of<TokenProvider>(context);
     return Scaffold(
       bottomNavigationBar: NavigationBar(
       selectedIndex: _selectedIndex,
@@ -46,9 +46,9 @@ class _MyState extends State<StatefulWidget> {
         NavigationDestination(icon: Icon(Icons.person), label: "Профиль"),
       ],
     ),
-      body: Consumer<UserProvider>(
-          builder: (context, userProvider, child) {
-            userProvider.user.then((value) => _widgetOptions = <Widget>[
+      body: Consumer<TokenProvider>(
+          builder: (context, tokenProvider, child) {
+            tokenProvider.accessToken.then((value) => _widgetOptions = <Widget>[
               ChirkListWidget(
                   "Лента чирков",
                       (context) =>

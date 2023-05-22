@@ -31,8 +31,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                  final userProvider = Provider.of<UserProvider>(context, listen: false);
-                  userProvider.deleteUser();
+                  final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+                  tokenProvider.deleteTokens();
                   Navigator.pushNamed(context, "/login");
               },
               icon: const Icon(Icons.exit_to_app)),

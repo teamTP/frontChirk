@@ -1,3 +1,4 @@
+import 'package:chirk/service/managers.dart';
 import 'package:flutter/foundation.dart';
 
 import '../entity/user.dart';
@@ -13,6 +14,20 @@ class UserProvider with ChangeNotifier {
   }
   void deleteUser(){
     _userRepository.deleteUser();
+    notifyListeners();
+  }
+}
+class TokenProvider with ChangeNotifier {
+
+  Future<String?> get accessToken => TokenManager.getAccessToken();
+  Future<String?> get refreshToken => TokenManager.getRefreshToken();
+
+  void setTokens(String accessToken, String refreshToken) {
+    TokenManager.saveTokens(accessToken, refreshToken);
+    notifyListeners();
+  }
+  void deleteTokens(){
+    TokenManager.removeTokens();
     notifyListeners();
   }
 }
