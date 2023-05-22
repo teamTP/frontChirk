@@ -1,5 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:chirk/widgetModel/signUp/signup_wm.dart';
+import 'package:chirk/widgetModel/login/signup_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 

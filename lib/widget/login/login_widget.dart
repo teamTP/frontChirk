@@ -1,10 +1,7 @@
-import 'package:chirk/provider/user_provider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-
-import '../../entity/user.dart';
-import '../../widgetModel/signUp/login_wm.dart';
+import 'package:chirk/widgetModel/login/login_wm.dart';
 
 class LoginWidget extends ElementaryWidget<ILoginWM> {
   LoginWidget(super.wmFactory);

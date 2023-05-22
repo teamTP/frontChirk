@@ -4,9 +4,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../entity/user.dart';
-import '../../model/signUp/login_model.dart';
-import '../../provider/user_provider.dart';
+import 'package:chirk/entity/user.dart';
+import 'package:chirk/model/login/login_model.dart';
+import 'package:chirk/provider/user_provider.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =

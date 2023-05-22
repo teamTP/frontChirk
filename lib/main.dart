@@ -1,21 +1,21 @@
-import 'package:chirk/model/chirk_list_model.dart';
-import 'package:chirk/model/signUp/login_model.dart';
+import 'package:chirk/model/chirk/chirk_list_model.dart';
+import 'package:chirk/model/login/login_model.dart';
 import 'package:chirk/provider/user_provider.dart';
-import 'package:chirk/widget/chirk_widget/chirk_list_widget.dart';
+import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/profile/edit_profile_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
-import 'package:chirk/widgetModel/chirk_list_wm.dart';
-import 'package:chirk/widgetModel/signUp/login_wm.dart';
-import 'package:chirk/widgetModel/signUp/signup_wm.dart';
+import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
+import 'package:chirk/widgetModel/login/login_wm.dart';
+import 'package:chirk/widgetModel/login/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'model/signUp/signup_model.dart';
+import 'package:chirk/model/login/signup_model.dart';
 
 void main() {
   runApp(EasyDynamicThemeWidget(

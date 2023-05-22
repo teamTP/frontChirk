@@ -3,8 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/chirk.dart';
-import '../service/managers.dart';
+import '../../entity/chirk.dart';
+import '../../service/managers.dart';
 
 class ChirkModel extends ElementaryModel {
   final IChirkService _chirkService;

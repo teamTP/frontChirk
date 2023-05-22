@@ -1,4 +1,4 @@
-import 'package:chirk/widgetModel/chirk_wm.dart';
+import 'package:chirk/widgetModel/chirk/chirk_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -27,12 +27,24 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
             subtitle: Text(
                 Jiffy.parseFromDateTime(wm.chirkState.value!.data!.dateTime)
                     .fromNow()),
-            /*trailing: IconButton(
+            trailing: IconButton(
+              style: IconButton.styleFrom(
+              foregroundColor: false
+                  ? colors.onPrimary
+                  : colors.primary,
+              backgroundColor: false
+                  ? colors.primary
+                  : colors.surfaceVariant,
+              disabledForegroundColor:
+              colors.onSurface.withOpacity(0.38),
+              disabledBackgroundColor:
+              colors.onSurface.withOpacity(0.12),
+            ),
               onPressed: () {
                 //todo реализовать нажатие и отображение кнопки delete
               },
               icon: const Icon(Icons.delete),
-            ),*/
+            ),
           ),
           Container(
             margin: const EdgeInsets.all(16),

@@ -3,8 +3,8 @@ import 'package:elementary/elementary.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
-import '../../entity/user.dart';
-import '../../model/signUp/signup_model.dart';
+import 'package:chirk/entity/user.dart';
+import 'package:chirk/model/login/signup_model.dart';
 
 class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     implements ISignUpWM {

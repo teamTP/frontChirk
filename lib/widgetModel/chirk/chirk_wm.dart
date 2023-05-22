@@ -1,11 +1,10 @@
 import 'package:elementary/elementary.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/chirk.dart';
-import '../model/chirk_model.dart';
-import '../service/userIcons.dart';
-import '../widget/chirk_widget/chirk_widget.dart';
+import 'package:chirk/entity/chirk.dart';
+import 'package:chirk/model/chirk/chirk_model.dart';
+import 'package:chirk/service/userIcons.dart';
+import 'package:chirk/widget/chirk/chirk_widget.dart';
 
 class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
