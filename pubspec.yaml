@@ -76,6 +76,8 @@ flutter:
     - assets/img/onboarding_1.png
     - assets/img/onboarding_2.png
     - assets/img/onboarding_3.png
+    - assets/img/logo-splash.png
+    - assets/img/text-underlogo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
