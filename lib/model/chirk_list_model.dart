@@ -106,11 +106,11 @@ extension ChirkListTypeExtension on ChirkListType {
       case ChirkListType.standard:
         return '/feed';
       case ChirkListType.myList:
-        return '/myChirks';
+        return '/profile/myChirks';
       case ChirkListType.liked:
-        return '/feed';
+        return '/profile/myLikedChirks';
       case ChirkListType.disliked:
-        return '/feed';
+        return '/profile/myDislikedChirks';
     }
   }
 }

@@ -43,6 +43,7 @@ class SignUpModel extends ElementaryModel {
 
     try {
       response=await  _dio.post("/user/register", data: user.toRegisterJson(), );
+      print('${response.data[0]}, ${response.data[1]}');
     } catch (e) {
       print('Error: $e');
     }

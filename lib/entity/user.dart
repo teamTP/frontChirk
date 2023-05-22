@@ -40,7 +40,7 @@ class User {
     'email': login,
     'password': password,
     'firstname': name,
-    'lastName': surname,
+    'lastname': surname,
   };
 
   Map<String, dynamic> toFeedJson(int page) => {

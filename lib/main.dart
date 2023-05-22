@@ -45,7 +45,7 @@ class _ChirkAppState extends State<ChirkApp> {
     theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
-      initialRoute: '/register',
+      initialRoute: '/onBoarding',
       routes: {
         '/onBoarding': (context) => const OnBoardingWidget(),
         '/': (context) => const HomeWidget(),
