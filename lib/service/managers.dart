@@ -74,7 +74,8 @@ class TokenManager {
       connectTimeout: Duration(milliseconds: 60000),
       receiveTimeout: Duration(milliseconds: 30000),
     );
-    var response = await dio.post('/user/updateTokens', data: {"refreshToken": await getRefreshToken()});
+    String? refToken = await getRefreshToken();
+    var response = await dio.post('/user/updateTokens', data: refToken!=null?{"refreshToken": await getRefreshToken()}:null);
     final accessToken = response.data['accessToken'];
     final refreshToken = response.data['refreshToken'];
     saveTokens(accessToken, refreshToken);
