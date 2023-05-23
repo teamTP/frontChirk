@@ -11,7 +11,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  late Timer _timer;
   bool _isFirstImageVisible = true;
 
   @override
@@ -24,7 +23,6 @@ class _SplashState extends State<Splash> {
 
   @override
   void dispose() {
-    _timer.cancel();
     super.dispose();
   }
 
