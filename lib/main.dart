@@ -8,6 +8,7 @@ import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onboarding/onbarding_widget.dart';
+import 'package:chirk/widget/splash.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
 import 'package:chirk/widgetModel/login/login_wm.dart';
 import 'package:chirk/widgetModel/login/signup_wm.dart';
@@ -45,9 +46,11 @@ class _ChirkAppState extends State<ChirkApp> {
       theme: colorThem.getLightMatDisign(),
       darkTheme: colorThem.getDarkMatDisign(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
-      initialRoute: '/onBoarding',
+
+      initialRoute: '/splash',
       routes: {
         '/onBoarding': (context) => const OnBoardingWidget(),
+        '/splash': (context) =>  const Splash(),
         '/': (context) => const HomeWidget(),
         '/login': (context) => LoginWidget((context) => LoginWM(LoginModel())),
         '/register': (context) =>
