@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/login_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -40,11 +41,12 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
           name: '',
           surname: '',
           iconId: 0);
-      model.logIn(user).then((value) {
-        //Navigator.pushReplacementNamed(context, '/'));
+      model.logIn(user).then((value){
         //Navigator.popUntil(context, ModalRoute.withName('/'),);
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       });
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('firstSeen', false);//Navigator.pushReplacementNamed(context, '/'));
     }
     //throw UnimplementedError();
   }

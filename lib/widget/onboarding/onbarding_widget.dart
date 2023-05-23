@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class OnBoardingWidget extends StatelessWidget {
   const OnBoardingWidget({Key? key}) : super(key: key);
@@ -21,8 +22,10 @@ class OnBoardingWidget extends StatelessWidget {
         skip: const Text("Пропустить"),
         next: const Text("Далее"),
         done: const Text("Начать"),
-        onDone: () {
-          Navigator.pop(context);
+        onDone: () async{
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('firstSeen', false);
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         },
       ),
     );

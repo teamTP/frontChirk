@@ -30,6 +30,10 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+
+    final Brightness brightness = Theme.of(context).brightness;
+    String underLogo = 'assets/img/text-underlogo${brightness==Brightness.dark?'-dark':''}.png';
+    String logoSplash = 'assets/img/logo-splash${brightness==Brightness.dark?'-dark':''}.png';
     return Scaffold(
       body: Center(
         child: Stack(
@@ -43,9 +47,9 @@ class _SplashState extends State<Splash> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/img/logo-splash.png', width: 128,),
+                    Image.asset(logoSplash, width: 128,),
                     SizedBox(height: 24,),
-                    Image.asset('assets/img/text-underlogo.png', width: 128,),
+                    Image.asset(underLogo, width: 128,),
                   ],
                 ),
               ),
@@ -61,10 +65,9 @@ class _SplashState extends State<Splash> {
     bool isFirstSeen = (prefs.getBool('firstSeen') ?? true);
 
     if (isFirstSeen) {
-      await prefs.setBool('firstSeen', false);
-      Navigator.pushReplacementNamed(context, '/onboarding');
+      Navigator.pushNamedAndRemoveUntil(context, '/onBoarding', (route) => false);
     } else {
-      Navigator.pushReplacementNamed(context, '/');
+      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
     }
   }
 }
