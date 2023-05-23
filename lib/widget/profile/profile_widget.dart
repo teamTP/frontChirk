@@ -34,7 +34,7 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: size / 2, top: size / 2),
+                    margin: EdgeInsets.only(bottom: size / 2, top: size / 2, left: size/2),
                     child: Row(
                       children: [
                         CircleAvatar(
