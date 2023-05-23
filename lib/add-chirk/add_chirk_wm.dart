@@ -35,7 +35,7 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel> implements I
   }
 
   bool _validateMessage() {
-    return _messageController.text.length<255 && _messageController.text.isNotEmpty;
+    return _messageController.text.length<=255 && _messageController.text.isNotEmpty;
   }
 
   @override
