@@ -9,6 +9,7 @@ import '../model/chirk_list_model.dart';
 import '../service/chirk_list_service_dio.dart';
 import '../service/chirk_list_service_list/chirk_list_service_list.dart';
 import '../widgetModel/chirk_list_wm.dart';
+import 'chirk_widget/add_chirk.dart';
 import 'chirk_widget/chirk_list_widget.dart';
 import 'profile/profileWidget.dart';
 
