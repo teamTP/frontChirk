@@ -1,3 +1,6 @@
+import 'package:chirk/add-chirk/add_chirk_model.dart';
+import 'package:chirk/add-chirk/add_chirk_widget.dart';
+import 'package:chirk/add-chirk/add_chirk_wm.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:chirk/widget/profile/profile_widget.dart';
 import 'package:chirk/widgetModel/profile/profile_wm.dart';
@@ -10,7 +13,6 @@ import 'package:provider/provider.dart';
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
-import 'chirk/add_chirk.dart';
 import 'chirk/chirk_list_widget.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -34,7 +36,7 @@ class _MyState extends State<StatefulWidget> {
   final List<Widget> _widgetOptionsWithToken = <Widget>[
     ChirkListWidget("Лента чирков",
         (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
-    const AddChirkWidget(),
+    AddChirkWidget((context) => AddChirkWM(AddChirkModel())),
     ProfileWidget((context) => ProfileWM(ProfileModel())),
   ];
   final List<Widget> _widgetLoading = <Widget>[

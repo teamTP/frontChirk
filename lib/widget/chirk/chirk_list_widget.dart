@@ -24,6 +24,7 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
               child: CircularProgressIndicator(),
             );
           }
+          chirkList.sort((a, b)=> a.dateTime.compareTo(b.dateTime));
           return RefreshIndicator(
             child: ListView.builder(
               controller: wm.controller,

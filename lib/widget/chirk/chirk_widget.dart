@@ -24,9 +24,8 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
             ),
             title: Text(
                 "${wm.chirkState.value!.data!.user.surname} ${wm.chirkState.value!.data!.user.name}"),
-            subtitle: Text(
-                Jiffy.parseFromDateTime(wm.chirkState.value!.data!.dateTime)
-                    .fromNow()),
+            subtitle: Text(Jiffy.parseFromDateTime(wm.chirkState.value!.data!.dateTime).fromNow()
+                ),
             trailing: IconButton(
               style: IconButton.styleFrom(
               foregroundColor: false
