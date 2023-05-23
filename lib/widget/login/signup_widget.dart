@@ -1,5 +1,5 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:chirk/widgetModel/signUp/signup_wm.dart';
+import 'package:chirk/widgetModel/login/signup_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
@@ -36,11 +36,12 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           controller: wm.emailController,
                           validator: (email) =>
                               email != null && !EmailValidator.validate(email)
-                                  ? 'Введите правильый email'
+                                  ? 'Введите правильный email'
                                   : null,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Введите email',
                             border: OutlineInputBorder(),
+                            errorText: wm.isEmailValid ? null : "Неправильный email"
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -57,6 +58,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
                             border: OutlineInputBorder(),
+                            errorText: wm.isPasswordValid ? null:"Слабый пароль",
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
@@ -79,11 +81,12 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                                   (!wm.validatePassword(passwordRepeat) ||
                                       wm.passwordController.value.text !=
                                           passwordRepeat)
-                              ? 'Не правильный пароль ${wm.passwordController.value.text}'
-                              : 'null',
+                              ? 'Не правильный пароль'
+                              : null,
                           decoration: InputDecoration(
                             labelText: 'Повторите пароль',
                             border: OutlineInputBorder(),
+                            errorText: wm.isRepeatPasswordValid ? null:"Не правильный пароль",
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
@@ -97,10 +100,9 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: wm.nameController,
-                          validator: (name) =>
-                              name == '' ? 'Поле не должно быть пустым' : null,
                           decoration: InputDecoration(
                             labelText: 'Введите имя',
+                            errorText: wm.isFirstNameValid ? null:"Поле не должно быть пустым",
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -114,12 +116,16 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                                   : null,
                           decoration: InputDecoration(
                             labelText: 'Введите фамилию',
+
+                            errorText: wm.isLastNameValid ? null:"Поле не должно быть пустым",
                             border: OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 16),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            wm.signUp();
+                          },
                           child: Text('Зарегистрироватся'),
                         ),
                       ],

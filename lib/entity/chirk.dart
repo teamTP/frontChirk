@@ -24,7 +24,7 @@ class Chirk {
       id: json['chirkId'] as int,
       dateTime: DateTime.parse(json['createdDate'] as String),
       text: json['text'] as String,
-      user: User(id: 0, iconId: json['iconId'] ?? 1, name: json['userFirstname'], login: '', password: '', surname: json['userLastname']),
+      user: User(id: 0, iconId: json['userIconId'] ?? 1, name: json['userFirstname'], login: '', password: '', surname: json['userLastname']),
       likeCount: json['countLike'] as int,
       disLikeCount: json['countDislike'] as int,
       liked: json['reaction']=='LIKE'?true:json['reaction']=='DISLIKE'?false:null,

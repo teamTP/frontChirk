@@ -1,16 +1,15 @@
-import 'package:chirk/model/chirk_model.dart';
-import 'package:chirk/widget/chirk_widget/chirk_widget.dart';
-import 'package:chirk/widgetModel/chirk_wm.dart';
+import 'package:chirk/model/chirk/chirk_model.dart';
+import 'package:chirk/widget/chirk/chirk_widget.dart';
+import 'package:chirk/widgetModel/chirk/chirk_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgetModel/chirk_list_wm.dart';
+import '../../widgetModel/chirk/chirk_list_wm.dart';
 
 class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
   final String _title;
 
-  const ChirkListWidget(this._title, super.wmFactory, {super.key});
-
+  ChirkListWidget(this._title, super.wmFactory, {super.key});
   @override
   Widget build(IChirkListWM wm) {
     return Scaffold(
@@ -30,17 +29,12 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
               controller: wm.controller,
               itemCount: chirkList.length + 1,
               itemBuilder: (BuildContext context, int index) {
-                if (index < chirkList.length) {
+                if (index == chirkList.length) {
+                  return _buildLoaderIndicator(wm.isLoading);
+                } else {
                   print(index);
                   return ChirkWidget((context) =>
                       ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index]))));
-                } else {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 32),
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
                 }
               },
             ),
@@ -50,4 +44,13 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
       ),
     );
   }
+  Widget _buildLoaderIndicator(bool isLoading) {
+    return isLoading
+        ? const Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Center(child: CircularProgressIndicator()),
+    )
+        : const SizedBox();
+  }
 }
+

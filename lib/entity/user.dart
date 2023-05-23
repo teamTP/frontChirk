@@ -19,26 +19,31 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json['id'] as int,
-      login: json['login'] as String,
-      password: json['password'] as String,
+      id: 0,
+      login: json['email'] as String,
+      password: '',
       iconId: json['iconId'] as int,
-      name: json['name'] as String,
-      surname: json['surname'] as String,
+      name: json['firstname'] as String,
+      surname: json['lastname'] as String,
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'login': login,
-        'password': password,
-        'userIconId': iconId,
-        'firstName': name,
-        'lastName': surname,
-      };
+    'id': id,
+    'login': login,
+    'password': password,
+    'userIconId': iconId,
+    'firstName': name,
+    'lastName': surname,
+  };
+  Map<String, dynamic> toRegisterJson() => {
+    'email': login,
+    'password': password,
+    'firstname': name,
+    'lastname': surname,
+  };
 
   Map<String, dynamic> toFeedJson(int page) => {
-        'userId': id,
         'page': page,
       };
 }

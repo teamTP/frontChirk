@@ -1,8 +1,10 @@
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:elementary/elementary.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/signUp/signup_model.dart';
+import 'package:chirk/entity/user.dart';
+import 'package:chirk/model/login/signup_model.dart';
 
 class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     implements ISignUpWM {
@@ -17,6 +19,17 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
   final TextEditingController _surnameTextInputController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  @override
+  bool isFirstNameValid = true;
+  @override
+  bool isLastNameValid = true;
+  @override
+  bool isEmailValid = true;
+  @override
+  bool isPasswordValid = true;
+  @override
+  bool isRepeatPasswordValid = true;
 
   SignUpWM(super.model);
 
@@ -33,8 +46,58 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   Future signUp() async {
-    // TODO: implement signUp
-    throw UnimplementedError();
+    if (_validatePassword() &&
+        _validateEmail() &&
+        _validateLastName() &&
+        _validateName() &&
+        _validateRepeatPassword()) {
+      User user = User(
+          id: 0,
+          login: _emailTextInputController.text,
+          password: _passwordTextInputController.text,
+          iconId: 0,
+          name: _nameTextInputController.text,
+          surname: _surnameTextInputController.text);
+      model.signUp(user).then((value) {
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      });
+    }
+  }
+
+  bool _validateName() {
+    bool isValid = _nameTextInputController.text.isNotEmpty;
+    isFirstNameValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validateLastName() {
+    bool isValid = _surnameTextInputController.text.isNotEmpty;
+    isLastNameValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validateEmail() {
+    bool isValid = EmailValidator.validate(_emailTextInputController.text);
+    isEmailValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validatePassword() {
+    bool isValid = validatePassword(_passwordTextInputController.text);
+    isPasswordValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validateRepeatPassword() {
+    bool isValid = _passwordTextRepeatInputController.text ==
+        _passwordTextInputController.text;
+    isPasswordValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
   }
 
   @override
@@ -85,6 +148,12 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 }
 
 abstract class ISignUpWM extends IWidgetModel {
+  bool isFirstNameValid = true;
+  bool isLastNameValid = true;
+  bool isEmailValid = true;
+  bool isPasswordValid = true;
+  bool isRepeatPasswordValid = true;
+
   void togglePasswordView();
 
   Future signUp();

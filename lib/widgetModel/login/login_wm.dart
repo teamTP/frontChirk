@@ -1,11 +1,10 @@
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:elementary/elementary.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../entity/user.dart';
-import '../../model/signUp/login_model.dart';
-import '../../provider/user_provider.dart';
+import 'package:chirk/entity/user.dart';
+import 'package:chirk/model/login/login_model.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -13,6 +12,8 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _passwordTextInputController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool isEmailValid = true;
+  bool isPasswordValid = true;
 
   LoginWM(super.model);
 
@@ -31,11 +32,40 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    // TODO: implement logIn
-
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.setUser(initUser());
+    if (_validatePassword() && _validateEmail()) {
+      User user = User(
+          id: 0,
+          login: _emailTextInputController.text,
+          password: _passwordTextInputController.text,
+          name: '',
+          surname: '',
+          iconId: 0);
+      model.logIn(user).then((value) {
+        //Navigator.pushReplacementNamed(context, '/'));
+        //Navigator.popUntil(context, ModalRoute.withName('/'),);
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      });
+    }
     //throw UnimplementedError();
+  }
+
+  bool _validateEmail() {
+    bool isValid = EmailValidator.validate(_emailTextInputController.text);
+    isEmailValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool _validatePassword() {
+    bool isValid = validatePassword(_passwordTextInputController.text);
+    isPasswordValid = isValid;
+    model.userState.notifyListeners();
+    return isValid;
+  }
+
+  bool validatePassword(value) {
+    RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
+    return regex.hasMatch(value);
   }
 
   @override
@@ -61,7 +91,6 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   EntityStateNotifier<User> get userState => model.userState;
-
 
   static User initUser() {
     return User(

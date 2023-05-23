@@ -1,14 +1,13 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/chirk.dart';
-import '../model/chirk_list_model.dart';
-import '../widget/chirk_widget/chirk_list_widget.dart';
+import 'package:chirk/entity/chirk.dart';
+import 'package:chirk/model/chirk/chirk_list_model.dart';
+import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
-
   ChirkListWM(ChirkListModel model) : super(model);
 
   @override
@@ -16,7 +15,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     super.initWidgetModel();
 
     scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
+      if (!isLoading && scrollController.position.maxScrollExtent ==
           scrollController.offset) {
         fetch();
       }
@@ -24,11 +23,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   }
 
   @override
-  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkList;
-
-  @override
-  EntityStateNotifier<List<Chirk>> get chirksOnPagination =>
-      throw UnimplementedError();
+  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkState;
 
   @override
   void dispose() {
@@ -37,7 +32,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   }
 
   Future fetch() async {
-    model.pagination();
+    await model.pagination();
   }
 
   @override
@@ -47,6 +42,10 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   void update() {
     model.update();
   }
+
+  @override
+  // TODO: implement isLoading
+  bool get isLoading => model.isLoading;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
@@ -54,7 +53,8 @@ abstract class IChirkListWM extends IWidgetModel {
 
   get controller;
 
-  EntityStateNotifier<List<Chirk>> get chirksOnPagination;
+  bool get isLoading;
 
   void update();
+
 }
