@@ -2,11 +2,9 @@ import 'package:chirk/widget/login/login_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/login_model.dart';
-import 'package:chirk/provider/user_provider.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -14,7 +12,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _passwordTextInputController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
-  bool isEmailValid =true;
+  bool isEmailValid = true;
   bool isPasswordValid = true;
 
   LoginWM(super.model);
@@ -34,22 +32,22 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    if (_validatePassword() &&
-        _validateEmail()) {
-      User user = User(id:0,
-      login: _emailTextInputController.text,
-      password: _passwordTextInputController.text,
-      name: '',
-      surname: '',
-      iconId: 0);
-      model.logIn(user).then((value) => Navigator.pop(context));
+    if (_validatePassword() && _validateEmail()) {
+      User user = User(
+          id: 0,
+          login: _emailTextInputController.text,
+          password: _passwordTextInputController.text,
+          name: '',
+          surname: '',
+          iconId: 0);
+      model.logIn(user).then((value) {
+        //Navigator.pushReplacementNamed(context, '/'));
+        //Navigator.popUntil(context, ModalRoute.withName('/'),);
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      });
     }
-
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.setUser(initUser());
     //throw UnimplementedError();
   }
-
 
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
@@ -93,7 +91,6 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   EntityStateNotifier<User> get userState => model.userState;
-
 
   static User initUser() {
     return User(

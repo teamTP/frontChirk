@@ -58,7 +58,9 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
           iconId: 0,
           name: _nameTextInputController.text,
           surname: _surnameTextInputController.text);
-      model.signUp(user);
+      model.signUp(user).then((value) {
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      });
     }
   }
 

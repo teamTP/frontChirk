@@ -3,6 +3,7 @@ import 'package:elementary/elementary.dart';
 
 import '../../entity/user.dart';
 import '../../service/config.dart';
+import '../../service/managers.dart';
 
 class SignUpModel extends ElementaryModel {
   final _dio = Dio();
@@ -24,7 +25,7 @@ class SignUpModel extends ElementaryModel {
   }
 
   EntityStateNotifier<User> get userState => _userState;
-  void signUp(User user)async{
+  Future<void> signUp(User user)async{
     postHttp(user);
   }
 
@@ -32,18 +33,16 @@ class SignUpModel extends ElementaryModel {
     _userState = value;
   }
 
-  Future<Null> postHttp(User user) async {
+  Future<void> postHttp(User user) async {
     Response response;
 
-
-    FormData formData = FormData.fromMap(
-      user.toRegisterJson(),
-    );
     print(user.toRegisterJson());
 
     try {
       response=await  _dio.post("/user/register", data: user.toRegisterJson(), );
-      print('${response.data[0]}, ${response.data[1]}');
+      final accessToken = response.data['accessToken'];
+      final refreshToken = response.data['refreshToken'];
+      TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
       print('Error: $e');
     }

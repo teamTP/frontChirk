@@ -34,7 +34,6 @@ class LoginModel extends ElementaryModel {
   Future<void> postHttp(User user) async {
     Response response;
 
-
     print(user.toRegisterJson());
 
     try {
