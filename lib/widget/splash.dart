@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -16,14 +17,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      setState(() {
-        _isFirstImageVisible = !_isFirstImageVisible;
-      });
-    });
-    Timer(const Duration(seconds: 2), () {
-      _timer.cancel();
-      Navigator.pushReplacementNamed(context, '/onBoarding');
+    Future.delayed(Duration(seconds: 3), () {
+      checkFirstSeen();
     });
   }
 
@@ -48,8 +43,9 @@ class _SplashState extends State<Splash> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/img/logo-splash.png'),
-                    Image.asset('assets/img/text-underlogo.png'),
+                    Image.asset('assets/img/logo-splash.png', width: 128,),
+                    SizedBox(height: 24,),
+                    Image.asset('assets/img/text-underlogo.png', width: 128,),
                   ],
                 ),
               ),
@@ -58,5 +54,17 @@ class _SplashState extends State<Splash> {
         ),
       ),
     );
+  }
+
+  Future<void> checkFirstSeen() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstSeen = (prefs.getBool('firstSeen') ?? true);
+
+    if (isFirstSeen) {
+      await prefs.setBool('firstSeen', false);
+      Navigator.pushReplacementNamed(context, '/onboarding');
+    } else {
+      Navigator.pushReplacementNamed(context, '/');
+    }
   }
 }
