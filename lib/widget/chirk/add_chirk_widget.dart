@@ -1,4 +1,4 @@
-import 'package:chirk/add-chirk/add_chirk_wm.dart';
+import 'package:chirk/widgetModel/chirk/add_chirk_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

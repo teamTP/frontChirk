@@ -1,6 +1,6 @@
-import 'package:chirk/add-chirk/add_chirk_model.dart';
-import 'package:chirk/add-chirk/add_chirk_widget.dart';
-import 'package:chirk/add-chirk/add_chirk_wm.dart';
+import 'package:chirk/model/chirk/add_chirk_model.dart';
+import 'package:chirk/widget/chirk/add_chirk_widget.dart';
+import 'package:chirk/widgetModel/chirk/add_chirk_wm.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:chirk/widget/profile/profile_widget.dart';
 import 'package:chirk/widgetModel/profile/profile_wm.dart';

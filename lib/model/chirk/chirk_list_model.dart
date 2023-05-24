@@ -8,8 +8,8 @@ import '../../service/chirl_list_service.dart';
 import '../../service/config.dart';
 
 class ChirkListModelDIO extends ChirkListModel {
-  int page = 0;
   final dio = Dio();
+  int page = 0;
   List<Chirk> _chirkList = [];
   final ChirkListType _chirkListType;
   bool _isLoading = false;
@@ -23,7 +23,6 @@ class ChirkListModelDIO extends ChirkListModel {
     );
     getHttp().then((list) {
       _chirkList = list;
-      chirkState.content(_chirkList);
     });
   }
 
@@ -35,16 +34,14 @@ class ChirkListModelDIO extends ChirkListModel {
       _chirkList.addAll(await getHttp());
       _isLoading = false;
     }
-    chirkState.content(_chirkList);
   }
 
   @override
-  void update() {
+  Future<void> update() async{
     page = 0;
     _chirkList.clear();
     getHttp().then((list) {
       _chirkList = list;
-      chirkState.content(_chirkList);
     });
   }
 
@@ -61,25 +58,27 @@ class ChirkListModelDIO extends ChirkListModel {
   @override
   // TODO: implement isLoading
   get isLoading => _isLoading;
+
+  @override
+  List<Chirk> get chirkList => _chirkList;
 }
 
 abstract class ChirkListModel extends ElementaryModel {
-  final EntityStateNotifier<List<Chirk>> chirkState = EntityStateNotifier();
 
   get isLoading;
 
   Future<void> pagination();
 
-  void update();
+  Future<void> update();
+
+  get chirkList;
 }
 
 class ChirkListModelList extends ChirkListModel {
   bool _isLoading = false;
   final IChirkListService _chirkListService;
 
-  ChirkListModelList(this._chirkListService) {
-    chirkState.content(_chirkListService.chirks);
-  }
+  ChirkListModelList(this._chirkListService);
 
   @override
   Future<void> pagination() async {
@@ -88,18 +87,18 @@ class ChirkListModelList extends ChirkListModel {
       _chirkListService.pagination();
       _isLoading = false;
     }
-    chirkState.content(_chirkListService.chirks);
   }
 
   @override
-  void update() {
+  Future<void> update() async{
     _chirkListService.update();
-    chirkState.content(_chirkListService.chirks);
   }
 
   @override
   // TODO: implement isLoading
   get isLoading => _isLoading;
+  @override
+  get chirkList => _chirkListService.chirks;
 }
 
 enum ChirkListType {

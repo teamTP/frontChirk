@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 
-import '../entity/chirk.dart';
-import '../service/config.dart';
-import '../service/managers.dart';
+import '../../entity/chirk.dart';
+import '../../service/config.dart';
+import '../../service/managers.dart';
 
 class AddChirkModel extends ElementaryModel {
   final _dio = Dio();

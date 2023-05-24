@@ -8,22 +8,21 @@ import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
-  ChirkListWM(ChirkListModel model) : super(model);
+  final EntityStateNotifier<List<Chirk>> _chirkListState = EntityStateNotifier();
+  ChirkListWM(super.model);
 
   @override
   void initWidgetModel() {
     super.initWidgetModel();
 
     scrollController.addListener(() {
-      if (!isLoading && scrollController.position.maxScrollExtent ==
+      if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
         fetch();
       }
     });
   }
 
-  @override
-  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkState;
 
   @override
   void dispose() {
@@ -31,21 +30,25 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     super.dispose();
   }
 
-  Future fetch() async {
-    await model.pagination();
+  Future<void> fetch() async {
+    await model.pagination().then((value) => _chirkListState.content(model.chirkList));
+
   }
 
   @override
   get controller => scrollController;
 
   @override
-  void update() {
-    model.update();
+  Future<void> update() async{
+    model.update().then((value) => _chirkListState.content(model.chirkList));
+
   }
 
   @override
-  // TODO: implement isLoading
   bool get isLoading => model.isLoading;
+
+  @override
+  EntityStateNotifier<List<Chirk>> get chirksState => _chirkListState;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
