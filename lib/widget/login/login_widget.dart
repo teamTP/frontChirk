@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:chirk/widgetModel/login/login_wm.dart';
 
 class LoginWidget extends ElementaryWidget<ILoginWM> {
-  LoginWidget(super.wmFactory);
+  const LoginWidget(super.wmFactory, {super.key});
 
   @override
   Widget build(ILoginWM wm) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Авторизация"),
+        title: const Text("Авторизация"),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(32),
+            padding: const EdgeInsets.all(32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -52,7 +52,7 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
@@ -68,7 +68,7 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                           onPressed: () {
                             wm.logIn();
                           },
-                          child: Text('Авторизоватся'),
+                          child: const Text('Авторизоватся'),
                         ),
                       ],
                     ),

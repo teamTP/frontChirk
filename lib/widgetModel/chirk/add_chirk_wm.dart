@@ -9,19 +9,25 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
 
   final TextEditingController _messageController = TextEditingController();
   final EntityStateNotifier<bool> _disappearState = EntityStateNotifier();
-  AddChirkWM(super.model);
+  final EntityStateNotifier<String> _errorState = EntityStateNotifier();
 
+  AddChirkWM(super.model);
   @override
   Future<void> addChirk() async {
     if (_validateMessage()) {
       model.addChirk(_messageController.text).then((value) {
-        _messageController.text = '';
-        model.isDisappear = false;
-        _disappearState.content(model.isDisappear);
+
+        if(value==''){
+          _messageController.text = '';
+          model.isDisappear = false;
+          _disappearState.content(model.isDisappear);
+          _errorState.content('');
+        }else{
+          _errorState.content(value);
+        }
+
       });
     }
-    // TODO: implement addChirk
-    throw UnimplementedError();
   }
 
   @override
@@ -42,14 +48,18 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
   }
 
   @override
-  // TODO: implement disapperState
   EntityStateNotifier<bool> get disappearState => _disappearState;
+
+  @override
+  get errorState => _errorState;
 }
 
 abstract class IAddChirkWM extends IWidgetModel {
   get messageController;
 
   EntityStateNotifier<bool> get disappearState;
+
+  EntityStateNotifier<String> get errorState;
 
   Future<void> addChirk();
 

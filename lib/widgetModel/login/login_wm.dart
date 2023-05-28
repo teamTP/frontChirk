@@ -54,14 +54,14 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
     isEmailValid = isValid;
-    model.userState.notifyListeners();
+    userState.notifyListeners();
     return isValid;
   }
 
   bool _validatePassword() {
     bool isValid = validatePassword(_passwordTextInputController.text);
     isPasswordValid = isValid;
-    model.userState.notifyListeners();
+    userState.notifyListeners();
     return isValid;
   }
 

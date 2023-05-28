@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class UnloginWidget extends StatefulWidget {
-  String text;
+  final String text;
 
-  UnloginWidget(this.text, {super.key});
+  const UnloginWidget(this.text, {super.key});
 
   @override
   State<StatefulWidget> createState() => _UnloginWidgetState();
@@ -12,7 +12,6 @@ class UnloginWidget extends StatefulWidget {
 class _UnloginWidgetState extends State<UnloginWidget> {
   @override
   Widget build(BuildContext context) {
-    double size = Theme.of(context).textTheme.headlineMedium!.fontSize!;
     return SafeArea(
       child: Column(
         children: [
@@ -55,7 +54,7 @@ class _UnloginWidgetState extends State<UnloginWidget> {
                     Navigator.pushNamed(context, "/login");
                   },
                   child: const Text('Авторизуйтесь')),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
             ],
           )
         ],

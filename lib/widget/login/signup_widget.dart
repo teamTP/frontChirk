@@ -4,18 +4,18 @@ import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
 class SignUpWidget extends ElementaryWidget<ISignUpWM> {
-  SignUpWidget(super.wmFactory);
+  const SignUpWidget(super.wmFactory, {super.key});
 
   @override
   Widget build(ISignUpWM wm) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Регистрация"),
+        title: const Text("Регистрация"),
       ),
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(32),
+            padding: const EdgeInsets.all(32),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -40,7 +40,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                                   : null,
                           decoration: InputDecoration(
                             labelText: 'Введите email',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText: wm.isEmailValid ? null : "Неправильный email"
                           ),
                         ),
@@ -57,7 +57,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                                   : null,
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText: wm.isPasswordValid ? null:"Слабый пароль",
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
@@ -85,7 +85,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                               : null,
                           decoration: InputDecoration(
                             labelText: 'Повторите пароль',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText: wm.isRepeatPasswordValid ? null:"Не правильный пароль",
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
@@ -103,7 +103,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           decoration: InputDecoration(
                             labelText: 'Введите имя',
                             errorText: wm.isFirstNameValid ? null:"Поле не должно быть пустым",
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -118,7 +118,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                             labelText: 'Введите фамилию',
 
                             errorText: wm.isLastNameValid ? null:"Поле не должно быть пустым",
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -126,7 +126,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           onPressed: () {
                             wm.signUp();
                           },
-                          child: Text('Зарегистрироватся'),
+                          child: const Text('Зарегистрироватся'),
                         ),
                       ],
                     ),

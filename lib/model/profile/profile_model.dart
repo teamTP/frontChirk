@@ -26,7 +26,7 @@ class ProfileModel extends ElementaryModel {
   Future<User> getHttp() async {
     final token = await TokenManager.getAccessToken();
     final response = await dio.get(
-      '/profile/userProfile',
+      Config.profileUserProfile,
       options: Options(
           headers: token != null ? {'Authorization': 'Bearer $token'} : null),
     );

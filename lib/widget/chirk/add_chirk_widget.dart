@@ -1,10 +1,11 @@
+
 import 'package:chirk/widgetModel/chirk/add_chirk_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AddChirkWidget extends ElementaryWidget<IAddChirkWM> {
-  AddChirkWidget(super.wmFactory, {super.key});
+  const AddChirkWidget(super.wmFactory, {super.key});
 
   @override
   Widget build(IAddChirkWM wm) {
@@ -16,9 +17,22 @@ class AddChirkWidget extends ElementaryWidget<IAddChirkWM> {
         child: SingleChildScrollView(
           child: Form(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
                 children: [
+                  EntityStateNotifierBuilder(
+                      listenableEntityState: wm.errorState,
+                      builder: (context, message) {
+                        if (message != null && message.isNotEmpty) {
+                          return Card(
+                            child: Text(
+                              message,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }
+                        return const SizedBox();
+                      }),
                   TextFormField(
                     controller: wm.messageController,
                     maxLength: 255,
@@ -43,14 +57,14 @@ class AddChirkWidget extends ElementaryWidget<IAddChirkWM> {
                                   wm.onTapCheck();
                                 });
                           }),
-                      Text("Скрыть сообщение через 24 часа")
+                      const Text("Скрыть сообщение через 24 часа")
                     ],
                   ),
                   ElevatedButton(
                       onPressed: () {
                         wm.addChirk();
                       },
-                      child: Text("Опубликовать чирк"))
+                      child: const Text("Опубликовать чирк"))
                 ],
               ),
             ),

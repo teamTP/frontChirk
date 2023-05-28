@@ -1,14 +1,10 @@
 import 'package:chirk/widgetModel/chirk/chirk_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:jiffy/jiffy.dart';
 
-import '../../entity/chirk.dart';
-import '../../service/userIcons.dart';
-
 class ChirkWidget extends ElementaryWidget<IChirkWM> {
-  ChirkWidget(super.wmFactory);
+  const ChirkWidget(super.wmFactory, {super.key});
 
   @override
   Widget build(IChirkWM wm) {
@@ -28,12 +24,8 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                 ),
             trailing: IconButton(
               style: IconButton.styleFrom(
-              foregroundColor: false
-                  ? colors.onPrimary
-                  : colors.primary,
-              backgroundColor: false
-                  ? colors.primary
-                  : colors.surfaceVariant,
+              foregroundColor: colors.primary,
+              backgroundColor: colors.surfaceVariant,
               disabledForegroundColor:
               colors.onSurface.withOpacity(0.38),
               disabledBackgroundColor:
@@ -55,7 +47,7 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
               listenableEntityState: wm.chirkState,
               builder: (context, chirk) {
                 if (chirk == null) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
 
                 return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -104,9 +96,7 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                     ),
                     isSelected: !(chirk.liked ?? true),
                     onPressed: () {
-                      print(chirk.liked);
                       wm.onTapDislike();
-                      print(chirk.liked);
                       //todo реализвать нажатие кнопки dislike
                     },
                     icon: const Icon(

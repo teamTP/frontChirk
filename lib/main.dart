@@ -1,6 +1,7 @@
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/model/login/login_model.dart';
 import 'package:chirk/provider/user_provider.dart';
+import 'package:chirk/service/config.dart';
 import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/profile/edit_profile_widget.dart';
@@ -38,7 +39,7 @@ class ChirkApp extends StatefulWidget {
 
 class _ChirkAppState extends State<ChirkApp> {
   ColorTheme colorThem = ColorTheme(Colors.yellow);
-  HomeWidget homeWidget = HomeWidget();
+  HomeWidget homeWidget = const HomeWidget();
 
   @override
   Widget build(BuildContext context) {

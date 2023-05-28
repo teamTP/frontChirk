@@ -37,7 +37,7 @@ class LoginModel extends ElementaryModel {
     print(user.toRegisterJson());
 
     try {
-      response=await  _dio.post("/user/authorisation", data: user.toRegisterJson(), );
+      response=await  _dio.post(Config.userAuthorisation, data: user.toRegisterJson(), );
       final accessToken = response.data['accessToken'];
       final refreshToken = response.data['refreshToken'];
       TokenManager.saveTokens(accessToken, refreshToken);

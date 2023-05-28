@@ -8,11 +8,12 @@ import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
-  final EntityStateNotifier<List<Chirk>> _chirkListState = EntityStateNotifier();
+
   ChirkListWM(super.model);
 
+
   @override
-  void initWidgetModel() {
+  Future<void> initWidgetModel() async {
     super.initWidgetModel();
 
     scrollController.addListener(() {
@@ -26,29 +27,25 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
 
   @override
   void dispose() {
-    chirksState.dispose();
     super.dispose();
   }
 
   Future<void> fetch() async {
-    await model.pagination().then((value) => _chirkListState.content(model.chirkList));
-
+    model.pagination();
   }
-
   @override
   get controller => scrollController;
 
   @override
-  Future<void> update() async{
-    model.update().then((value) => _chirkListState.content(model.chirkList));
-
+  Future<void> update() async {
+    model.update();
   }
 
   @override
   bool get isLoading => model.isLoading;
 
   @override
-  EntityStateNotifier<List<Chirk>> get chirksState => _chirkListState;
+  EntityStateNotifier<List<Chirk>> get chirksState => model.chirkListState;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
