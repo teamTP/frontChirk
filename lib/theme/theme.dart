@@ -17,6 +17,7 @@ class ColorTheme {
     return ThemeData(
       useMaterial3: true,
       colorSchemeSeed: _primaryColor,
+      fontFamily: 'VKSans',
     );
   }
 
@@ -24,7 +25,9 @@ class ColorTheme {
     return ThemeData(
         useMaterial3: true,
         colorSchemeSeed: _primaryColor,
-        brightness: Brightness.dark);
+        brightness: Brightness.dark,
+        fontFamily: 'VKSans',
+    );
   }
 
   ThemeData getLightTheme() {

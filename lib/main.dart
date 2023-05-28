@@ -4,7 +4,6 @@ import 'package:chirk/provider/user_provider.dart';
 import 'package:chirk/service/config.dart';
 import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
-import 'package:chirk/widget/profile/edit_profile_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
@@ -18,6 +17,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chirk/model/login/signup_model.dart';
+
+import 'editProfile/edit_profile_widget.dart';
+import 'entity/user.dart';
 
 void main() {
   runApp(EasyDynamicThemeWidget(
@@ -56,7 +58,6 @@ class _ChirkAppState extends State<ChirkApp> {
         '/login': (context) => LoginWidget((context) => LoginWM(LoginModel())),
         '/register': (context) =>
             SignUpWidget((context) => SignUpWM(SignUpModel())),
-        '/edit': (context) => const EditProfileWidget(),
         '/myChirk': (context) => ChirkListWidget("Мои чирки",
             (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.myList))),
         '/likedChirk': (context) => ChirkListWidget("Понравившиеся чирки",
