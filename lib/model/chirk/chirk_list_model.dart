@@ -1,4 +1,3 @@
-
 import 'package:chirk/service/managers.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
@@ -8,11 +7,13 @@ import '../../service/chirl_list_service.dart';
 import '../../service/config.dart';
 
 class ChirkListModelDIO extends ChirkListModel {
-  int page = 0;
   final dio = Dio();
+  int page = 0;
   List<Chirk> _chirkList = [];
   final ChirkListType _chirkListType;
   bool _isLoading = false;
+  final EntityStateNotifier<List<Chirk>> _chirkListState =
+      EntityStateNotifier();
 
   ChirkListModelDIO(this._chirkListType) {
     page = 0;
@@ -23,7 +24,7 @@ class ChirkListModelDIO extends ChirkListModel {
     );
     getHttp().then((list) {
       _chirkList = list;
-      chirkState.content(_chirkList);
+      _chirkListState.content(_chirkList);
     });
   }
 
@@ -34,17 +35,17 @@ class ChirkListModelDIO extends ChirkListModel {
       page++;
       _chirkList.addAll(await getHttp());
       _isLoading = false;
+      _chirkListState.content(_chirkList);
     }
-    chirkState.content(_chirkList);
   }
 
   @override
-  void update() {
+  Future<void> update() async {
     page = 0;
     _chirkList.clear();
     getHttp().then((list) {
       _chirkList = list;
-      chirkState.content(_chirkList);
+      _chirkListState.content(_chirkList);
     });
   }
 
@@ -56,70 +57,61 @@ class ChirkListModelDIO extends ChirkListModel {
             headers:
                 token != null ? {'Authorization': 'Bearer $token'} : null));
     return response.data.map<Chirk>((chirk) => Chirk.fromJson(chirk)).toList();
-    }
+  }
 
   @override
-  // TODO: implement isLoading
   get isLoading => _isLoading;
+
+  @override
+  List<Chirk> get chirkList => _chirkList;
+
+  @override
+  // TODO: implement chirkState
+  EntityStateNotifier<List<Chirk>> get chirkListState => _chirkListState;
 }
 
 abstract class ChirkListModel extends ElementaryModel {
-  final EntityStateNotifier<List<Chirk>> chirkState = EntityStateNotifier();
-
   get isLoading;
 
   Future<void> pagination();
 
-  void update();
+  Future<void> update();
+
+  List<Chirk> get chirkList;
+
+  EntityStateNotifier<List<Chirk>> get chirkListState;
 }
 
 class ChirkListModelList extends ChirkListModel {
   bool _isLoading = false;
   final IChirkListService _chirkListService;
 
-  ChirkListModelList(this._chirkListService) {
-    chirkState.content(_chirkListService.chirks);
-  }
+  final EntityStateNotifier<List<Chirk>> _chirkState =
+      EntityStateNotifier<List<Chirk>>();
+
+  ChirkListModelList(this._chirkListService);
 
   @override
   Future<void> pagination() async {
-    if(!_isLoading){
+    if (!_isLoading) {
       _isLoading = true;
       _chirkListService.pagination();
       _isLoading = false;
     }
-    chirkState.content(_chirkListService.chirks);
   }
 
   @override
-  void update() {
+  Future<void> update() async {
     _chirkListService.update();
-    chirkState.content(_chirkListService.chirks);
   }
 
   @override
-  // TODO: implement isLoading
   get isLoading => _isLoading;
-}
 
-enum ChirkListType {
-  standard,
-  myList,
-  liked,
-  disliked,
-}
+  @override
+  get chirkList => _chirkListService.chirks;
 
-extension ChirkListTypeExtension on ChirkListType {
-  String get value {
-    switch (this) {
-      case ChirkListType.standard:
-        return '/feed';
-      case ChirkListType.myList:
-        return '/profile/myChirks';
-      case ChirkListType.liked:
-        return '/profile/myLikedChirks';
-      case ChirkListType.disliked:
-        return '/profile/myDislikedChirks';
-    }
-  }
+  @override
+  // TODO: implement chirkState
+  EntityStateNotifier<List<Chirk>> get chirkListState => _chirkState;
 }

@@ -11,13 +11,24 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-  bool _isFirstImageVisible = true;
+  final bool _isFirstImageVisible = true;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
-      checkFirstSeen();
+    Future.delayed(const Duration(seconds: 3), () {
+      checkFirstSeen().then((value) => {
+            if (value)
+              {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/onBoarding', (route) => false)
+              }
+            else
+              {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false)
+              }
+          });
     });
   }
 
@@ -28,10 +39,11 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-
     final Brightness brightness = Theme.of(context).brightness;
-    String underLogo = 'assets/img/text-underlogo${brightness==Brightness.dark?'-dark':''}.png';
-    String logoSplash = 'assets/img/logo-splash${brightness==Brightness.dark?'-dark':''}.png';
+    String underLogo =
+        'assets/img/text-underlogo${brightness == Brightness.dark ? '-dark' : ''}.png';
+    String logoSplash =
+        'assets/img/logo-splash${brightness == Brightness.dark ? '-dark' : ''}.png';
     return Scaffold(
       body: Center(
         child: Stack(
@@ -45,9 +57,17 @@ class _SplashState extends State<Splash> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(logoSplash, width: 128,),
-                    SizedBox(height: 24,),
-                    Image.asset(underLogo, width: 128,),
+                    Image.asset(
+                      logoSplash,
+                      width: 128,
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Image.asset(
+                      underLogo,
+                      width: 128,
+                    ),
                   ],
                 ),
               ),
@@ -58,14 +78,9 @@ class _SplashState extends State<Splash> {
     );
   }
 
-  Future<void> checkFirstSeen() async {
+  Future<bool> checkFirstSeen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isFirstSeen = (prefs.getBool('firstSeen') ?? true);
-
-    if (isFirstSeen) {
-      Navigator.pushNamedAndRemoveUntil(context, '/onBoarding', (route) => false);
-    } else {
-      Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-    }
+    return isFirstSeen;
   }
 }

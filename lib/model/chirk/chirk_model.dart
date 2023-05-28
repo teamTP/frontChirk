@@ -1,7 +1,6 @@
 import 'package:chirk/service/config.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
-import 'package:flutter/material.dart';
 
 import '../../entity/chirk.dart';
 import '../../service/managers.dart';
@@ -64,7 +63,7 @@ class ChirkServiceDIO implements IChirkService {
     Dio dio = Dio(options);
     try {
       response = await dio.post(
-        "/estimate/add",
+        Config.estimateAdd,
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
         data: _chirk.toLikeJson(),

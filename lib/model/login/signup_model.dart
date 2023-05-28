@@ -39,9 +39,9 @@ class SignUpModel extends ElementaryModel {
     print(user.toRegisterJson());
 
     try {
-      response=await  _dio.post("/user/register", data: user.toRegisterJson(), );
-      final accessToken = response.data['accessToken'];
-      final refreshToken = response.data['refreshToken'];
+      response=await  _dio.post(Config.userRegister, data: user.toRegisterJson(), );
+      final accessToken = response.data[Config.accessId];
+      final refreshToken = response.data[Config.refreshId];
       TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
       print('Error: $e');

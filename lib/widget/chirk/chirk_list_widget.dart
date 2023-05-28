@@ -9,7 +9,7 @@ import '../../widgetModel/chirk/chirk_list_wm.dart';
 class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
   final String _title;
 
-  ChirkListWidget(this._title, super.wmFactory, {super.key});
+  const ChirkListWidget(this._title, super.wmFactory, {super.key});
   @override
   Widget build(IChirkListWM wm) {
     return Scaffold(
@@ -30,10 +30,18 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
               controller: wm.controller,
               itemCount: chirkList.length + 1,
               itemBuilder: (BuildContext context, int index) {
+                if(chirkList.isEmpty){
+                  return Center(
+                    child: Column(children: [
+                      Text('Попробуйте перезагрузить ленту'),
+                      ElevatedButton(onPressed: () =>wm.update(), child: Text('Перезагрузить'))
+                    ],),
+                  );
+
+                }
                 if (index == chirkList.length) {
                   return _buildLoaderIndicator(wm.isLoading);
                 } else {
-                  print(index);
                   return ChirkWidget((context) =>
                       ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index]))));
                 }

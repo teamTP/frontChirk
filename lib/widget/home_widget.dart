@@ -1,6 +1,6 @@
-import 'package:chirk/add-chirk/add_chirk_model.dart';
-import 'package:chirk/add-chirk/add_chirk_widget.dart';
-import 'package:chirk/add-chirk/add_chirk_wm.dart';
+import 'package:chirk/model/chirk/add_chirk_model.dart';
+import 'package:chirk/widget/chirk/add_chirk_widget.dart';
+import 'package:chirk/widgetModel/chirk/add_chirk_wm.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:chirk/widget/profile/profile_widget.dart';
 import 'package:chirk/widgetModel/profile/profile_wm.dart';
@@ -9,10 +9,9 @@ import 'package:chirk/widget/unlogin/unlogin_add_chirk_widget.dart';
 import 'package:chirk/widget/unlogin/unlogin_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
+import '../service/config.dart';
 import 'chirk/chirk_list_widget.dart';
 
 class HomeWidget extends StatefulWidget {
@@ -145,15 +144,5 @@ class _MyState extends State<StatefulWidget> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  static User initUser() {
-    return User(
-        id: 1,
-        iconId: 0,
-        name: "Иван",
-        surname: "Сидоров",
-        login: "ivan@sidorov.ru",
-        password: ":OHG:25L:JHG");
   }
 }
