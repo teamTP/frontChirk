@@ -13,7 +13,7 @@ class ColorTheme {
 
   ColorTheme(this._primaryColor);
 
-  ThemeData getLightMatDisign() {
+  ThemeData getLightMatTheme() {
     return ThemeData(
       useMaterial3: true,
       colorSchemeSeed: _primaryColor,
@@ -21,7 +21,7 @@ class ColorTheme {
     );
   }
 
-  ThemeData getDarkMatDisign() {
+  ThemeData getDarkMatTheme() {
     return ThemeData(
         useMaterial3: true,
         colorSchemeSeed: _primaryColor,

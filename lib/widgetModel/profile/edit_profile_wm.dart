@@ -1,8 +1,11 @@
+import 'package:chirk/editProfile/edit_personal_information_model.dart';
+import 'package:chirk/editProfile/edit_personal_information_widget.dart';
+import 'package:chirk/editProfile/edit_personal_information_wm.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import '../../editProfile/edit_profile_widget.dart';
+import '../../widget/profile/edit_profile_widget.dart';
 import '../../entity/user.dart';
 import '../../service/userIcons.dart';
 
@@ -22,7 +25,10 @@ class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
 
   @override
   void toEditPersonalInformation() {
-    Navigator.of(context).pushNamed('/editPersonalInformation');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => EditPersonalInformationWidget((context) =>
+            EditPersonalInformationWM(
+                EditPersonalInformationModel(model.userState.value!.data!)))));
   }
 
   @override

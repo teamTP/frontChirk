@@ -1,91 +1,94 @@
+import 'package:chirk/widgetModel/profile/edit_profile_wm.dart';
+import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-class EditProfileWidget extends StatefulWidget {
-  const EditProfileWidget({super.key});
+class EditProfileWidget extends ElementaryWidget<EditProfileWM> {
+  const EditProfileWidget(super.wmFactory, {super.key});
 
   @override
-  _EditProfileWidgetState createState() => _EditProfileWidgetState();
-}
-
-class _EditProfileWidgetState extends State<EditProfileWidget> {
-  final _formKey = GlobalKey<FormState>();
-  String? _name;
-  String? _surname;
-  String? _newPass;
-  String? _oldPass;
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(EditProfileWM wm) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Редактировать"),
+        title: const Text("Редактирование"),
       ),
-      body: addEditBody(),
-    );
-  }
-
-  Widget addEditBody() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: GlobalKey<FormState>(),
+      body: SingleChildScrollView(
+        child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Center(
-                child: CircleAvatar(
-                  radius:
-                      Theme.of(context).textTheme.headlineMedium!.fontSize! * 2,
-                ),
-              ),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _name = input,
-                decoration: const InputDecoration(
-                  labelText: 'Имя',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _surname = input,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: 'Фамилия',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _newPass = input,
-                decoration: const InputDecoration(
-                  labelText: 'Новый пароль',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              TextFormField(
-                validator: (input) {
-                  return null;
-                },
-                onSaved: (input) => _oldPass = input,
-                decoration: const InputDecoration(
-                  labelText: 'Старый пароль',
-                ),
-              ),
-              const SizedBox(height: 20.0),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    // TODO:  edit action
-                  },
-                  child: const Text('Сохранить изменения'),
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EntityStateNotifierBuilder(
+                  listenableEntityState: wm.userState,
+                  builder: (context, user) {
+                    if (user != null) {
+                      return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            children: [
+                              CircleAvatar(
+                                  radius: 48,
+                                  backgroundImage: wm.userIcon,
+                                  child: SizedBox(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          wm.toEditIcon();
+                                        },
+                                        icon: const Icon(
+                                          Icons.camera_alt_outlined,
+                                          color: Colors.white,
+                                          size: 48,
+                                        ),
+                                        style: IconButton.styleFrom(
+                                            backgroundColor: Colors.black26)),
+                                  )), // иконка
+                              const SizedBox(
+                                height: 24,
+                              ),
+                              Text(
+                                '${user.name} ${user.surname}',
+                                style: wm.textTheme.titleLarge,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  }),
+              Card(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Text(
+                        'Информация',
+                        style: wm.textTheme.titleMedium,
+                      ),
+                    ),
+                    ListTile(
+                      title: Text('Сменить личные данные', style: wm.textTheme.bodyLarge,),
+                      onTap: () => wm.toEditPersonalInformation(),
+                    ),
+                    ListTile(
+                      title: Text('Сменить пароль', style: wm.textTheme.bodyLarge,),
+                      onTap: () => wm.toEditPassword(),
+                    ),
+                    ListTile(
+                      title: Text('Автоматическая смена темы', style: wm.textTheme.bodyLarge,),
+                      trailing: EasyDynamicThemeAutoSwitch(),
+                    ),
+                    ListTile(
+                      title: Text('Светлая/темная тема', style: wm.textTheme.bodyLarge,),
+                      trailing: EasyDynamicThemeSwitch(),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 
 import 'package:chirk/model/login/signup_model.dart';
 
-import 'editProfile/edit_profile_widget.dart';
+import 'widget/profile/edit_profile_widget.dart';
 import 'entity/user.dart';
 
 void main() {
@@ -46,8 +46,8 @@ class _ChirkAppState extends State<ChirkApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: colorThem.getLightMatDisign(),
-      darkTheme: colorThem.getDarkMatDisign(),
+      theme: colorThem.getLightMatTheme(),
+      darkTheme: colorThem.getDarkMatTheme(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
 
       initialRoute: '/splash',

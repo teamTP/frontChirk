@@ -1,4 +1,4 @@
-import 'package:chirk/editProfile/edit_profile_widget.dart';
+import 'package:chirk/widget/profile/edit_profile_widget.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:chirk/widget/profile/profile_widget.dart';
 import 'package:chirk/widgetModel/profile/edit_profile_wm.dart';
