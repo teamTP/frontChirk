@@ -1,22 +1,21 @@
-import 'package:chirk/editProfile/edit_personal_information_wm.dart';
+import 'package:chirk/editProfile/edit_password_model/edit_password_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-class EditPersonalInformationWidget
-    extends ElementaryWidget<IEditPersonalInformationWM> {
-  const EditPersonalInformationWidget(super.wmFactory, {super.key});
+class EditPasswordWidget extends ElementaryWidget<IEditPasswordWM> {
+  const EditPasswordWidget(super.wmFactory, {super.key});
 
   @override
-  Widget build(IEditPersonalInformationWM wm) {
+  Widget build(IEditPasswordWM wm) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Изменить личные данные'),
+        title: Text('Изменить личные данные'),
         leading: IconButton(
           onPressed: () => wm.cancel(),
           icon: const Icon(Icons.clear),
         ),
         actions: <Widget>[
-          IconButton(onPressed: () => wm.editInf(), icon: const Icon(Icons.done)),
+          IconButton(onPressed: () => wm.editPas(), icon: const Icon(Icons.done)),
         ],
       ),
       body: Center(
@@ -30,18 +29,26 @@ class EditPersonalInformationWidget
                 const SizedBox(height: 16),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: "Имя",
+                    labelText: "Старый пароль",
                     border: OutlineInputBorder(),
                   ),
-                  controller: wm.nameController,
+                  controller: wm.oldPasswordController,
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: "Фамилия",
+                    labelText: "Новый пароль",
                     border: OutlineInputBorder(),
                   ),
-                  controller: wm.surnameController,
+                  controller: wm.newPasswordController,
+                ),
+                const SizedBox(height: 16),
+                TextFormField(
+                  decoration: const InputDecoration(
+                    labelText: "Повторите новый пароль",
+                    border: OutlineInputBorder(),
+                  ),
+                  controller: wm.newPasswordRetryController,
                 ),
               ],
             ),
@@ -50,4 +57,5 @@ class EditPersonalInformationWidget
       ),
     );
   }
+
 }

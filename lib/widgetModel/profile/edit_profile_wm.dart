@@ -1,3 +1,6 @@
+import 'package:chirk/editProfile/edit_password_model/edit_password_model.dart';
+import 'package:chirk/editProfile/edit_password_model/edit_password_widget.dart';
+import 'package:chirk/editProfile/edit_password_model/edit_password_wm.dart';
 import 'package:chirk/editProfile/edit_personal_information_model.dart';
 import 'package:chirk/editProfile/edit_personal_information_widget.dart';
 import 'package:chirk/editProfile/edit_personal_information_wm.dart';
@@ -20,7 +23,9 @@ class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
 
   @override
   void toEditPassword() {
-    Navigator.of(context).pushNamed('/editPassword');
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => EditPasswordWidget(
+            (context) => EditPasswordWM(EditPasswordModel()))));
   }
 
   @override
