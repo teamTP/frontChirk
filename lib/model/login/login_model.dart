@@ -10,7 +10,6 @@ class LoginModel extends ElementaryModel {
   bool _isHiddenPassword = true;
   EntityStateNotifier<User> _userState = EntityStateNotifier();
 
-
   LoginModel() {
     _dio.options = BaseOptions(
       baseUrl: Config.apiURL,
@@ -24,25 +23,34 @@ class LoginModel extends ElementaryModel {
   }
 
   EntityStateNotifier<User> get userState => _userState;
+
   set userState(EntityStateNotifier<User> value) {
     _userState = value;
   }
-  Future<void> logIn(User user)async{
-    postHttp(user);
+
+  Future<String?> logIn(User user) async {
+    if(await postHttp(user)==403){
+      return "Неверный логин или пароль";
+    }
   }
 
-  Future<void> postHttp(User user) async {
+  Future<int?> postHttp(User user) async {
     Response response;
 
     print(user.toRegisterJson());
 
     try {
-      response=await  _dio.post(Config.userAuthorisation, data: user.toRegisterJson(), );
+      response = await _dio.post(
+        Config.userAuthorisation,
+        data: user.toRegisterJson(),
+      );
       final accessToken = response.data['accessToken'];
       final refreshToken = response.data['refreshToken'];
       TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
-      print('Error: $e');
+      if (e is DioError) {
+        return e.response!.statusCode;
+      }
     }
   }
 }

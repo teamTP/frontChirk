@@ -16,11 +16,11 @@ class EditPersonalInformationModel extends ElementaryModel{
       receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
-  Future<void> editInf() async{
-    postHttp();
+  Future<void> editInf(firstname, lastname) async{
+    postHttp(firstname, lastname);
   }
 
-  Future<void> postHttp() async {
+  Future<void> postHttp(firstname, lastname) async {
     final token = await TokenManager.getAccessToken();
     Response response;
     try {
@@ -28,6 +28,10 @@ class EditPersonalInformationModel extends ElementaryModel{
         Config.editPersonalInformation,
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
+        data:{
+          "firstname": firstname,
+          "lastname": lastname
+        }
       );
     } catch (e) {
       print('Error: $e');

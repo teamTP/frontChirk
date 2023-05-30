@@ -57,7 +57,6 @@ class Chirk {
       };
 
   static Map<String, dynamic> toAddJson(bool isDisappear, String message) => {
-    "idUser": 0,
     "text": message,
     "oneDay": isDisappear,
   };

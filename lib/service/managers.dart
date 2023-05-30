@@ -49,7 +49,7 @@ class TokenManager {
     final DateTime expirationDateTime = DateTime.fromMillisecondsSinceEpoch(expirationTime * 1000);
     final DateTime currentDateTime = DateTime.now();
 
-    return !currentDateTime.isAfter(expirationDateTime);
+    return currentDateTime.isAfter(expirationDateTime);
   }
 
   String decryptToken(String encryptedToken, String secretKey) {

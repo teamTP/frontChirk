@@ -36,12 +36,19 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
     if (_validatePassword() && _validateEmail()) {
       User user = User(
           id: 0,
-          login: _emailTextInputController.text,
+          login: _emailTextInputController.text.toLowerCase(),
           password: _passwordTextInputController.text,
           name: '',
           surname: '',
           iconId: 0);
       model.logIn(user).then((value){
+        if(value!=null){
+          final snackBar = SnackBar(
+            content: Text(value),
+            duration: Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
         //Navigator.popUntil(context, ModalRoute.withName('/'),);
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
       });

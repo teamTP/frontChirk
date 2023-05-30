@@ -5,8 +5,8 @@ class Config{
   static const String userAuthorisation = "/user/authorisation";
   static const String userRegister = "/user/register";
   static const String profileUserProfile = '/profile/userProfile';
-  static const String editPersonalInformation = '';
-  static const String editPassword = '';
+  static const String editPersonalInformation = '/profile/updateUserInfo';
+  static const String editPassword = '/profile/updateUserPassword';
 
   static const String accessId = 'accessToken';
   static const String refreshId = 'accessToken';

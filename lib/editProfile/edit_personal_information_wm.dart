@@ -13,7 +13,7 @@ class EditPersonalInformationWM extends WidgetModel<EditPersonalInformationWidge
   }
   @override
   void editInf() {
-    model.editInf().then((value){
+    model.editInf(_nameController.text,  _surnameController.text).then((value){
       Navigator.pop(context);
     });
   }

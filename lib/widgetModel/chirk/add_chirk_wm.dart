@@ -17,13 +17,13 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
     if (_validateMessage()) {
       model.addChirk(_messageController.text).then((value) {
 
-        if(value==''){
+        if(value==200){
           _messageController.text = '';
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
-        }else{
+        }else if(value!=null){
           final snackBar = SnackBar(
-            content: Text(value),
+            content: Text('Http error $value'),
             duration: Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);

@@ -16,24 +16,25 @@ class AddChirkModel extends ElementaryModel {
       receiveTimeout: Duration(milliseconds: 30000),
     );
   }
-  Future<String> addChirk(String message)async {
+
+  Future<int?> addChirk(String message) async {
     return postHttp(message);
   }
 
-  Future<String> postHttp(String message ) async{
+  Future<int?> postHttp(String message) async {
     final token = await TokenManager.getAccessToken();
 
     try {
-      final response=await  _dio.post(Config.chirksAdd,
+      final response = await _dio.post(
+        Config.chirksAdd,
         data: Chirk.toAddJson(isDisappear, message),
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
       );
 
-      return '';
-
+      return response.statusCode;
     } catch (e) {
-      return e.toString();
+      if (e is DioError) if (e.response != null) return e.response!.statusCode;
     }
   }
 }
