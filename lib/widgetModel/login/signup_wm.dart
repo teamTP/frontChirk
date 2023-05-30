@@ -46,20 +46,28 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   Future signUp() async {
-    if (_validatePassword() &&
-        _validateEmail() &&
-        _validateLastName() &&
+    if (_validateEmail() &&
+        _validatePassword() &&
+        _validateRepeatPassword() &&
         _validateName() &&
-        _validateRepeatPassword()) {
+        _validateLastName()) {
       User user = User(
           id: 0,
-          login: _emailTextInputController.text,
+          login: _emailTextInputController.text.toLowerCase(),
           password: _passwordTextInputController.text,
           iconId: 0,
           name: _nameTextInputController.text,
           surname: _surnameTextInputController.text);
       model.signUp(user).then((value) {
-        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        if (value != null) {
+          final snackBar = SnackBar(
+            content: Text(value),
+            duration: Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else {
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        }
       });
     }
   }
@@ -67,43 +75,43 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
   bool _validateName() {
     bool isValid = _nameTextInputController.text.isNotEmpty;
     isFirstNameValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateLastName() {
     bool isValid = _surnameTextInputController.text.isNotEmpty;
     isLastNameValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
     isEmailValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validatePassword() {
     bool isValid = validatePassword(_passwordTextInputController.text);
     isPasswordValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateRepeatPassword() {
     bool isValid = _passwordTextRepeatInputController.text ==
         _passwordTextInputController.text;
-    isPasswordValid = isValid;
-    model.userState.notifyListeners();
+    isRepeatPasswordValid = isValid;
+    model.userState.content(User.empty);
     return isValid;
   }
 
   @override
   void togglePasswordView() {
     model.isHiddenPassword = !model.isHiddenPassword;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
   }
 
   @override

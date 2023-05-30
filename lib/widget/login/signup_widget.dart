@@ -34,10 +34,6 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: false,
                           controller: wm.emailController,
-                          validator: (email) =>
-                              email != null && !EmailValidator.validate(email)
-                                  ? 'Введите правильный email'
-                                  : null,
                           decoration: InputDecoration(
                             labelText: 'Введите email',
                             border: const OutlineInputBorder(),
@@ -51,10 +47,6 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           obscureText: wm.isHiddenPassword,
                           enableSuggestions: false,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (password) =>
-                              password != null && !wm.validatePassword(password)
-                                  ? 'Слабый пароль'
-                                  : null,
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
                             border: const OutlineInputBorder(),
@@ -76,13 +68,6 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           obscureText: wm.isHiddenPassword,
                           enableSuggestions: false,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (passwordRepeat) => passwordRepeat !=
-                                      null &&
-                                  (!wm.validatePassword(passwordRepeat) ||
-                                      wm.passwordController.value.text !=
-                                          passwordRepeat)
-                              ? 'Не правильный пароль'
-                              : null,
                           decoration: InputDecoration(
                             labelText: 'Повторите пароль',
                             border: const OutlineInputBorder(),
@@ -109,11 +94,6 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                         const SizedBox(height: 16),
                         TextFormField(
                           controller: wm.surnameController,
-                          validator: (surname) =>
-                              //todo реализовать ошибку или забить
-                              surname == null || surname.isEmpty
-                                  ? 'Поле не должно быть пустым'
-                                  : null,
                           decoration: InputDecoration(
                             labelText: 'Введите фамилию',
 
