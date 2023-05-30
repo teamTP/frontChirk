@@ -17,22 +17,28 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chirk/model/login/signup_model.dart';
+import 'package:flutter/services.dart';
 
 import 'widget/profile/edit_profile_widget.dart';
 import 'entity/user.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
   runApp(EasyDynamicThemeWidget(
-        child: MultiProvider(
-          providers: [
-            ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
-            ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
-          ],
-          child: const ChirkApp(),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+          ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
+        ],
+        child: const ChirkApp(),
       )));
+});
+
 }
 
-class ChirkApp extends StatefulWidget {
+class ChirkApp extends StatefulWidget{
   const ChirkApp({super.key});
 
   @override
