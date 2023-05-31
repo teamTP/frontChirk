@@ -14,8 +14,8 @@ class SignUpModel extends ElementaryModel {
   SignUpModel() {
     _dio.options = BaseOptions(
       baseUrl: Config.apiURL,
-      connectTimeout: Duration(milliseconds: 60000),
-      receiveTimeout: Duration(milliseconds: 30000),
+      connectTimeout: const Duration(milliseconds: 60000),
+      receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
   bool get isHiddenPassword => _isHiddenPassword;

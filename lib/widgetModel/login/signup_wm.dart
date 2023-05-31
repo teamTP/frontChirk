@@ -153,6 +153,33 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   EntityStateNotifier get userState => model.userState;
+
+  @override
+  get passwordError {
+    String password = _passwordTextInputController.text;
+    // Проверка на количество символов
+    if (password.length < 6) {
+      return 'Пароль должен содержать не менее 6 символов';
+    }
+
+    // Проверка на наличие цифры
+    if (!password.contains(RegExp(r'\d'))) {
+      return 'Пароль должен содержать хотя бы одну цифру';
+    }
+
+    // Проверка на наличие прописной буквы
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return 'Пароль должен содержать хотя бы одну прописную букву';
+    }
+
+    // Проверка на наличие строчной буквы
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return 'Пароль должен содержать хотя бы одну строчную букву';
+    }
+
+    // Возвращаем null, если пароль прошел все проверки
+    return null;
+  }
 }
 
 abstract class ISignUpWM extends IWidgetModel {
@@ -161,6 +188,8 @@ abstract class ISignUpWM extends IWidgetModel {
   bool isEmailValid = true;
   bool isPasswordValid = true;
   bool isRepeatPasswordValid = true;
+
+  get passwordError;
 
   void togglePasswordView();
 

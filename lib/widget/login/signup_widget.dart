@@ -50,7 +50,7 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
                             border: const OutlineInputBorder(),
-                            errorText: wm.isPasswordValid ? null:"Слабый пароль",
+                            errorText: wm.isPasswordValid ? null:wm.passwordError,
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
