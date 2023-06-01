@@ -3,11 +3,11 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-class EditProfileWidget extends ElementaryWidget<EditProfileWM> {
+class EditProfileWidget extends ElementaryWidget<IEditProfileWM> {
   const EditProfileWidget(super.wmFactory, {super.key});
 
   @override
-  Widget build(EditProfileWM wm) {
+  Widget build(IEditProfileWM wm) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Редактирование"),
@@ -27,23 +27,9 @@ class EditProfileWidget extends ElementaryWidget<EditProfileWM> {
                           child: Column(
                             children: [
                               CircleAvatar(
-                                  radius: 48,
-                                  backgroundImage: wm.userIcon,
-                                  child: SizedBox(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          wm.toEditIcon();
-                                        },
-                                        icon: const Icon(
-                                          Icons.camera_alt_outlined,
-                                          color: Colors.white,
-                                          size: 48,
-                                        ),
-                                        style: IconButton.styleFrom(
-                                            backgroundColor: Colors.black26)),
-                                  )), // иконка
+                                radius: 48,
+                                backgroundImage: wm.userIcon,
+                              ), // иконка
                               const SizedBox(
                                 height: 24,
                               ),
@@ -73,19 +59,31 @@ class EditProfileWidget extends ElementaryWidget<EditProfileWM> {
                       ),
                     ),
                     ListTile(
-                      title: Text('Сменить личные данные', style: wm.textTheme.bodyLarge,),
+                      title: Text(
+                        'Сменить личные данные',
+                        style: wm.textTheme.bodyLarge,
+                      ),
                       onTap: () => wm.toEditPersonalInformation(),
                     ),
                     ListTile(
-                      title: Text('Сменить пароль', style: wm.textTheme.bodyLarge,),
+                      title: Text(
+                        'Сменить пароль',
+                        style: wm.textTheme.bodyLarge,
+                      ),
                       onTap: () => wm.toEditPassword(),
                     ),
                     ListTile(
-                      title: Text('Автоматическая смена темы', style: wm.textTheme.bodyLarge,),
+                      title: Text(
+                        'Автоматическая смена темы',
+                        style: wm.textTheme.bodyLarge,
+                      ),
                       trailing: EasyDynamicThemeAutoSwitch(),
                     ),
                     ListTile(
-                      title: Text('Светлая/темная тема', style: wm.textTheme.bodyLarge,),
+                      title: Text(
+                        'Светлая/темная тема',
+                        style: wm.textTheme.bodyLarge,
+                      ),
                       trailing: EasyDynamicThemeSwitch(),
                     ),
                   ],

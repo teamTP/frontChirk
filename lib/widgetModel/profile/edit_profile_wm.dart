@@ -17,11 +17,6 @@ class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
   EditProfileWM(super.model);
 
   @override
-  void toEditIcon() {
-    Navigator.of(context).pushNamed('/editIcon');
-  }
-
-  @override
   void toEditPassword() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => EditPasswordWidget(
@@ -33,7 +28,9 @@ class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => EditPersonalInformationWidget((context) =>
             EditPersonalInformationWM(
-                EditPersonalInformationModel(model.userState.value!.data!)))));
+                EditPersonalInformationModel(model.userState.value!.data!))))).then((value){
+                  model.userState.content(value);
+    });
   }
 
   @override
@@ -50,8 +47,6 @@ abstract class IEditProfileWM extends IWidgetModel {
   void toEditPersonalInformation();
 
   void toEditPassword();
-
-  void toEditIcon();
 
   EntityStateNotifier<User> get userState;
 
