@@ -8,13 +8,15 @@ import 'package:chirk/widget/chirk/chirk_widget.dart';
 
 class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
-  ChirkWM(super.model);
-
+  EntityStateNotifier<bool> _deletedState = EntityStateNotifier();
   @override
   void initWidgetModel() {
     super.initWidgetModel();
   }
 
+  ChirkWM(super.model){
+    _deletedState.content(false);
+  }
   @override
   EntityStateNotifier<Chirk> get chirkState => model.chirkState;
 
@@ -62,10 +64,60 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
 
   @override
   ThemeData get theme => Theme.of(context);
+
+  @override
+  void toTapDelete() {
+    _showMyDialog();
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Вы точно хотите удалить чирк?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Да'),
+              onPressed: () {
+                _deleteChirk().then((value){
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+            TextButton(
+              child: const Text('Нет'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> _deleteChirk()async {
+     model.delete();
+    _deletedState.content(true);
+
+  }
+
+  @override
+  EntityStateNotifier<bool> get deletedState => _deletedState;
+
 }
 
 abstract class IChirkWM extends IWidgetModel {
   EntityStateNotifier<Chirk> get chirkState;
+
+  EntityStateNotifier<bool> get deletedState;
 
   void onTapLike();
 
@@ -74,4 +126,6 @@ abstract class IChirkWM extends IWidgetModel {
   ThemeData get theme;
 
   AssetImage getImage();
+
+  void toTapDelete();
 }
