@@ -52,6 +52,7 @@ class _ChirkAppState extends State<ChirkApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: colorThem.getLightMatTheme(),
       darkTheme: colorThem.getDarkMatTheme(),
       themeMode: EasyDynamicTheme.of(context).themeMode,

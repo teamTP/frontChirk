@@ -51,5 +51,6 @@ class SignUpModel extends ElementaryModel {
         return e.response!.statusCode;
       }
     }
+    return null;
   }
 }
