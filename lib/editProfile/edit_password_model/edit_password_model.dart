@@ -13,11 +13,16 @@ class EditPasswordModel extends ElementaryModel{
       receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
-  Future<void> editPas() async{
-    postHttp();
+  Future<String?> editPas(oldPassword, newPassword) async{
+    postHttp(oldPassword, newPassword).then((value){
+      if(value == 403){
+        return "Неверный пароль";
+      }
+    });
+    return null;
   }
 
-  Future<void> postHttp() async {
+  Future<int?> postHttp(oldPassword, newPassword) async {
     final token = await TokenManager.getAccessToken();
     Response response;
     try {
@@ -25,10 +30,17 @@ class EditPasswordModel extends ElementaryModel{
         Config.editPassword,
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
+        data: {
+          "oldPassword": oldPassword,
+          "newPassword": newPassword
+        }
       );
     } catch (e) {
-      print('Error: $e');
+      if(e is DioError){
+        return e.response?.statusCode;
+      }
     }
+    return null;
   }
 
 }
