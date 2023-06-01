@@ -62,7 +62,7 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
         if (value != null) {
           final snackBar = SnackBar(
             content: Text(value),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         } else {
