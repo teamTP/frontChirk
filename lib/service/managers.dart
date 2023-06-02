@@ -51,20 +51,15 @@ class TokenManager {
 
     return currentDateTime.isAfter(expirationDateTime);
   }
-
-  String decryptToken(String encryptedToken, String secretKey) {
-    final encryptedBytes = base64.decode(encryptedToken);
-    final secretBytes = utf8.encode(secretKey);
-
-    // Примените алгоритм расшифровки к зашифрованному токену, используя ваш ключ или секрет
-    // В этом примере используется XOR-шифрование для демонстрации
-
-    final decryptedBytes = List<int>.generate(encryptedBytes.length, (index) {
-      return encryptedBytes[index] ^ secretBytes[index % secretBytes.length];
-    });
-
-    final decryptedToken = utf8.decode(decryptedBytes);
-    return decryptedToken;
+  static Future<bool> isModerator() async{
+    String? token = await getAccessToken();
+    if(token == null){
+      return false;
+    }else{
+      final Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+      //todo реализовать по готовности
+      return List<String>.from(decodedToken['authorities']).contains('BAN_PUBLICATION_AUTHORITY');
+    }
   }
 
   static Future<String?> refreshAccessToken()async {

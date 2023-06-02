@@ -23,32 +23,32 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }
-          chirkList.sort((a, b)=> a.dateTime.compareTo(b.dateTime));
-          return RefreshIndicator(
-            child: ListView.builder(
-              controller: wm.controller,
-              itemCount: chirkList.length + 1,
-              itemBuilder: (BuildContext context, int index) {
-                if(chirkList.isEmpty){
-                  return Center(
-                    child: Column(children: [
-                      Text('Попробуйте перезагрузить ленту'),
-                      ElevatedButton(onPressed: () =>wm.update(), child: Text('Перезагрузить'))
-                    ],),
-                  );
+          }else{
+            chirkList.sort((a, b)=> b.dateTime.compareTo(a.dateTime));
+            return RefreshIndicator(
+              child: ListView.builder(
+                controller: wm.controller,
+                itemCount: chirkList.length + 1,
+                itemBuilder: (BuildContext context, int index) {
+                  if(chirkList.isEmpty){
+                    return Center(
+                      child: Column(children: [
+                        Text('Попробуйте перезагрузить ленту'),
+                        ElevatedButton(onPressed: () =>wm.update(), child: Text('Перезагрузить'))
+                      ],),
+                    );
 
-                }
-                if (index == chirkList.length) {
-                  return _buildLoaderIndicator(wm.isLoading);
-                } else {
-                  return ChirkWidget((context) =>
-                      ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index]))));
-                }
-              },
-            ),
-            onRefresh: () async => wm.update(),
-          );
+                  }
+                  if (index == chirkList.length) {
+                    return _buildLoaderIndicator(wm.isLoading);
+                  } else {
+                    return ChirkWidget((context) =>
+                        ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index])), wm.isModerator));
+                  }
+                },
+              ),
+              onRefresh: () async => wm.update(),
+            );}
         },
       ),
     );

@@ -17,12 +17,18 @@ class ChirkModel extends ElementaryModel {
     chirkState.content(newChirk);
     _chirkService.chirk = newChirk;
   }
+
+  Future<void> delete() async {
+    _chirkService.delete();
+  }
 }
 
 abstract class IChirkService {
   Chirk get chirk;
 
   set chirk(Chirk value);
+
+  void delete();
 }
 
 class ChirkService implements IChirkService {
@@ -37,6 +43,11 @@ class ChirkService implements IChirkService {
   set chirk(Chirk value) {
     _chirk = value;
   }
+
+  @override
+  void delete() {
+    // TODO: implement delete
+  }
 }
 
 class ChirkServiceDIO implements IChirkService {
@@ -45,11 +56,18 @@ class ChirkServiceDIO implements IChirkService {
 
   ChirkServiceDIO(this._chirk);
 
+  @override
   Chirk get chirk => _chirk;
 
+  @override
   set chirk(Chirk value) {
     _chirk = value;
     postHttp();
+  }
+
+  @override
+  void delete() {
+    deleteHttp();
   }
 
   Future<void> postHttp() async {
@@ -67,6 +85,28 @@ class ChirkServiceDIO implements IChirkService {
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
         data: _chirk.toLikeJson(),
+      );
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+  Future<void> deleteHttp() async {
+    final token = await TokenManager.getAccessToken();
+    Response response;
+    BaseOptions options = BaseOptions(
+      baseUrl: Config.apiURL,
+      connectTimeout: Duration(milliseconds: 60000),
+      receiveTimeout: Duration(milliseconds: 30000),
+    );
+    Dio dio = Dio(options);
+    try {
+      response = await dio.delete(
+        Config.chirksDelete,
+        options: Options(
+            headers: token != null ? {'Authorization': 'Bearer $token'} : null),
+        data: {
+          "id": _chirk.id
+        },
       );
     } catch (e) {
       print('Error: $e');
