@@ -25,15 +25,18 @@ class SignUpModel extends ElementaryModel {
   }
 
   EntityStateNotifier<User> get userState => _userState;
-  Future<void> signUp(User user)async{
-    postHttp(user);
+  Future<String?> signUp(User user)async{
+    var value = await postHttp(user);
+    if(value ==403){
+      return "Пользователь с этим логином уже существует";
+    }
   }
 
   set userState(EntityStateNotifier<User> value) {
     _userState = value;
   }
 
-  Future<void> postHttp(User user) async {
+  Future<int?> postHttp(User user) async {
     Response response;
 
     print(user.toRegisterJson());
@@ -44,7 +47,9 @@ class SignUpModel extends ElementaryModel {
       final refreshToken = response.data[Config.refreshId];
       TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
-      print('Error: $e');
+      if(e is DioError){
+        return e.response?.statusCode;
+      }
     }
   }
 }

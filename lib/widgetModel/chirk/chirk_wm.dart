@@ -120,7 +120,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
         return AlertDialog(
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('Что бы оценить чирк авторизуйтесь'),
               ],
             ),

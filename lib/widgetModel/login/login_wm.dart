@@ -41,12 +41,19 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
           name: '',
           surname: '',
           iconId: 0);
-      model.logIn(user).then((value){
-        //Navigator.popUntil(context, ModalRoute.withName('/'),);
-        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      model.logIn(user).then((value) async{
+        if(value==null){
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('firstSeen', false);
+        }else{
+          final snackBar = SnackBar(
+            content: Text(value),
+            duration: const Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       });
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool('firstSeen', false);//Navigator.pushReplacementNamed(context, '/'));
     }
     //throw UnimplementedError();
   }
