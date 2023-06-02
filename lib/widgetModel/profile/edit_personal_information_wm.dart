@@ -1,9 +1,9 @@
-import 'package:chirk/editProfile/edit_personal_information_widget.dart';
+import 'package:chirk/widget/profile/edit_personal_information_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../entity/user.dart';
-import 'edit_personal_information_model.dart';
+import '../../entity/user.dart';
+import '../../model/profile/edit_personal_information_model.dart';
 class EditPersonalInformationWM extends WidgetModel<EditPersonalInformationWidget, EditPersonalInformationModel> implements IEditPersonalInformationWM{
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();

@@ -1,4 +1,4 @@
-import 'package:chirk/editProfile/edit_password_model/edit_password_wm.dart';
+import 'package:chirk/widgetModel/profile/edit_password_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 

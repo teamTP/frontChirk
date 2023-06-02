@@ -1,8 +1,8 @@
-import 'package:chirk/editProfile/edit_password_model/edit_password_model.dart';
+import 'package:chirk/model/profile/edit_password_model.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
-import 'edit_password_widget.dart';
+import '../../widget/profile/edit_password_widget.dart';
 
 class EditPasswordWM extends WidgetModel<EditPasswordWidget, EditPasswordModel>
     implements IEditPasswordWM {

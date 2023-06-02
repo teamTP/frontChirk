@@ -1,9 +1,9 @@
-import 'package:chirk/editProfile/edit_password_model/edit_password_model.dart';
-import 'package:chirk/editProfile/edit_password_model/edit_password_widget.dart';
-import 'package:chirk/editProfile/edit_password_model/edit_password_wm.dart';
-import 'package:chirk/editProfile/edit_personal_information_model.dart';
-import 'package:chirk/editProfile/edit_personal_information_widget.dart';
-import 'package:chirk/editProfile/edit_personal_information_wm.dart';
+import 'package:chirk/model/profile/edit_password_model.dart';
+import 'package:chirk/widget/profile/edit_password_widget.dart';
+import 'package:chirk/widgetModel/profile/edit_password_wm.dart';
+import 'package:chirk/model/profile/edit_personal_information_model.dart';
+import 'package:chirk/widget/profile/edit_personal_information_widget.dart';
+import 'package:chirk/widgetModel/profile/edit_personal_information_wm.dart';
 import 'package:chirk/model/profile/profile_model.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';

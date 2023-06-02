@@ -1,4 +1,4 @@
-import 'package:chirk/editProfile/edit_personal_information_wm.dart';
+import 'package:chirk/widgetModel/profile/edit_personal_information_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
