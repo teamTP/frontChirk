@@ -1,3 +1,4 @@
+import 'package:chirk/service/managers.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
@@ -22,34 +23,41 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   EntityStateNotifier<Chirk> get chirkState => model.chirkState;
 
   @override
-  void onTapLike() {
+  void onTapLike() async{
     Chirk newChirk = chirkState.value!.data!;
-
-    if (newChirk.liked != null && newChirk.liked!) {
-      newChirk.liked = null;
-      newChirk.likeCount -= 1;
-    } else {
-      if (newChirk.liked != null) {
-        newChirk.disLikeCount -= 1;
+    if(await TokenManager.getAccessToken()!=null){
+      if (newChirk.liked != null && newChirk.liked!) {
+        newChirk.liked = null;
+        newChirk.likeCount -= 1;
       }
-      newChirk.liked = true;
-      newChirk.likeCount += 1;
+      else {
+        if (newChirk.liked != null) {
+          newChirk.disLikeCount -= 1;
+        }
+        newChirk.liked = true;
+        newChirk.likeCount += 1;
+      }
+      model.update(newChirk);
+    }else{
+      _showLikeDialog();
     }
-    model.update(newChirk);
   }
 
   @override
-  void onTapDislike() {
-    Chirk newChirk = chirkState.value!.data!;
-    if (newChirk.liked != null && !newChirk.liked!) {
-      newChirk.liked = null;
-      newChirk.disLikeCount -= 1;
-    } else {
-      if (newChirk.liked != null) newChirk.likeCount -= 1;
-      newChirk.liked = false;
-      newChirk.disLikeCount += 1;
+  void onTapDislike() async{
+    if(await TokenManager.getAccessToken()!=null){
+      Chirk newChirk = chirkState.value!.data!;
+      if (newChirk.liked != null && !newChirk.liked!) {
+        newChirk.liked = null;
+        newChirk.disLikeCount -= 1;
+      } else {
+        if (newChirk.liked != null) newChirk.likeCount -= 1;
+        newChirk.liked = false;
+        newChirk.disLikeCount += 1;
+      }
+      model.update(newChirk);
     }
-    model.update(newChirk);
+    _showLikeDialog();
   }
 
   @override
@@ -68,10 +76,10 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
 
   @override
   void toTapDelete() {
-    _showMyDialog();
+    _showDeleteDialog();
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showDeleteDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -95,6 +103,37 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
             ),
             TextButton(
               child: const Text('Нет'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<void> _showLikeDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Что бы оценить чирк авторизуйтесь'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Авторизоватся'),
+              onPressed: () {
+                Navigator.of(context).pushNamedAndRemoveUntil('/login', (route)=>route.isFirst);
+              },
+            ),
+            TextButton(
+              child: const Text('позже'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
