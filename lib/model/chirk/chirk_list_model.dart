@@ -68,10 +68,14 @@ class ChirkListModelDIO extends ChirkListModel {
   @override
   // TODO: implement chirkState
   EntityStateNotifier<List<Chirk>> get chirkListState => _chirkListState;
+
+  @override
+  get chirkListType => _chirkListType;
 }
 
 abstract class ChirkListModel extends ElementaryModel {
   get isLoading;
+  get chirkListType;
 
   Future<void> pagination();
 
@@ -112,6 +116,9 @@ class ChirkListModelList extends ChirkListModel {
   get chirkList => _chirkListService.chirks;
 
   @override
-  // TODO: implement chirkState
   EntityStateNotifier<List<Chirk>> get chirkListState => _chirkState;
+
+  @override
+  // TODO: implement chirkListType
+  get chirkListType => throw UnimplementedError();
 }

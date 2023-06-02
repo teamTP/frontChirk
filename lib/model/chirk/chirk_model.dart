@@ -21,6 +21,13 @@ class ChirkModel extends ElementaryModel {
   Future<void> delete() async {
     _chirkService.delete();
   }
+
+  Future<Chirk>updateVisible() async{
+    await _chirkService.updateVisible();
+    chirkState.content(_chirkService.chirk);
+    return _chirkService.chirk;
+  }
+
 }
 
 abstract class IChirkService {
@@ -29,6 +36,8 @@ abstract class IChirkService {
   set chirk(Chirk value);
 
   void delete();
+
+  Future<void> updateVisible();
 }
 
 class ChirkService implements IChirkService {
@@ -47,6 +56,11 @@ class ChirkService implements IChirkService {
   @override
   void delete() {
     // TODO: implement delete
+  }
+
+  @override
+  Future<void> updateVisible() async{
+    // TODO: implement updateVisible
   }
 }
 
@@ -68,6 +82,11 @@ class ChirkServiceDIO implements IChirkService {
   @override
   void delete() {
     deleteHttp();
+  }
+  @override
+  Future<void> updateVisible() async {
+    await putHttp();
+    _chirk.visible = !_chirk.visible;
   }
 
   Future<void> postHttp() async {
@@ -102,6 +121,28 @@ class ChirkServiceDIO implements IChirkService {
     try {
       response = await dio.delete(
         Config.chirksDelete,
+        options: Options(
+            headers: token != null ? {'Authorization': 'Bearer $token'} : null),
+        data: {
+          "id": _chirk.id
+        },
+      );
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+  Future<void> putHttp() async {
+    final token = await TokenManager.getAccessToken();
+    Response response;
+    BaseOptions options = BaseOptions(
+      baseUrl: Config.apiURL,
+      connectTimeout: Duration(milliseconds: 60000),
+      receiveTimeout: Duration(milliseconds: 30000),
+    );
+    Dio dio = Dio(options);
+    try {
+      response = await dio.put(
+        Config.chirksUpdateVisible,
         options: Options(
             headers: token != null ? {'Authorization': 'Bearer $token'} : null),
         data: {

@@ -24,7 +24,8 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
               child: CircularProgressIndicator(),
             );
           }else{
-            chirkList.sort((a, b)=> b.dateTime.compareTo(a.dateTime));
+            //todo сортировка
+            //chirkList.sort((a, b)=> b.dateTime.compareTo(a.dateTime));
             return RefreshIndicator(
               child: ListView.builder(
                 controller: wm.controller,
@@ -43,7 +44,7 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
                     return _buildLoaderIndicator(wm.isLoading);
                   } else {
                     return ChirkWidget((context) =>
-                        ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index])), wm.isModerator));
+                        ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index])), wm.isModerator, wm.listType));
                   }
                 },
               ),
