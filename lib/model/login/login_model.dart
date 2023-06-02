@@ -27,11 +27,14 @@ class LoginModel extends ElementaryModel {
   set userState(EntityStateNotifier<User> value) {
     _userState = value;
   }
-  Future<void> logIn(User user)async{
-    postHttp(user);
+  Future<String?> logIn(User user)async{
+    int? value = await postHttp(user);
+    if(value==403){
+      return "Вы ввели неверный логин или пароль";
+    }
   }
 
-  Future<void> postHttp(User user) async {
+  Future<int?> postHttp(User user) async {
     Response response;
 
     print(user.toRegisterJson());
@@ -42,7 +45,9 @@ class LoginModel extends ElementaryModel {
       final refreshToken = response.data['refreshToken'];
       TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
-      print('Error: $e');
+      if(e is DioError){
+        return e.response?.statusCode;
+      }
     }
   }
 }
