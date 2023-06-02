@@ -27,9 +27,8 @@ class SignUpModel extends ElementaryModel {
   EntityStateNotifier<User> get userState => _userState;
   Future<String?> signUp(User user)async{
     if(await postHttp(user)==403){
-      return "Были введены некорректные данные";
+      return "Пользователь с этим логином уже существует";
     }
-
   }
 
   set userState(EntityStateNotifier<User> value) {

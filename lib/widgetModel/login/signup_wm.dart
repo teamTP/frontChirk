@@ -59,14 +59,14 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
           name: _nameTextInputController.text,
           surname: _surnameTextInputController.text);
       model.signUp(user).then((value) {
-        if (value != null) {
+        if(value==null) {
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+        }else{
           final snackBar = SnackBar(
             content: Text(value),
             duration: const Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         }
       });
     }
