@@ -1,3 +1,4 @@
+import 'package:chirk/service/config.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
@@ -53,6 +54,9 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
 
   @override
   bool get isModerator => _isModerator;
+
+  @override
+  ChirkListType get listType => model.chirkListType;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
@@ -63,6 +67,8 @@ abstract class IChirkListWM extends IWidgetModel {
   bool get isLoading;
 
   bool get isModerator;
+
+  ChirkListType get listType;
 
   void update();
 

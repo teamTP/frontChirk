@@ -15,48 +15,69 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
         builder: (context, isDeleted) {
           return isDeleted ?? false
               ? SizedBox()
-              : Card(
+              : EntityStateNotifierBuilder(listenableEntityState: wm.chirkState, builder: (context, chirk){
+            if(chirk==null){
+              return CircularProgressIndicator();
+            }else{
+              return Opacity(
+                opacity: chirk.visible ? 1.0 : 0.5,
+                child: Card(
                   child: Column(
                     children: [
                       ListTile(
                         leading: CircleAvatar(
-                          radius: wm.theme.textTheme.headlineMedium!.fontSize!,
+                          radius:
+                          wm.theme.textTheme.headlineMedium!.fontSize!,
                           backgroundImage: wm.getImage(),
                         ),
                         title: Text(
-                            "${wm.chirkState.value!.data!.user.surname} ${wm.chirkState.value!.data!.user.name}"),
+                            "${chirk.user.surname} ${chirk.user.name}"),
                         subtitle: Text(Jiffy.parseFromDateTime(
-                                wm.chirkState.value!.data!.dateTime)
+                            chirk.dateTime)
                             .fromNow()),
-                        trailing: wm.isModerator
-                            ? IconButton(
-                                style: IconButton.styleFrom(
-                                  foregroundColor: colors.primary,
-                                  backgroundColor: colors.surfaceVariant,
-                                  disabledForegroundColor:
-                                      colors.onSurface.withOpacity(0.38),
-                                  disabledBackgroundColor:
-                                      colors.onSurface.withOpacity(0.12),
-                                ),
-                                onPressed: () => wm.toTapDelete(),
-                                icon: const Icon(Icons.delete),
-                              )
-                            : SizedBox(),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            wm.isModerator || wm.isVisibleEdit
+                                ? IconButton(
+                              style: IconButton.styleFrom(
+                                foregroundColor: colors.primary,
+                                backgroundColor: colors.surfaceVariant,
+                                disabledForegroundColor:
+                                colors.onSurface.withOpacity(0.38),
+                                disabledBackgroundColor:
+                                colors.onSurface.withOpacity(0.12),
+                              ),
+                              onPressed: () => wm.toTapDelete(),
+                              icon: const Icon(Icons.delete),
+                            )
+                                : SizedBox(),
+                            wm.isVisibleEdit
+                                ? IconButton(
+                              style: IconButton.styleFrom(
+                                foregroundColor: colors.primary,
+                                backgroundColor: colors.surfaceVariant,
+                                disabledForegroundColor:
+                                colors.onSurface.withOpacity(0.38),
+                                disabledBackgroundColor:
+                                colors.onSurface.withOpacity(0.12),
+                              ),
+                              onPressed: () =>wm.onTapVisibility(),
+                              icon: Icon(chirk.visible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            )
+                                : SizedBox(),
+                          ],
+                        ),
                       ),
                       Container(
                         margin: const EdgeInsets.all(16),
-                        child: Text(wm.chirkState.value!.data!.text),
+                        child: Text(chirk.text),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 6, 6),
-                        child: EntityStateNotifierBuilder(
-                          listenableEntityState: wm.chirkState,
-                          builder: (context, chirk) {
-                            if (chirk == null) {
-                              return const CircularProgressIndicator();
-                            }
-
-                            return Row(
+                        child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
@@ -68,9 +89,9 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                                           ? colors.primary
                                           : colors.surfaceVariant,
                                       disabledForegroundColor:
-                                          colors.onSurface.withOpacity(0.38),
+                                      colors.onSurface.withOpacity(0.38),
                                       disabledBackgroundColor:
-                                          colors.onSurface.withOpacity(0.12),
+                                      colors.onSurface.withOpacity(0.12),
                                     ),
                                     isSelected: chirk.liked,
                                     onPressed: () {
@@ -82,12 +103,12 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                                    const EdgeInsets.fromLTRB(6, 0, 0, 0),
                                     child: Text("${chirk.likeCount} : "),
                                   ),
                                   Padding(
                                     padding:
-                                        const EdgeInsets.fromLTRB(0, 0, 6, 0),
+                                    const EdgeInsets.fromLTRB(0, 0, 6, 0),
                                     child: Text("${chirk.disLikeCount}"),
                                   ),
                                   IconButton(
@@ -99,9 +120,9 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                                           ? colors.primary
                                           : colors.surfaceVariant,
                                       disabledForegroundColor:
-                                          colors.onSurface.withOpacity(0.38),
+                                      colors.onSurface.withOpacity(0.38),
                                       disabledBackgroundColor:
-                                          colors.onSurface.withOpacity(0.12),
+                                      colors.onSurface.withOpacity(0.12),
                                     ),
                                     isSelected: !(chirk.liked ?? true),
                                     onPressed: () {
@@ -112,13 +133,15 @@ class ChirkWidget extends ElementaryWidget<IChirkWM> {
                                       Icons.thumb_down,
                                     ),
                                   ),
-                                ]);
-                          },
+                                ]),
                         ),
-                      ),
                     ],
                   ),
-                );
+                ),
+              );
+            }
+
+          });
         });
   }
 }

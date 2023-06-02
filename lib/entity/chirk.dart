@@ -8,6 +8,7 @@ class Chirk {
   int likeCount;
   int disLikeCount;
   bool? liked;
+  bool visible;
 
   Chirk(
       {required this.id,
@@ -16,7 +17,8 @@ class Chirk {
       required this.user,
       this.likeCount = 0,
       this.disLikeCount = 0,
-      this.liked});
+      this.liked,
+      this.visible = true});
 
   factory Chirk.fromJson(Map<String, dynamic> json) {
     return Chirk(
@@ -37,6 +39,7 @@ class Chirk {
           : json['reaction'] == 'DISLIKE'
               ? false
               : null,
+      visible: json['visible'] as bool,
     );
   }
 

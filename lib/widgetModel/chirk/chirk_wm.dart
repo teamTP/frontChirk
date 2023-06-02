@@ -7,16 +7,19 @@ import 'package:chirk/model/chirk/chirk_model.dart';
 import 'package:chirk/service/userIcons.dart';
 import 'package:chirk/widget/chirk/chirk_widget.dart';
 
+import '../../service/config.dart';
+
 class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
-  EntityStateNotifier<bool> _deletedState = EntityStateNotifier();
-  bool _isModerator;
+  final EntityStateNotifier<bool> _deletedState = EntityStateNotifier();
+  final bool _isModerator;
+  final ChirkListType _listType;
   @override
   void initWidgetModel() {
     super.initWidgetModel();
   }
 
-  ChirkWM(super.model, this._isModerator){
+  ChirkWM(super.model, this._isModerator, this._listType){
     _deletedState.content(false);
   }
   @override
@@ -45,8 +48,8 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
 
   @override
   void onTapDislike() async{
+    Chirk newChirk = chirkState.value!.data!;
     if(await TokenManager.getAccessToken()!=null){
-      Chirk newChirk = chirkState.value!.data!;
       if (newChirk.liked != null && !newChirk.liked!) {
         newChirk.liked = null;
         newChirk.disLikeCount -= 1;
@@ -56,8 +59,9 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
         newChirk.disLikeCount += 1;
       }
       model.update(newChirk);
+    }else {
+      _showLikeDialog();
     }
-    _showLikeDialog();
   }
 
   @override
@@ -77,6 +81,47 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   @override
   void toTapDelete() {
     _showDeleteDialog();
+  }
+
+  @override
+  void onTapVisibility() {
+    _showVisibleDialog();
+  }
+  Future<void> _showVisibleDialog()async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                isVisible?
+                const Text('Вы точно хотите скрыть чирк?'):
+                const Text('Вы точно хотите отобразить чирк?')
+                ,
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Да'),
+              onPressed: () {
+                _updateVisible().then((value){
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+            TextButton(
+              child: const Text('Нет'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _showDeleteDialog() async {
@@ -149,11 +194,26 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
 
   }
 
+  Future<void> _updateVisible() async{
+    model.updateVisible();
+
+  }
+
   @override
   EntityStateNotifier<bool> get deletedState => _deletedState;
 
   @override
   bool get isModerator => _isModerator;
+
+  @override
+  get isVisible => chirkState.value!.data!.visible;
+
+  @override
+  bool get isVisibleEdit{
+   return _listType == ChirkListType.myList;
+  }
+
+
 
 }
 
@@ -162,7 +222,12 @@ abstract class IChirkWM extends IWidgetModel {
 
   EntityStateNotifier<bool> get deletedState;
 
+
   bool get isModerator;
+
+  get isVisible;
+
+  bool get isVisibleEdit;
 
   void onTapLike();
 
@@ -173,4 +238,6 @@ abstract class IChirkWM extends IWidgetModel {
   AssetImage getImage();
 
   void toTapDelete();
+
+  void onTapVisibility();
 }
