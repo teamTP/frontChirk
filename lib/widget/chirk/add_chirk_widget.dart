@@ -20,19 +20,6 @@ class AddChirkWidget extends ElementaryWidget<IAddChirkWM> {
               padding: const EdgeInsets.symmetric(horizontal: 32),
               child: Column(
                 children: [
-                  EntityStateNotifierBuilder(
-                      listenableEntityState: wm.errorState,
-                      builder: (context, message) {
-                        if (message != null && message.isNotEmpty) {
-                          return Card(
-                            child: Text(
-                              message,
-                              style: const TextStyle(color: Colors.red),
-                            ),
-                          );
-                        }
-                        return const SizedBox();
-                      }),
                   TextFormField(
                     controller: wm.messageController,
                     maxLength: 255,

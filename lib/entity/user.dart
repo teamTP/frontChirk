@@ -42,6 +42,7 @@ class User {
     'firstname': name,
     'lastname': surname,
   };
+  static get empty => User(id: 0, login: '', password: '', iconId: 0, name: '', surname: '');
 
   Map<String, dynamic> toFeedJson(int page) => {
         'page': page,

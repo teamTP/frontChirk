@@ -46,14 +46,14 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   Future signUp() async {
-    if (_validatePassword() &&
-        _validateEmail() &&
-        _validateLastName() &&
+    if (_validateEmail() &&
+        _validatePassword() &&
+        _validateRepeatPassword() &&
         _validateName() &&
-        _validateRepeatPassword()) {
+        _validateLastName()) {
       User user = User(
           id: 0,
-          login: _emailTextInputController.text,
+          login: _emailTextInputController.text.toLowerCase(),
           password: _passwordTextInputController.text,
           iconId: 0,
           name: _nameTextInputController.text,
@@ -75,43 +75,43 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
   bool _validateName() {
     bool isValid = _nameTextInputController.text.isNotEmpty;
     isFirstNameValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateLastName() {
     bool isValid = _surnameTextInputController.text.isNotEmpty;
     isLastNameValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
     isEmailValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validatePassword() {
     bool isValid = validatePassword(_passwordTextInputController.text);
     isPasswordValid = isValid;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
     return isValid;
   }
 
   bool _validateRepeatPassword() {
     bool isValid = _passwordTextRepeatInputController.text ==
         _passwordTextInputController.text;
-    isPasswordValid = isValid;
-    model.userState.notifyListeners();
+    isRepeatPasswordValid = isValid;
+    model.userState.content(User.empty);
     return isValid;
   }
 
   @override
   void togglePasswordView() {
     model.isHiddenPassword = !model.isHiddenPassword;
-    model.userState.notifyListeners();
+    model.userState.content(User.empty);
   }
 
   @override
@@ -153,6 +153,33 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
 
   @override
   EntityStateNotifier get userState => model.userState;
+
+  @override
+  get passwordError {
+    String password = _passwordTextInputController.text;
+    // Проверка на количество символов
+    if (password.length < 6) {
+      return 'Пароль должен содержать не менее 6 символов';
+    }
+
+    // Проверка на наличие цифры
+    if (!password.contains(RegExp(r'\d'))) {
+      return 'Пароль должен содержать хотя бы одну цифру';
+    }
+
+    // Проверка на наличие прописной буквы
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return 'Пароль должен содержать хотя бы одну прописную букву';
+    }
+
+    // Проверка на наличие строчной буквы
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return 'Пароль должен содержать хотя бы одну строчную букву';
+    }
+
+    // Возвращаем null, если пароль прошел все проверки
+    return null;
+  }
 }
 
 abstract class ISignUpWM extends IWidgetModel {
@@ -161,6 +188,8 @@ abstract class ISignUpWM extends IWidgetModel {
   bool isEmailValid = true;
   bool isPasswordValid = true;
   bool isRepeatPasswordValid = true;
+
+  get passwordError;
 
   void togglePasswordView();
 

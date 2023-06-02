@@ -36,7 +36,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
     if (_validatePassword() && _validateEmail()) {
       User user = User(
           id: 0,
-          login: _emailTextInputController.text,
+          login: _emailTextInputController.text.toLowerCase(),
           password: _passwordTextInputController.text,
           name: '',
           surname: '',

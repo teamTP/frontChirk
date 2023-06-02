@@ -1,6 +1,7 @@
 import 'package:chirk/model/chirk/add_chirk_model.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../widget/chirk/add_chirk_widget.dart';
 
@@ -9,7 +10,6 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
 
   final TextEditingController _messageController = TextEditingController();
   final EntityStateNotifier<bool> _disappearState = EntityStateNotifier();
-  final EntityStateNotifier<String> _errorState = EntityStateNotifier();
 
   AddChirkWM(super.model);
   @override
@@ -17,13 +17,16 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
     if (_validateMessage()) {
       model.addChirk(_messageController.text).then((value) {
 
-        if(value==''){
+        if(value==200){
           _messageController.text = '';
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
-          _errorState.content('');
-        }else{
-          _errorState.content(value);
+        }else if(value!=null){
+          final snackBar = SnackBar(
+            content: Text('Http error $value'),
+            duration: Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
 
       });
@@ -50,8 +53,6 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
   @override
   EntityStateNotifier<bool> get disappearState => _disappearState;
 
-  @override
-  get errorState => _errorState;
 }
 
 abstract class IAddChirkWM extends IWidgetModel {
@@ -59,7 +60,6 @@ abstract class IAddChirkWM extends IWidgetModel {
 
   EntityStateNotifier<bool> get disappearState;
 
-  EntityStateNotifier<String> get errorState;
 
   Future<void> addChirk();
 

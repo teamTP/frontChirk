@@ -34,7 +34,7 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(bottom: size / 2, top: size / 2, left: size/2),
+                    margin: EdgeInsets.only(top: size / 2, left: size/2),
                     child: Row(
                       children: [
                         CircleAvatar(
@@ -73,117 +73,65 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                       ],
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: size / 2),
-                    child: Card(
-                      child: Container(
-                        padding: EdgeInsets.all(size / 2),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Персональные данные",
-                              style:
-                              wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
-                            ),
-                            Text("Имя: ${user.name} ${user.surname}"),
-                            Text("Логин: ${user.login}"),
-                          ],
-                        ),
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(size / 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Персональные данные",
+                            style:
+                            wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                          ),
+                          Text("Имя: ${user.name} ${user.surname}"),
+                          Text("Логин: ${user.login}"),
+                        ],
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: size / 2),
-                    child: Card(
-                      child: Container(
-                        padding: EdgeInsets.all(size / 2),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Чирки",
-                              style:
-                              wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                  Card(
+                    child: Container(
+                      padding: EdgeInsets.all(size / 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Чирки",
+                            style:
+                            wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              wm.toMyFeed();
+                            },
+                            icon: const Icon(Icons.edit),
+                            label: const Text(
+                              "Мои чирки",
                             ),
-                            TextButton.icon(
-                              onPressed: () {
-                                wm.toMyFeed();
-                              },
-                              icon: const Icon(Icons.edit),
-                              label: const Text(
-                                "Мои чирки",
-                              ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              wm.toLikeFeed();
+                            },
+                            icon: const Icon(Icons.thumb_up),
+                            label: const Text(
+                              "Понравившееся",
                             ),
-                            TextButton.icon(
-                              onPressed: () {
-                                wm.toLikeFeed();
-                              },
-                              icon: const Icon(Icons.thumb_up),
-                              label: const Text(
-                                "Понравившееся",
-                              ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () {
+                              wm.toDislikeFeed();
+                            },
+                            icon: const Icon(Icons.thumb_down),
+                            label: const Text(
+                              "Не понравившееся",
                             ),
-                            TextButton.icon(
-                              onPressed: () {
-                                wm.toDislikeFeed();
-                              },
-                              icon: const Icon(Icons.thumb_down),
-                              label: const Text(
-                                "Не понравившееся",
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  EasyDynamicThemeBtn(),
-                  /*Card(
-              child: Row(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 12, right: 12, top: 12, bottom: 12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.only(bottom: 12),
-                              child: const Text("Персональные данные",
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w400,
-                                  )),
-                            ),
-                            Row(
-                              children: const [
-                                Text("Имя: Иван Сидоров",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                              ],
-                            ),
-                            Row(
-                              children: const [
-                                Text("Login: ivan@sidorov.ru",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w400,
-                                    )),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),*/ //старая карточка
                 ],
               ),
             );

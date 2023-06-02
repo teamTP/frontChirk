@@ -13,18 +13,21 @@ class ColorTheme {
 
   ColorTheme(this._primaryColor);
 
-  ThemeData getLightMatDisign() {
+  ThemeData getLightMatTheme() {
     return ThemeData(
       useMaterial3: true,
       colorSchemeSeed: _primaryColor,
+      fontFamily: 'VKSans',
     );
   }
 
-  ThemeData getDarkMatDisign() {
+  ThemeData getDarkMatTheme() {
     return ThemeData(
         useMaterial3: true,
         colorSchemeSeed: _primaryColor,
-        brightness: Brightness.dark);
+        brightness: Brightness.dark,
+        fontFamily: 'VKSans',
+    );
   }
 
   ThemeData getLightTheme() {

@@ -14,8 +14,8 @@ class SignUpModel extends ElementaryModel {
   SignUpModel() {
     _dio.options = BaseOptions(
       baseUrl: Config.apiURL,
-      connectTimeout: Duration(milliseconds: 60000),
-      receiveTimeout: Duration(milliseconds: 30000),
+      connectTimeout: const Duration(milliseconds: 60000),
+      receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
   bool get isHiddenPassword => _isHiddenPassword;
@@ -26,8 +26,7 @@ class SignUpModel extends ElementaryModel {
 
   EntityStateNotifier<User> get userState => _userState;
   Future<String?> signUp(User user)async{
-    var value = await postHttp(user);
-    if(value ==403){
+    if(await postHttp(user)==403){
       return "Пользователь с этим логином уже существует";
     }
   }
@@ -47,9 +46,10 @@ class SignUpModel extends ElementaryModel {
       final refreshToken = response.data[Config.refreshId];
       TokenManager.saveTokens(accessToken, refreshToken);
     } catch (e) {
-      if(e is DioError){
-        return e.response?.statusCode;
+      if (e is DioError) {
+        return e.response!.statusCode;
       }
     }
+    return null;
   }
 }
