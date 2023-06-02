@@ -29,10 +29,10 @@ class EditPasswordWM extends WidgetModel<EditPasswordWidget, EditPasswordModel>
   Key get key => _key;
 
   @override
-  void editPas() {
+  void editPas() async{
     if (_validatePassword() && _validateRepeatPassword()) {
-      model
-          .editPas(_oldPasswordController.text, _newPasswordController)
+      await model
+          .editPas(_oldPasswordController.text, _newPasswordController.text)
           .then((value) {
         if (value != null) {
           final snackBar = SnackBar(
@@ -45,7 +45,6 @@ class EditPasswordWM extends WidgetModel<EditPasswordWidget, EditPasswordModel>
         }
       });
     }
-    passwordState.content('');
   }
 
   @override

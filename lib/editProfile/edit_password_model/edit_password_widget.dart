@@ -16,7 +16,8 @@ class EditPasswordWidget extends ElementaryWidget<IEditPasswordWM> {
         ),
         actions: <Widget>[
           IconButton(
-              onPressed: () => wm.editPas(), icon: const Icon(Icons.done)),
+              onPressed: () => wm.editPas(),
+              icon: const Icon(Icons.done)),
         ],
       ),
       body: Center(

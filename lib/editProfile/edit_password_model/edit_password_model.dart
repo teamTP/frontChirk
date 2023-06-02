@@ -14,12 +14,7 @@ class EditPasswordModel extends ElementaryModel{
     );
   }
   Future<String?> editPas(oldPassword, newPassword) async{
-    postHttp(oldPassword, newPassword).then((value){
-      if(value == 403){
-        return "Неверный пароль";
-      }
-    });
-    return null;
+    return (await postHttp(oldPassword, newPassword)!=null)?"Вы ввели неверный пароль":null;
   }
 
   Future<int?> postHttp(oldPassword, newPassword) async {
@@ -36,6 +31,7 @@ class EditPasswordModel extends ElementaryModel{
         }
       );
     } catch (e) {
+      print(e);
       if(e is DioError){
         return e.response?.statusCode;
       }
