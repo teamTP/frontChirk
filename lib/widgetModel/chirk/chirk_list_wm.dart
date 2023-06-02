@@ -5,9 +5,12 @@ import 'package:chirk/entity/chirk.dart';
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 
+import '../../service/managers.dart';
+
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
+  bool _isModerator=false;
 
   ChirkListWM(super.model);
 
@@ -16,6 +19,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   Future<void> initWidgetModel() async {
     super.initWidgetModel();
 
+    _isModerator =await TokenManager.isModerator();
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
@@ -46,6 +50,9 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
 
   @override
   EntityStateNotifier<List<Chirk>> get chirksState => model.chirkListState;
+
+  @override
+  bool get isModerator => _isModerator;
 }
 
 abstract class IChirkListWM extends IWidgetModel {
@@ -54,6 +61,8 @@ abstract class IChirkListWM extends IWidgetModel {
   get controller;
 
   bool get isLoading;
+
+  bool get isModerator;
 
   void update();
 

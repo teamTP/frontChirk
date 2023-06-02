@@ -9,12 +9,13 @@ import 'package:chirk/widget/chirk/chirk_widget.dart';
 class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
     implements IChirkWM {
   EntityStateNotifier<bool> _deletedState = EntityStateNotifier();
+  bool _isModerator;
   @override
   void initWidgetModel() {
     super.initWidgetModel();
   }
 
-  ChirkWM(super.model){
+  ChirkWM(super.model, this._isModerator){
     _deletedState.content(false);
   }
   @override
@@ -112,12 +113,17 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   @override
   EntityStateNotifier<bool> get deletedState => _deletedState;
 
+  @override
+  bool get isModerator => _isModerator;
+
 }
 
 abstract class IChirkWM extends IWidgetModel {
   EntityStateNotifier<Chirk> get chirkState;
 
   EntityStateNotifier<bool> get deletedState;
+
+  bool get isModerator;
 
   void onTapLike();
 
