@@ -155,6 +155,9 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   @override
   bool get isModerator => _isModerator;
 
+  @override
+  get isVisible => chirkState.value!.data!.visible;
+
 }
 
 abstract class IChirkWM extends IWidgetModel {
@@ -163,6 +166,8 @@ abstract class IChirkWM extends IWidgetModel {
   EntityStateNotifier<bool> get deletedState;
 
   bool get isModerator;
+
+  get isVisible;
 
   void onTapLike();
 
