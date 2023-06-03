@@ -5,6 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/signup_model.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/user_provider.dart';
+import '../../service/managers.dart';
 
 class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     implements ISignUpWM {
@@ -58,9 +62,12 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
           iconId: 0,
           name: _nameTextInputController.text,
           surname: _surnameTextInputController.text);
-      model.signUp(user).then((value) {
+      model.signUp(user).then((value) async {
         if(value==null) {
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+          tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
+          Navigator.pop(context);
+          //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         }else{
           final snackBar = SnackBar(
             content: Text(value),

@@ -62,79 +62,27 @@ class _MyState extends State<StatefulWidget> {
       return FutureBuilder<String?>(
         future: tokenProvider.accessToken,
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            _hasToken = null;
-            return Scaffold(
-              bottomNavigationBar: NavigationBar(
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (value) => _onItemTapped(value),
-                destinations: const <NavigationDestination>[
-                  NavigationDestination(
-                      icon: Icon(Icons.list), label: "Лента чирков"),
-                  NavigationDestination(
-                      icon: Icon(Icons.add), label: "Создать чирк"),
-                  NavigationDestination(
-                      icon: Icon(Icons.person), label: "Профиль"),
-                ],
-              ),
-              body: IndexedStack(
-                index: _selectedIndex,
-                children: _page,
-              ),
-              /*body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),*/
-            );
-          } else if (snapshot.hasData && snapshot.data != null) {
-            _hasToken = true;
-            return Scaffold(
-              bottomNavigationBar: NavigationBar(
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (value) => _onItemTapped(value),
-                destinations: const <NavigationDestination>[
-                  NavigationDestination(
-                      icon: Icon(Icons.list), label: "Лента чирков"),
-                  NavigationDestination(
-                      icon: Icon(Icons.add), label: "Создать чирк"),
-                  NavigationDestination(
-                      icon: Icon(Icons.person), label: "Профиль"),
-                ],
-              ),
-              body: IndexedStack(
-                index: _selectedIndex,
-                children: _page,
-              ),
-              /*body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),*/
-            );
-          }else{
-            _hasToken = false;
-            return Scaffold(
-              bottomNavigationBar: NavigationBar(
-                selectedIndex: _selectedIndex,
-                onDestinationSelected: (value) => _onItemTapped(value),
-                destinations: const <NavigationDestination>[
-                  NavigationDestination(
-                      icon: Icon(Icons.list), label: "Лента чирков"),
-                  NavigationDestination(
-                      icon: Icon(Icons.add), label: "Создать чирк"),
-                  NavigationDestination(
-                      icon: Icon(Icons.person), label: "Профиль"),
-                ],
-              ),
-              body: IndexedStack(
-                index: _selectedIndex,
-                children: _page,
-              ),
-              /*body: IndexedStack(
-        index: _selectedIndex,
-        children: _widgetOptions,
-      ),*/
-            );
-          }
+          _hasToken = snapshot.connectionState == ConnectionState.waiting
+              ? null
+              : snapshot.hasData && snapshot.data != null;
+          return Scaffold(
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (value) => _onItemTapped(value),
+              destinations: const <NavigationDestination>[
+                NavigationDestination(
+                    icon: Icon(Icons.list), label: "Лента чирков"),
+                NavigationDestination(
+                    icon: Icon(Icons.add), label: "Создать чирк"),
+                NavigationDestination(
+                    icon: Icon(Icons.person), label: "Профиль"),
+              ],
+            ),
+            body: IndexedStack(
+              index: _selectedIndex,
+              children: _page,
+            ),
+          );
         },
       );
     });

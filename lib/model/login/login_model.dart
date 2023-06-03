@@ -1,8 +1,10 @@
 import 'package:chirk/service/managers.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
+import 'package:provider/provider.dart';
 
 import '../../entity/user.dart';
+import '../../provider/user_provider.dart';
 import '../../service/config.dart';
 
 class LoginModel extends ElementaryModel {
