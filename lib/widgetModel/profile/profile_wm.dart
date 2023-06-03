@@ -30,12 +30,43 @@ class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
 
   @override
   void toExit() {
+    _showExitDialog();
     //todo сделать всплывающее окно
-    final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
-    tokenProvider.deleteTokens();
-    Navigator.pushNamed(context, "/login");
   }
-
+  Future<void> _showExitDialog()async{
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Выход'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                const Text('Вы точно хотите выйти?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Да'),
+              onPressed: () {
+                final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+                tokenProvider.deleteTokens();
+                Navigator.pushNamedAndRemoveUntil(context, "/login", (root)=>root.isFirst);
+              },
+            ),
+            TextButton(
+              child: const Text('Нет'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
   @override
   void toLikeFeed() {
     Navigator.of(context).pushNamed("/likedChirk");
