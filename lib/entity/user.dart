@@ -1,9 +1,9 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
-  final int id;
-  final String login;
-  final String password;
+  int id;
+  String login;
+  String password;
   int iconId;
   String name;
   String surname;

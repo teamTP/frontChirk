@@ -29,7 +29,6 @@ SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
   runApp(EasyDynamicThemeWidget(
       child: MultiProvider(
         providers: [
-          ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
           ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
         ],
         child: const ChirkApp(),

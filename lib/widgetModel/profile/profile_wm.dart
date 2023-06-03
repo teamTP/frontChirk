@@ -53,7 +53,8 @@ class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
               onPressed: () {
                 final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
                 tokenProvider.deleteTokens();
-                Navigator.pushNamedAndRemoveUntil(context, "/login", (root)=>root.isFirst);
+                Navigator.of(context).pop();
+                //Navigator.pushNamedAndRemoveUntil(context, "/login", (root)=>root.isFirst);
               },
             ),
             TextButton(

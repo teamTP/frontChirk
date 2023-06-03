@@ -1,3 +1,4 @@
+import 'package:chirk/service/managers.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:email_validator/email_validator.dart';
@@ -5,7 +6,10 @@ import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/login_model.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../provider/user_provider.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -34,16 +38,15 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   @override
   Future logIn() async {
     if (_validatePassword() && _validateEmail()) {
-      User user = User(
-          id: 0,
-          login: _emailTextInputController.text.toLowerCase(),
-          password: _passwordTextInputController.text,
-          name: '',
-          surname: '',
-          iconId: 0);
+      User user = User.empty;
+      user.login = _emailTextInputController.text.toLowerCase();
+      user.password = _passwordTextInputController.text;
       model.logIn(user).then((value) async{
         if(value==null){
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+          tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
+          //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+          Navigator.pop(context);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
         }else{
