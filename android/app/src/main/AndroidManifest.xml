@@ -2,7 +2,7 @@
     package="ru.vsu.cs.tp.chirk">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="chirk"
+        android:label="Chirk"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
