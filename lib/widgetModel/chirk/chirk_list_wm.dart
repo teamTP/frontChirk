@@ -42,6 +42,7 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
 
   @override
   Future<void> update() async {
+    chirksState.content([]);
     await model.update();
   }
 
@@ -69,5 +70,5 @@ abstract class IChirkListWM extends IWidgetModel {
 
   ChirkListType get listType;
 
-  void update();
+  Future<void> update();
 }

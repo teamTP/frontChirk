@@ -27,25 +27,40 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
           } else {
             //chirkList.sort((a, b)=> b.dateTime.compareTo(a.dateTime));
             return RefreshIndicator(
+              onRefresh: wm.update,
               child: ListView.builder(
                 controller: wm.controller,
                 itemCount: chirkList.length + 1,
                 itemBuilder: (BuildContext context, int index) {
-                  if (chirkList.isEmpty) {
-                    return Center(
-                      child: Column(
-                        children: [
-                          const Text('Попробуйте перезагрузить ленту'),
-                          ElevatedButton(
-                            onPressed: () => wm.update(),
-                            child: const Text('Перезагрузить'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
                   if (index == chirkList.length) {
-                    return _buildLoaderIndicator(wm.isLoading);
+                    return FutureBuilder(
+                        future: Future.delayed(const Duration(seconds: 3)),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          } else {
+                            if (chirkList.isNotEmpty) {
+                              return const SizedBox();
+                            } else {
+                              return Center(
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                        'Попробуйте перезагрузить ленту'),
+                                    ElevatedButton(
+                                      onPressed: () => wm.update(),
+                                      child: const Text('Перезагрузить'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }
+                        });
                   } else {
                     return ChirkWidget(
                       (context) => ChirkWM(
@@ -56,20 +71,10 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
                   }
                 },
               ),
-              onRefresh: () async => wm.update(),
             );
           }
         },
       ),
     );
-  }
-
-  Widget _buildLoaderIndicator(bool isLoading) {
-    return isLoading
-        ? const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(child: CircularProgressIndicator()),
-          )
-        : const SizedBox();
   }
 }
