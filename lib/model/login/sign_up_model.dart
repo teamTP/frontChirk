@@ -7,9 +7,8 @@ import '../../service/managers.dart';
 
 class SignUpModel extends ElementaryModel {
   final _dio = Dio();
-  bool _isHiddenPassword = true;
-  EntityStateNotifier<User> _userState = EntityStateNotifier();
-
+  bool isHiddenPassword = true;
+  EntityStateNotifier<User> userState = EntityStateNotifier();
 
   SignUpModel() {
     _dio.options = BaseOptions(
@@ -18,30 +17,21 @@ class SignUpModel extends ElementaryModel {
       receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
-  bool get isHiddenPassword => _isHiddenPassword;
 
-  set isHiddenPassword(bool value) {
-    _isHiddenPassword = value;
-  }
-
-  EntityStateNotifier<User> get userState => _userState;
-  Future<String?> signUp(User user)async{
-    if(await postHttp(user)==403){
+  Future<String?> signUp(User user) async {
+    if (await postHttp(user) == 403) {
       return "Пользователь с этим логином уже существует";
     }
-  }
-
-  set userState(EntityStateNotifier<User> value) {
-    _userState = value;
+    return null;
   }
 
   Future<int?> postHttp(User user) async {
     Response response;
-
-    print(user.toRegisterJson());
-
     try {
-      response=await  _dio.post(Config.userRegister, data: user.toRegisterJson(), );
+      response = await _dio.post(
+        Config.userRegister,
+        data: user.toRegisterJson(),
+      );
       final accessToken = response.data[Config.accessId];
       final refreshToken = response.data[Config.refreshId];
       TokenManager.saveTokens(accessToken, refreshToken);

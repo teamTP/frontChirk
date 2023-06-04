@@ -1,5 +1,5 @@
 import 'package:chirk/model/chirk/chirk_list_model.dart';
-import 'package:chirk/model/login/login_model.dart';
+import 'package:chirk/model/login/log_in_model.dart';
 import 'package:chirk/provider/user_provider.dart';
 import 'package:chirk/service/config.dart';
 import 'package:chirk/widget/chirk/chirk_list_widget.dart';
@@ -7,7 +7,7 @@ import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:chirk/theme/theme.dart';
-import 'package:chirk/widget/onboarding/onbarding_widget.dart';
+import 'package:chirk/widget/onBoarding/onBoarding_widget.dart';
 import 'package:chirk/widget/splash.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
 import 'package:chirk/widgetModel/login/login_wm.dart';
@@ -16,28 +16,24 @@ import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:chirk/model/login/signup_model.dart';
+import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:flutter/services.dart';
-
-import 'widget/profile/edit_profile_widget.dart';
-import 'entity/user.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-    .then((_) {
-  runApp(EasyDynamicThemeWidget(
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
-        ],
-        child: const ChirkApp(),
-      )));
-});
-
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(EasyDynamicThemeWidget(
+        child: MultiProvider(
+      providers: [
+        ChangeNotifierProvider<TokenProvider>(create: (_) => TokenProvider()),
+      ],
+      child: const ChirkApp(),
+    )));
+  });
 }
 
-class ChirkApp extends StatefulWidget{
+class ChirkApp extends StatefulWidget {
   const ChirkApp({super.key});
 
   @override
@@ -55,11 +51,10 @@ class _ChirkAppState extends State<ChirkApp> {
       theme: colorThem.getLightMatTheme(),
       darkTheme: colorThem.getDarkMatTheme(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
-
       initialRoute: '/splash',
       routes: {
         '/onBoarding': (context) => const OnBoardingWidget(),
-        '/splash': (context) =>  const Splash(),
+        '/splash': (context) => const SplashWidget(),
         '/': (context) => const HomeWidget(),
         '/login': (context) => LoginWidget((context) => LoginWM(LoginModel())),
         '/register': (context) =>

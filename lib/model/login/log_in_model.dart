@@ -1,16 +1,14 @@
 import 'package:chirk/service/managers.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
-import 'package:provider/provider.dart';
 
 import '../../entity/user.dart';
-import '../../provider/user_provider.dart';
 import '../../service/config.dart';
 
 class LoginModel extends ElementaryModel {
   final _dio = Dio();
-  bool _isHiddenPassword = true;
-  EntityStateNotifier<User> _userState = EntityStateNotifier();
+  bool isHiddenPassword = true;
+  EntityStateNotifier<User> userState = EntityStateNotifier();
 
   LoginModel() {
     _dio.options = BaseOptions(
@@ -18,29 +16,15 @@ class LoginModel extends ElementaryModel {
     );
   }
 
-  bool get isHiddenPassword => _isHiddenPassword;
-
-  set isHiddenPassword(bool value) {
-    _isHiddenPassword = value;
-  }
-
-  EntityStateNotifier<User> get userState => _userState;
-
-  set userState(EntityStateNotifier<User> value) {
-    _userState = value;
-  }
-
   Future<String?> logIn(User user) async {
-    if(await postHttp(user)==403){
+    if (await postHttp(user) == 403) {
       return "Неверный логин или пароль";
     }
+    return null;
   }
 
   Future<int?> postHttp(User user) async {
     Response response;
-
-    print(user.toRegisterJson());
-
     try {
       response = await _dio.post(
         Config.userAuthorisation,
@@ -54,5 +38,6 @@ class LoginModel extends ElementaryModel {
         return e.response!.statusCode;
       }
     }
+    return null;
   }
 }

@@ -9,31 +9,31 @@ import 'package:chirk/widget/chirk/chirk_widget.dart';
 
 import '../../service/config.dart';
 
-class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
-    implements IChirkWM {
+class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel> implements IChirkWM {
   final EntityStateNotifier<bool> _deletedState = EntityStateNotifier();
   final bool _isModerator;
   final ChirkListType _listType;
+
   @override
   void initWidgetModel() {
     super.initWidgetModel();
   }
 
-  ChirkWM(super.model, this._isModerator, this._listType){
+  ChirkWM(super.model, this._isModerator, this._listType) {
     _deletedState.content(false);
   }
+
   @override
   EntityStateNotifier<Chirk> get chirkState => model.chirkState;
 
   @override
-  void onTapLike() async{
+  void onTapLike() async {
     Chirk newChirk = chirkState.value!.data!;
-    if(await TokenManager.getAccessToken()!=null){
+    if (await TokenManager.getAccessToken() != null) {
       if (newChirk.liked != null && newChirk.liked!) {
         newChirk.liked = null;
         newChirk.likeCount -= 1;
-      }
-      else {
+      } else {
         if (newChirk.liked != null) {
           newChirk.disLikeCount -= 1;
         }
@@ -41,15 +41,15 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
         newChirk.likeCount += 1;
       }
       model.update(newChirk);
-    }else{
+    } else {
       _showLikeDialog();
     }
   }
 
   @override
-  void onTapDislike() async{
+  void onTapDislike() async {
     Chirk newChirk = chirkState.value!.data!;
-    if(await TokenManager.getAccessToken()!=null){
+    if (await TokenManager.getAccessToken() != null) {
       if (newChirk.liked != null && !newChirk.liked!) {
         newChirk.liked = null;
         newChirk.disLikeCount -= 1;
@@ -59,7 +59,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
         newChirk.disLikeCount += 1;
       }
       model.update(newChirk);
-    }else {
+    } else {
       _showLikeDialog();
     }
   }
@@ -87,7 +87,8 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   void onTapVisibility() {
     _showVisibleDialog();
   }
-  Future<void> _showVisibleDialog()async{
+
+  Future<void> _showVisibleDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -96,10 +97,9 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                isVisible?
-                const Text('Вы точно хотите скрыть чирк?'):
-                const Text('Вы точно хотите отобразить чирк?')
-                ,
+                isVisible
+                    ? const Text('Вы точно хотите скрыть чирк?')
+                    : const Text('Вы точно хотите отобразить чирк?'),
               ],
             ),
           ),
@@ -107,7 +107,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
             TextButton(
               child: const Text('Да'),
               onPressed: () {
-                _updateVisible().then((value){
+                _updateVisible().then((value) {
                   Navigator.of(context).pop();
                 });
               },
@@ -132,7 +132,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
         return AlertDialog(
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('Вы точно хотите удалить чирк?'),
               ],
             ),
@@ -141,7 +141,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
             TextButton(
               child: const Text('Да'),
               onPressed: () {
-                _deleteChirk().then((value){
+                _deleteChirk().then((value) {
                   Navigator.of(context).pop();
                 });
               },
@@ -157,6 +157,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
       },
     );
   }
+
   Future<void> _showLikeDialog() async {
     return showDialog<void>(
       context: context,
@@ -174,7 +175,8 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
             TextButton(
               child: const Text('Авторизоватся'),
               onPressed: () {
-                Navigator.of(context).pushNamedAndRemoveUntil('/login', (route)=>route.isFirst);
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login', (route) => route.isFirst);
               },
             ),
             TextButton(
@@ -188,15 +190,14 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
       },
     );
   }
-  Future<void> _deleteChirk()async {
-     model.delete();
-    _deletedState.content(true);
 
+  Future<void> _deleteChirk() async {
+    model.delete();
+    _deletedState.content(true);
   }
 
-  Future<void> _updateVisible() async{
+  Future<void> _updateVisible() async {
     model.updateVisible();
-
   }
 
   @override
@@ -209,19 +210,15 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
   get isVisible => chirkState.value!.data!.visible;
 
   @override
-  bool get isVisibleEdit{
-   return _listType == ChirkListType.myList;
+  bool get isVisibleEdit {
+    return _listType == ChirkListType.myList;
   }
-
-
-
 }
 
 abstract class IChirkWM extends IWidgetModel {
   EntityStateNotifier<Chirk> get chirkState;
 
   EntityStateNotifier<bool> get deletedState;
-
 
   bool get isModerator;
 

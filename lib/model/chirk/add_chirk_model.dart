@@ -12,8 +12,8 @@ class AddChirkModel extends ElementaryModel {
   AddChirkModel() {
     _dio.options = BaseOptions(
       baseUrl: Config.apiURL,
-      connectTimeout: Duration(milliseconds: 60000),
-      receiveTimeout: Duration(milliseconds: 30000),
+      connectTimeout: const Duration(milliseconds: 60000),
+      receiveTimeout: const Duration(milliseconds: 30000),
     );
   }
 
@@ -36,5 +36,6 @@ class AddChirkModel extends ElementaryModel {
     } catch (e) {
       if (e is DioError) if (e.response != null) return e.response!.statusCode;
     }
+    return null;
   }
 }

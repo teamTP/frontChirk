@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
 
 import '../../entity/chirk.dart';
-import '../../service/chirl_list_service.dart';
 import '../../service/config.dart';
 
 class ChirkListModelDIO extends ChirkListModel {
@@ -66,7 +65,6 @@ class ChirkListModelDIO extends ChirkListModel {
   List<Chirk> get chirkList => _chirkList;
 
   @override
-  // TODO: implement chirkState
   EntityStateNotifier<List<Chirk>> get chirkListState => _chirkListState;
 
   @override
@@ -75,6 +73,7 @@ class ChirkListModelDIO extends ChirkListModel {
 
 abstract class ChirkListModel extends ElementaryModel {
   get isLoading;
+
   get chirkListType;
 
   Future<void> pagination();
@@ -84,41 +83,4 @@ abstract class ChirkListModel extends ElementaryModel {
   List<Chirk> get chirkList;
 
   EntityStateNotifier<List<Chirk>> get chirkListState;
-}
-
-class ChirkListModelList extends ChirkListModel {
-  bool _isLoading = false;
-  final IChirkListService _chirkListService;
-
-  final EntityStateNotifier<List<Chirk>> _chirkState =
-      EntityStateNotifier<List<Chirk>>();
-
-  ChirkListModelList(this._chirkListService);
-
-  @override
-  Future<void> pagination() async {
-    if (!_isLoading) {
-      _isLoading = true;
-      _chirkListService.pagination();
-      _isLoading = false;
-    }
-  }
-
-  @override
-  Future<void> update() async {
-    _chirkListService.update();
-  }
-
-  @override
-  get isLoading => _isLoading;
-
-  @override
-  get chirkList => _chirkListService.chirks;
-
-  @override
-  EntityStateNotifier<List<Chirk>> get chirkListState => _chirkState;
-
-  @override
-  // TODO: implement chirkListType
-  get chirkListType => throw UnimplementedError();
 }

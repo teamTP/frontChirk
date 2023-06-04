@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({super.key});
+class SplashWidget extends StatefulWidget {
+  const SplashWidget({super.key});
 
   @override
-  State<StatefulWidget> createState() => _SplashState();
+  State<StatefulWidget> createState() => _SplashWidgetState();
 }
 
-class _SplashState extends State<Splash> {
+class _SplashWidgetState extends State<SplashWidget> {
   final bool _isFirstImageVisible = true;
 
   @override

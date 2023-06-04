@@ -1,34 +1,31 @@
 import 'package:chirk/model/chirk/add_chirk_model.dart';
 import 'package:elementary/elementary.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widget/chirk/add_chirk_widget.dart';
 
 class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
     implements IAddChirkWM {
-
   final TextEditingController _messageController = TextEditingController();
   final EntityStateNotifier<bool> _disappearState = EntityStateNotifier();
 
   AddChirkWM(super.model);
+
   @override
   Future<void> addChirk() async {
     if (_validateMessage()) {
       model.addChirk(_messageController.text).then((value) {
-
-        if(value==200){
+        if (value == 200) {
           _messageController.text = '';
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
-        }else if(value!=null){
+        } else if (value != null) {
           final snackBar = SnackBar(
             content: Text('Http error $value'),
-            duration: Duration(seconds: 3),
+            duration: const Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
-
       });
     }
   }
@@ -52,14 +49,12 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
 
   @override
   EntityStateNotifier<bool> get disappearState => _disappearState;
-
 }
 
 abstract class IAddChirkWM extends IWidgetModel {
   get messageController;
 
   EntityStateNotifier<bool> get disappearState;
-
 
   Future<void> addChirk();
 

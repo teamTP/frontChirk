@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class UnloginWidget extends StatefulWidget {
+class LogOutWidget extends StatefulWidget {
   final String text;
 
-  const UnloginWidget(this.text, {super.key});
+  const LogOutWidget(this.text, {super.key});
 
   @override
-  State<StatefulWidget> createState() => _UnloginWidgetState();
+  State<StatefulWidget> createState() => _LogOutWidgetState();
 }
 
-class _UnloginWidgetState extends State<UnloginWidget> {
+class _LogOutWidgetState extends State<LogOutWidget> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

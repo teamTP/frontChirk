@@ -5,7 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
-import 'package:chirk/model/login/login_model.dart';
+import 'package:chirk/model/login/log_in_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -41,15 +41,17 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
       User user = User.empty;
       user.login = _emailTextInputController.text.toLowerCase();
       user.password = _passwordTextInputController.text;
-      model.logIn(user).then((value) async{
-        if(value==null){
-          final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
-          tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
+      model.logIn(user).then((value) async {
+        if (value == null) {
+          final tokenProvider =
+              Provider.of<TokenProvider>(context, listen: false);
+          tokenProvider.setTokens(await TokenManager.getAccessToken() ?? '',
+              await TokenManager.getRefreshToken() ?? '');
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           Navigator.pop(context);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
-        }else{
+        } else {
           final snackBar = SnackBar(
             content: Text(value),
             duration: const Duration(seconds: 3),

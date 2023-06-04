@@ -31,19 +31,19 @@ class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
   @override
   void toExit() {
     _showExitDialog();
-    //todo сделать всплывающее окно
   }
-  Future<void> _showExitDialog()async{
+
+  Future<void> _showExitDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Выход'),
+          title: const Text('Выход'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
-                const Text('Вы точно хотите выйти?'),
+              children: const <Widget>[
+                Text('Вы точно хотите выйти?'),
               ],
             ),
           ),
@@ -51,7 +51,8 @@ class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
             TextButton(
               child: const Text('Да'),
               onPressed: () {
-                final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+                final tokenProvider =
+                    Provider.of<TokenProvider>(context, listen: false);
                 tokenProvider.deleteTokens();
                 Navigator.of(context).pop();
                 //Navigator.pushNamedAndRemoveUntil(context, "/login", (root)=>root.isFirst);
@@ -68,6 +69,7 @@ class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
       },
     );
   }
+
   @override
   void toLikeFeed() {
     Navigator.of(context).pushNamed("/likedChirk");

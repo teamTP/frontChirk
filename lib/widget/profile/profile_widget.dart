@@ -1,5 +1,4 @@
 import 'package:chirk/widgetModel/profile/profile_wm.dart';
-import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
@@ -23,22 +22,21 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
       ),
       body: EntityStateNotifierBuilder(
         listenableEntityState: wm.userState,
-        builder: (context, user){
-          if(user == null){
+        builder: (context, user) {
+          if (user == null) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else{
+          } else {
             return SafeArea(
               child: ListView(
                 scrollDirection: Axis.vertical,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: size / 2, left: size/2),
+                    margin: EdgeInsets.only(top: size / 2, left: size / 2),
                     child: Row(
                       children: [
                         CircleAvatar(
-                          //todo иконка по id
                             radius: wm.textTheme.headlineMedium!.fontSize! * 2,
                             backgroundImage: wm.userIcon),
                         Row(
@@ -81,8 +79,8 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                         children: [
                           Text(
                             "Персональные данные",
-                            style:
-                            wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                            style: wm.textTheme.titleMedium
+                                ?.apply(fontWeightDelta: 1),
                           ),
                           Text("Имя: ${user.name} ${user.surname}"),
                           Text("Логин: ${user.login}"),
@@ -98,8 +96,8 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                         children: [
                           Text(
                             "Чирки",
-                            style:
-                            wm.textTheme.titleMedium?.apply(fontWeightDelta: 1),
+                            style: wm.textTheme.titleMedium
+                                ?.apply(fontWeightDelta: 1),
                           ),
                           TextButton.icon(
                             onPressed: () {

@@ -5,8 +5,8 @@ import 'package:chirk/model/profile/profile_model.dart';
 import 'package:chirk/widget/profile/profile_widget.dart';
 import 'package:chirk/widgetModel/profile/profile_wm.dart';
 import 'package:chirk/provider/user_provider.dart';
-import 'package:chirk/widget/unlogin/unlogin_add_chirk_widget.dart';
-import 'package:chirk/widget/unlogin/unlogin_profile_widget.dart';
+import 'package:chirk/widget/unlogin/log_out_add_chirk_widget.dart';
+import 'package:chirk/widget/unlogin/log_out_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:chirk/model/chirk/chirk_list_model.dart';
@@ -28,8 +28,8 @@ class _MyState extends State<StatefulWidget> {
   final List<Widget> _widgetOptionsWithoutToken = <Widget>[
     ChirkListWidget("Лента чирков",
         (context) => ChirkListWM(ChirkListModelDIO(ChirkListType.standard))),
-    const UnloginAddChirkWidget(),
-    const UnloginProfileWidget(),
+    const LogOutAddChirkWidget(),
+    const LogOutProfileWidget(),
   ];
 
   final List<Widget> _widgetOptionsWithToken = <Widget>[
