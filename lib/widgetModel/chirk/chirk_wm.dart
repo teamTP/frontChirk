@@ -166,7 +166,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('Что бы оценить чирк авторизуйтесь'),
+                Text('Что бы оценить чирк, авторизуйтесь.'),
               ],
             ),
           ),
@@ -178,7 +178,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel>
               },
             ),
             TextButton(
-              child: const Text('позже'),
+              child: const Text('Позже'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

@@ -64,14 +64,14 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
     isEmailValid = isValid;
-    userState.notifyListeners();
+    userState.content(User.empty);
     return isValid;
   }
 
   bool _validatePassword() {
     bool isValid = validatePassword(_passwordTextInputController.text);
     isPasswordValid = isValid;
-    userState.notifyListeners();
+    userState.content(User.empty);
     return isValid;
   }
 
@@ -83,7 +83,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   @override
   void togglePasswordView() {
     model.isHiddenPassword = !model.isHiddenPassword;
-    model.userState.notifyListeners();
+    userState.content(User.empty);
   }
 
   @override
