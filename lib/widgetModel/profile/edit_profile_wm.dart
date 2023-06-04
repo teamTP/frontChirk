@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 import '../../widget/profile/edit_profile_widget.dart';
 import '../../entity/user.dart';
-import '../../service/user_icons.dart';
+import '../../service/userIcons.dart';
 
 class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
     implements IEditProfileWM {

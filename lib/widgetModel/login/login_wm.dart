@@ -37,7 +37,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    if (_validatePassword() && _validateEmail()) {
+    if ( _validateEmail() && _validatePassword()) {
       User user = User.empty;
       user.login = _emailTextInputController.text.toLowerCase();
       user.password = _passwordTextInputController.text;
@@ -115,6 +115,33 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
         login: "ivan@sidorov.ru",
         password: ":OHG:25L:JHG");
   }
+
+  @override
+  get passwordError {
+    String password = _passwordTextInputController.text;
+    // Проверка на количество символов
+    if (password.length < 6) {
+      return 'Пароль должен содержать не менее 6 символов';
+    }
+
+    // Проверка на наличие цифры
+    if (!password.contains(RegExp(r'\d'))) {
+      return 'Пароль должен содержать хотя бы одну цифру';
+    }
+
+    // Проверка на наличие прописной буквы
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return 'Пароль должен содержать хотя бы одну прописную букву';
+    }
+
+    // Проверка на наличие строчной буквы
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return 'Пароль должен содержать хотя бы одну строчную букву';
+    }
+
+    // Возвращаем null, если пароль прошел все проверки
+    return null;
+  }
 }
 
 abstract class ILoginWM extends IWidgetModel {
@@ -129,10 +156,15 @@ abstract class ILoginWM extends IWidgetModel {
   Key get key;
 
   bool get isHiddenPassword;
+  bool get isEmailValid;
+  bool get isPasswordValid;
 
   TextEditingController get emailController;
 
   TextEditingController get passwordController;
 
   EntityStateNotifier<User> get userState;
+
+
+  get passwordError;
 }

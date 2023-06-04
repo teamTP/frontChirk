@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/chirk.dart';
 import 'package:chirk/model/chirk/chirk_model.dart';
-import 'package:chirk/service/user_icons.dart';
+import 'package:chirk/service/userIcons.dart';
 import 'package:chirk/widget/chirk/chirk_widget.dart';
 
 import '../../service/config.dart';

@@ -34,11 +34,11 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           autocorrect: false,
                           controller: wm.emailController,
                           decoration: InputDecoration(
-                              labelText: 'Введите email',
-                              border: const OutlineInputBorder(),
-                              errorText: wm.isEmailValid
-                                  ? null
-                                  : "Неправильный email"),
+                            labelText: 'Введите email',
+                            border: const OutlineInputBorder(),
+                            errorText:
+                                wm.isEmailValid ? null : "Неправильный email",
+                          ),
                         ),
                         const SizedBox(height: 16),
                         TextFormField(
