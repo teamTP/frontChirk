@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.vsu.cs.tp.chirk">
+    <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="chirk"
         android:name="${applicationName}"
