@@ -1,12 +1,12 @@
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/model/login/log_in_model.dart';
-import 'package:chirk/provider/user_provider.dart';
 import 'package:chirk/service/config.dart';
+import 'package:chirk/service/provider/user_provider.dart';
+import 'package:chirk/service/theme/theme.dart';
 import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
-import 'package:chirk/theme/theme.dart';
 import 'package:chirk/widget/onBoarding/onBoarding_widget.dart';
 import 'package:chirk/widget/splash.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';

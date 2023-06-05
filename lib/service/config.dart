@@ -1,5 +1,5 @@
 class Config {
-  static const String apiURL = "http://92.53.115.78:8080";
+  static const String apiURL = "http://10.0.2.2:8080";
   static const String chirksAdd = "/chirks/add";
   static const String chirksDelete = '/chirks/delete';
   static String chirksUpdateVisible = '/chirks/updateVisible';
