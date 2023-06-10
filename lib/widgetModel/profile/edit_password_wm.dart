@@ -29,7 +29,7 @@ class EditPasswordWM extends WidgetModel<EditPasswordWidget, EditPasswordModel>
   Key get key => _key;
 
   @override
-  void editPas() async{
+  void editPas() async {
     if (_validatePassword() && _validateRepeatPassword()) {
       await model
           .editPas(_oldPasswordController.text, _newPasswordController.text)
@@ -76,7 +76,6 @@ class EditPasswordWM extends WidgetModel<EditPasswordWidget, EditPasswordModel>
     RegExp regex = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
     return regex.hasMatch(value);
   }
-
 
   @override
   void togglePasswordView() {

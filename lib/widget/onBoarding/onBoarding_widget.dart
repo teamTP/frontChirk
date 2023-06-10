@@ -22,7 +22,7 @@ class OnBoardingWidget extends StatelessWidget {
         skip: const Text("Пропустить"),
         next: const Text("Далее"),
         done: const Text("Начать"),
-        onDone: () async{
+        onDone: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
           Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);

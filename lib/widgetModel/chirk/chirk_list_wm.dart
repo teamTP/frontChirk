@@ -11,16 +11,15 @@ import '../../service/managers.dart';
 class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
     implements IChirkListWM {
   final scrollController = ScrollController();
-  bool _isModerator=false;
+  bool _isModerator = false;
 
   ChirkListWM(super.model);
-
 
   @override
   Future<void> initWidgetModel() async {
     super.initWidgetModel();
 
-    _isModerator =await TokenManager.isModerator();
+    _isModerator = await TokenManager.isModerator();
     scrollController.addListener(() {
       if (scrollController.position.maxScrollExtent ==
           scrollController.offset) {
@@ -28,7 +27,6 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
       }
     });
   }
-
 
   @override
   void dispose() {
@@ -38,12 +36,14 @@ class ChirkListWM extends WidgetModel<ChirkListWidget, ChirkListModel>
   Future<void> fetch() async {
     model.pagination();
   }
+
   @override
   get controller => scrollController;
 
   @override
   Future<void> update() async {
-    model.update();
+    chirksState.content([]);
+    await model.update();
   }
 
   @override
@@ -70,6 +70,5 @@ abstract class IChirkListWM extends IWidgetModel {
 
   ChirkListType get listType;
 
-  void update();
-
+  Future<void> update();
 }

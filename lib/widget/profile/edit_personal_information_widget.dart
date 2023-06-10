@@ -38,7 +38,7 @@ class EditPersonalInformationWidget
                         errorText: wm.isFirstNameValid
                             ? null
                             : "Поле не должно быть пустым",
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                       ),
                       controller: wm.nameController,
                     ),
@@ -49,7 +49,7 @@ class EditPersonalInformationWidget
                             ? null
                             : "Поле не должно быть пустым",
                         labelText: "Фамилия",
-                        border: OutlineInputBorder(),
+                        border: const OutlineInputBorder(),
                       ),
                       controller: wm.surnameController,
                     ),

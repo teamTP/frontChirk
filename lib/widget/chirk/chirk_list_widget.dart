@@ -10,6 +10,7 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
   final String _title;
 
   const ChirkListWidget(this._title, super.wmFactory, {super.key});
+
   @override
   Widget build(IChirkListWM wm) {
     return Scaffold(
@@ -23,44 +24,57 @@ class ChirkListWidget extends ElementaryWidget<IChirkListWM> {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else{
-            //todo сортировка
+          } else {
             //chirkList.sort((a, b)=> b.dateTime.compareTo(a.dateTime));
             return RefreshIndicator(
+              onRefresh: wm.update,
               child: ListView.builder(
                 controller: wm.controller,
                 itemCount: chirkList.length + 1,
                 itemBuilder: (BuildContext context, int index) {
-                  if(chirkList.isEmpty){
-                    return Center(
-                      child: Column(children: [
-                        Text('Попробуйте перезагрузить ленту'),
-                        ElevatedButton(onPressed: () =>wm.update(), child: Text('Перезагрузить'))
-                      ],),
-                    );
-
-                  }
                   if (index == chirkList.length) {
-                    return _buildLoaderIndicator(wm.isLoading);
+                    return FutureBuilder(
+                        future: Future.delayed(const Duration(seconds: 3)),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(child: CircularProgressIndicator()),
+                            );
+                          } else {
+                            if (chirkList.isNotEmpty) {
+                              return const SizedBox();
+                            } else {
+                              return Center(
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                        'Попробуйте перезагрузить ленту'),
+                                    ElevatedButton(
+                                      onPressed: () => wm.update(),
+                                      child: const Text('Перезагрузить'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }
+                        });
                   } else {
-                    return ChirkWidget((context) =>
-                        ChirkWM(ChirkModel(ChirkServiceDIO(chirkList[index])), wm.isModerator, wm.listType));
+                    return ChirkWidget(
+                      (context) => ChirkWM(
+                          ChirkModel(ChirkServiceDIO(chirkList[index])),
+                          wm.isModerator,
+                          wm.listType),
+                    );
                   }
                 },
               ),
-              onRefresh: () async => wm.update(),
-            );}
+            );
+          }
         },
       ),
     );
   }
-  Widget _buildLoaderIndicator(bool isLoading) {
-    return isLoading
-        ? const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Center(child: CircularProgressIndicator()),
-    )
-        : const SizedBox();
-  }
 }
-

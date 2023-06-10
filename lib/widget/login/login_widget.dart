@@ -38,9 +38,11 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                               email != null && !EmailValidator.validate(email)
                                   ? 'Введите правильный email'
                                   : null,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             labelText: 'Введите email',
                             border: OutlineInputBorder(),
+                            errorText:
+                                wm.isEmailValid ? null : "Неправильный email",
                           ),
                         ),
                         const SizedBox(height: 16),
@@ -53,6 +55,8 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
                             border: const OutlineInputBorder(),
+                            errorText:
+                                wm.isPasswordValid ? null : wm.passwordError,
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(

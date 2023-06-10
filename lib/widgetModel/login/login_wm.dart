@@ -1,15 +1,15 @@
 import 'package:chirk/service/managers.dart';
+import 'package:chirk/service/provider/user_provider.dart';
 import 'package:chirk/widget/login/login_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
-import 'package:chirk/model/login/login_model.dart';
+import 'package:chirk/model/login/log_in_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../provider/user_provider.dart';
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -37,19 +37,21 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    if (_validatePassword() && _validateEmail()) {
+    if ( _validateEmail() && _validatePassword()) {
       User user = User.empty;
       user.login = _emailTextInputController.text.toLowerCase();
       user.password = _passwordTextInputController.text;
-      model.logIn(user).then((value) async{
-        if(value==null){
-          final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
-          tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
+      model.logIn(user).then((value) async {
+        if (value == null) {
+          final tokenProvider =
+              Provider.of<TokenProvider>(context, listen: false);
+          tokenProvider.setTokens(await TokenManager.getAccessToken() ?? '',
+              await TokenManager.getRefreshToken() ?? '');
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
           Navigator.pop(context);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
-        }else{
+        } else {
           final snackBar = SnackBar(
             content: Text(value),
             duration: const Duration(seconds: 3),
@@ -64,14 +66,14 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   bool _validateEmail() {
     bool isValid = EmailValidator.validate(_emailTextInputController.text);
     isEmailValid = isValid;
-    userState.notifyListeners();
+    userState.content(User.empty);
     return isValid;
   }
 
   bool _validatePassword() {
     bool isValid = validatePassword(_passwordTextInputController.text);
     isPasswordValid = isValid;
-    userState.notifyListeners();
+    userState.content(User.empty);
     return isValid;
   }
 
@@ -83,7 +85,7 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   @override
   void togglePasswordView() {
     model.isHiddenPassword = !model.isHiddenPassword;
-    model.userState.notifyListeners();
+    userState.content(User.empty);
   }
 
   @override
@@ -113,6 +115,33 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
         login: "ivan@sidorov.ru",
         password: ":OHG:25L:JHG");
   }
+
+  @override
+  get passwordError {
+    String password = _passwordTextInputController.text;
+    // Проверка на количество символов
+    if (password.length < 6) {
+      return 'Пароль должен содержать не менее 6 символов';
+    }
+
+    // Проверка на наличие цифры
+    if (!password.contains(RegExp(r'\d'))) {
+      return 'Пароль должен содержать хотя бы одну цифру';
+    }
+
+    // Проверка на наличие прописной буквы
+    if (!password.contains(RegExp(r'[A-Z]'))) {
+      return 'Пароль должен содержать хотя бы одну прописную букву';
+    }
+
+    // Проверка на наличие строчной буквы
+    if (!password.contains(RegExp(r'[a-z]'))) {
+      return 'Пароль должен содержать хотя бы одну строчную букву';
+    }
+
+    // Возвращаем null, если пароль прошел все проверки
+    return null;
+  }
 }
 
 abstract class ILoginWM extends IWidgetModel {
@@ -127,10 +156,15 @@ abstract class ILoginWM extends IWidgetModel {
   Key get key;
 
   bool get isHiddenPassword;
+  bool get isEmailValid;
+  bool get isPasswordValid;
 
   TextEditingController get emailController;
 
   TextEditingController get passwordController;
 
   EntityStateNotifier<User> get userState;
+
+
+  get passwordError;
 }

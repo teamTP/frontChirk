@@ -25,11 +25,13 @@ class EditProfileWM extends WidgetModel<EditProfileWidget, ProfileModel>
 
   @override
   void toEditPersonalInformation() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => EditPersonalInformationWidget((context) =>
-            EditPersonalInformationWM(
-                EditPersonalInformationModel(model.userState.value!.data!))))).then((value){
-                  model.userState.content(value);
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+            builder: (context) => EditPersonalInformationWidget((context) =>
+                EditPersonalInformationWM(EditPersonalInformationModel(
+                    model.userState.value!.data!)))))
+        .then((value) {
+      model.userState.content(value);
     });
   }
 

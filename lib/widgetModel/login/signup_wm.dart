@@ -1,13 +1,12 @@
+import 'package:chirk/service/provider/user_provider.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:elementary/elementary.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/user.dart';
-import 'package:chirk/model/login/signup_model.dart';
+import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:provider/provider.dart';
-
-import '../../provider/user_provider.dart';
 import '../../service/managers.dart';
 
 class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
