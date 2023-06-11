@@ -13,14 +13,17 @@ import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
 import 'package:chirk/widgetModel/login/login_wm.dart';
 import 'package:chirk/widgetModel/login/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:flutter/services.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(EasyDynamicThemeWidget(
@@ -43,10 +46,14 @@ class ChirkApp extends StatefulWidget {
 class _ChirkAppState extends State<ChirkApp> {
   ColorTheme colorThem = ColorTheme(Colors.yellow);
   HomeWidget homeWidget = const HomeWidget();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics);
+      ],
       debugShowCheckedModeBanner: false,
       theme: colorThem.getLightMatTheme(),
       darkTheme: colorThem.getDarkMatTheme(),
