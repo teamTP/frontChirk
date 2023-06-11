@@ -52,7 +52,7 @@ class _ChirkAppState extends State<ChirkApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics);
+        FirebaseAnalyticsObserver(analytics: analytics),
       ],
       debugShowCheckedModeBanner: false,
       theme: colorThem.getLightMatTheme(),
