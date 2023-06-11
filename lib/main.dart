@@ -15,11 +15,13 @@ import 'package:chirk/widgetModel/login/signup_wm.dart';
 import 'package:easy_dynamic_theme/easy_dynamic_theme.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,9 +46,11 @@ class ChirkApp extends StatefulWidget {
 }
 
 class _ChirkAppState extends State<ChirkApp> {
-  ColorTheme colorThem = ColorTheme(Colors.yellow);
+  MaterialColor colorTheme = Colors.blue;
   HomeWidget homeWidget = const HomeWidget();
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +59,8 @@ class _ChirkAppState extends State<ChirkApp> {
         FirebaseAnalyticsObserver(analytics: analytics),
       ],
       debugShowCheckedModeBanner: false,
-      theme: colorThem.getLightMatTheme(),
-      darkTheme: colorThem.getDarkMatTheme(),
+      theme: ColorTheme(colorTheme).getLightMatTheme(),
+      darkTheme: ColorTheme(colorTheme).getLightMatTheme(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/splash',
       routes: {
@@ -76,5 +80,92 @@ class _ChirkAppState extends State<ChirkApp> {
                 ChirkListWM(ChirkListModelDIO(ChirkListType.disliked))),
       },
     );
+  }
+
+
+  Future<void> fetchAndApplyConfig() async {
+
+    final remoteConfig = FirebaseRemoteConfig.instance;
+
+    try {
+      // Время ожидания для получения конфигурации (необязательно)
+      final fetchTimeout = Duration(seconds: 10);
+
+      // Задайте значение по умолчанию для каждого параметра конфигурации
+      final defaults = <String, dynamic>{
+        'theme_color': 'blue',
+      };
+
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(seconds: 10),
+        minimumFetchInterval: const Duration(seconds: 50),
+      ));
+      await remoteConfig.setDefaults(defaults);
+
+      // Загрузите значения конфигурации с сервера Firebase
+      await remoteConfig.fetchAndActivate();
+
+      // Получите значение для смены темы и примените его в вашем приложении
+      final parseColorStr = remoteConfig.getString('theme_color');
+      final parsedColor = _getColorFromPalette(parseColorStr);
+      if(parsedColor != null){
+        setState(() {
+          colorTheme = parsedColor;
+        });
+      }
+      // Примените значение themeColor для изменения темы в вашем приложении
+
+    } catch (e) {
+      // Обработка ошибок
+      print('Error fetching remote config: $e');
+    }
+  }
+
+  MaterialColor? _getColorFromPalette(String colorName) {
+    colorName = colorName.toLowerCase();
+    switch (colorName) {
+    // Основные цвета
+      case 'red':
+        return Colors.red;
+      case 'blue':
+        return Colors.blue;
+      case 'green':
+        return Colors.green;
+      case 'yellow':
+        return Colors.yellow;
+      case 'orange':
+        return Colors.orange;
+      case 'purple':
+        return Colors.purple;
+      case 'pink':
+        return Colors.pink;
+      case 'cyan':
+        return Colors.cyan;
+
+    // Цвета материала
+      case 'indigo':
+        return Colors.indigo;
+      case 'teal':
+        return Colors.teal;
+      case 'lime':
+        return Colors.lime;
+      case 'amber':
+        return Colors.amber;
+      case 'deepOrange':
+        return Colors.deepOrange;
+      case 'brown':
+        return Colors.brown;
+      case 'blueGrey':
+        return Colors.blueGrey;
+
+      default:
+        return null;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAndApplyConfig();
   }
 }
