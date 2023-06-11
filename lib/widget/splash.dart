@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,6 +13,7 @@ class SplashWidget extends StatefulWidget {
 
 class _SplashWidgetState extends State<SplashWidget> {
   final bool _isFirstImageVisible = true;
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
@@ -20,13 +22,12 @@ class _SplashWidgetState extends State<SplashWidget> {
       checkFirstSeen().then((value) => {
             if (value)
               {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/onBoarding', (route) => false)
+                analytics.logEvent(name: 'app_open'),
+                Navigator.pushNamedAndRemoveUntil(context, '/onBoarding', (route) => false),
               }
             else
               {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/', (route) => false)
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)
               }
           });
     });
