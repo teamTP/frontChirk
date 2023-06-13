@@ -20,13 +20,11 @@ class _SplashWidgetState extends State<SplashWidget> {
       checkFirstSeen().then((value) => {
             if (value)
               {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/onBoarding', (route) => false)
+                Navigator.pushNamedAndRemoveUntil(context, '/onBoarding', (route) => false),
               }
             else
               {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/', (route) => false)
+                Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false)
               }
           });
     });

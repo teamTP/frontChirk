@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>763486021642-sa7l3ltoqvp8ojbobj8514h1v65k9aa0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.763486021642-sa7l3ltoqvp8ojbobj8514h1v65k9aa0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDH54KoTx372KWU3lDa9kVv9eiQx2-QdqI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>763486021642</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>ru.vsu.cs.tp.chirk</string>
+	<key>PROJECT_ID</key>
+	<string>chirk-e14c5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chirk-e14c5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:763486021642:ios:4c2845cd92860af9ce17f3</string>
+</dict>
+</plist>

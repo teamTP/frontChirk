@@ -28,7 +28,8 @@ class TokenManager {
     final prefs = await SharedPreferences.getInstance();
     String? refreshToken = prefs.getString(_keyRefreshToken);
 
-    if (refreshToken != null && isTokenExpired(refreshToken)) {
+    if (refreshToken != null &&
+        (refreshToken == '' || isTokenExpired(refreshToken))) {
       await removeTokens();
       return null;
     }
@@ -63,20 +64,22 @@ class TokenManager {
   }
 
   static Future<String?> refreshAccessToken() async {
-    var dio = Dio();
-    dio.options = BaseOptions(
-      baseUrl: Config.apiURL,
-      connectTimeout: const Duration(milliseconds: 60000),
-      receiveTimeout: const Duration(milliseconds: 30000),
-    );
     String? refToken = await getRefreshToken();
-    var response = await dio.post('/user/updateTokens',
-        data: refToken != null
-            ? {"refreshToken": await getRefreshToken()}
-            : null);
-    final accessToken = response.data['accessToken'];
-    final refreshToken = response.data['refreshToken'];
-    saveTokens(accessToken, refreshToken);
-    return accessToken;
+    if (refToken == null) {
+      return null;
+    } else {
+      var dio = Dio();
+      dio.options = BaseOptions(
+        baseUrl: Config.apiURL,
+        connectTimeout: const Duration(milliseconds: 60000),
+        receiveTimeout: const Duration(milliseconds: 30000),
+      );
+      var response = await dio.post('/user/updateTokens',
+          data: {"refreshToken": await getRefreshToken()});
+      final accessToken = response.data['accessToken'];
+      final refreshToken = response.data['refreshToken'];
+      saveTokens(accessToken, refreshToken);
+      return accessToken;
+    }
   }
 }
