@@ -1,6 +1,8 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/model/chirk/add_chirk_model.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../widget/chirk/add_chirk_widget.dart';
 
@@ -14,11 +16,17 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
   @override
   Future<void> addChirk() async {
     if (_validateMessage()) {
-      model.addChirk(_messageController.text).then((value) {
+      model.addChirk(_messageController.text).then((value){
         if (value == 200) {
           _messageController.text = '';
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
+          SharedPreferences.getInstance().then((prefs){
+            if(!(prefs.getBool('firstAddChirk')??false)){
+              AppMetrica.reportEvent("add_first_chirk");
+              prefs.setBool('firstAddChirk', true);
+            }
+          });
         } else if (value != null) {
           final snackBar = SnackBar(
             content: Text('Http error $value'),

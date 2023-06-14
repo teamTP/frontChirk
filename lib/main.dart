@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/model/chirk/chirk_list_model.dart';
 import 'package:chirk/model/login/log_in_model.dart';
 import 'package:chirk/service/config.dart';
@@ -37,7 +38,10 @@ Future<void> main() async {
       ],
       child: const ChirkApp(),
     )));
+    AppMetrica.activate(const AppMetricaConfig("daf40c42-61ed-4ce0-ab6b-f811bd11dfef"));
   });
+
+
 }
 
 class ChirkApp extends StatefulWidget {
@@ -56,7 +60,7 @@ class _ChirkAppState extends State<ChirkApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ColorTheme(colorTheme).getLightMatTheme(),
-      darkTheme: ColorTheme(colorTheme).getLightMatTheme(),
+      darkTheme: ColorTheme(colorTheme).getDarkMatTheme(),
       themeMode: EasyDynamicTheme.of(context).themeMode,
       initialRoute: '/splash',
       routes: {
@@ -163,5 +167,6 @@ class _ChirkAppState extends State<ChirkApp> {
   void initState() {
     super.initState();
     fetchAndApplyConfig();
+    AppMetrica.reportEvent("open_app");
   }
 }

@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/service/provider/user_provider.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:elementary/elementary.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../service/managers.dart';
 
 class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
@@ -65,7 +67,11 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
         if(value==null) {
           final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
           tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
-          Navigator.pop(context);
+
+          AppMetrica.reportEvent("sign_up");
+          goBack();
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('firstSeen', false);
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         }else{
           final snackBar = SnackBar(
@@ -78,6 +84,10 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     }
   }
 
+
+  void goBack(){
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+  }
   bool _validateName() {
     bool isValid = _nameTextInputController.text.isNotEmpty;
     isFirstNameValid = isValid;
