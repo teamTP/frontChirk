@@ -22,6 +22,7 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
           SharedPreferences.getInstance().then((prefs){
+            AppMetrica.reportEvent("add_chirk");
             if(!(prefs.getBool('firstAddChirk')??false)){
               AppMetrica.reportEvent("add_first_chirk");
               prefs.setBool('firstAddChirk', true);

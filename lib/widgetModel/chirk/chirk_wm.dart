@@ -49,13 +49,13 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel> implements IChirkWM {
     }
   }
   void onTapEstimate(){
+    AppMetrica.reportEvent("estimate");
     SharedPreferences.getInstance().then((prefs){
       if(!(prefs.getBool('firstEstimate')??false)){
         AppMetrica.reportEvent("first_estimate");
         prefs.setBool('firstEstimate', true);
       }
     });
-    AppMetrica.reportEvent("first_estimate");
   }
 
   @override
