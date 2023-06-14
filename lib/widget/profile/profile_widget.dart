@@ -135,25 +135,6 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                       ),
                     ),
                   ),
-                  TextButton(onPressed: (){
-                    AppMetrica.reportEvent("open_app");
-                  },
-                    child: Text("Открыл приложение"),),
-                  TextButton(onPressed: (){
-                    AppMetrica.reportEvent("login");
-
-                  },
-                    child: Text("Авторизовался"),),
-                  TextButton(onPressed: (){
-
-                    AppMetrica.reportEvent("add_first_chirk");
-                  },
-                    child: Text("Оценил"),),
-                  TextButton(onPressed: (){
-
-                    AppMetrica.reportEvent("first_estimate");
-                  },
-                    child: Text("Создал чирк"),),
                 ],
               ),
             );
