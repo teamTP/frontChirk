@@ -22,7 +22,6 @@ class _SplashWidgetState extends State<SplashWidget> {
       checkFirstSeen().then((value) => {
             if (value)
               {
-                analytics.logEvent(name: 'app_open'),
                 Navigator.pushNamedAndRemoveUntil(context, '/onBoarding', (route) => false),
               }
             else

@@ -1,3 +1,4 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/service/managers.dart';
 import 'package:chirk/service/provider/user_provider.dart';
 import 'package:chirk/widget/login/login_widget.dart';
@@ -9,7 +10,6 @@ import 'package:chirk/entity/user.dart';
 import 'package:chirk/model/login/log_in_model.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _emailTextInputController =
@@ -39,18 +39,21 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
   @override
   Future logIn() async {
-    if ( _validateEmail() && _validatePassword()) {
+    if (_validateEmail() && _validatePassword()) {
       User user = User.empty;
       user.login = _emailTextInputController.text.toLowerCase();
       user.password = _passwordTextInputController.text;
       model.logIn(user).then((value) async {
         if (value == null) {
+          String? accessToken = await TokenManager.getAccessToken();
+          String? refreshToken = await TokenManager.getAccessToken();
           final tokenProvider =
               Provider.of<TokenProvider>(context, listen: false);
-          tokenProvider.setTokens(await TokenManager.getAccessToken() ?? '',
-              await TokenManager.getRefreshToken() ?? '');
+          tokenProvider.setTokens(accessToken, refreshToken);
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-          Navigator.pop(context);
+
+          AppMetrica.reportEvent("login");
+          goBack();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
         } else {
@@ -63,6 +66,10 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
       });
     }
     //throw UnimplementedError();
+  }
+
+  void goBack() {
+    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
 
   bool _validateEmail() {
@@ -124,21 +131,22 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
     // Проверка на количество символов
     if (password.length < 6) {
       return 'Пароль должен содержать не менее 6 символов';
+
     }
 
     // Проверка на наличие цифры
     if (!password.contains(RegExp(r'\d'))) {
-      return 'Пароль должен содержать хотя бы одну цифру';
+      return 'Пароль должен содержать цифры';
     }
 
     // Проверка на наличие прописной буквы
     if (!password.contains(RegExp(r'[A-Z]'))) {
-      return 'Пароль должен содержать хотя бы одну прописную букву';
+      return 'Пароль должен содержать заглавные буквы';
     }
 
     // Проверка на наличие строчной буквы
     if (!password.contains(RegExp(r'[a-z]'))) {
-      return 'Пароль должен содержать хотя бы одну строчную букву';
+      return 'Пароль должен содержать строчные букву';
     }
 
     // Возвращаем null, если пароль прошел все проверки
@@ -158,7 +166,9 @@ abstract class ILoginWM extends IWidgetModel {
   Key get key;
 
   bool get isHiddenPassword;
+
   bool get isEmailValid;
+
   bool get isPasswordValid;
 
   TextEditingController get emailController;
@@ -166,7 +176,6 @@ abstract class ILoginWM extends IWidgetModel {
   TextEditingController get passwordController;
 
   EntityStateNotifier<User> get userState;
-
 
   get passwordError;
 }
