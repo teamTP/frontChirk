@@ -50,8 +50,13 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                           decoration: InputDecoration(
                             labelText: 'Введите пароль',
                             border: const OutlineInputBorder(),
+                            helperText:
+                            "Пароль должен состоять минимум из 6 символов\n"
+                                "и содержать цифры и заглавные буквы",
+                            helperMaxLines: null,
                             errorText:
                                 wm.isPasswordValid ? null : wm.passwordError,
+                            errorMaxLines: null,
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
@@ -119,8 +124,10 @@ class SignUpWidget extends ElementaryWidget<ISignUpWM> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runSpacing: 8, // Отступ между элементами при переносе
                   children: [
                     const Text(
                       "Уже есть аккаунт?",
