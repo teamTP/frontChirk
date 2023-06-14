@@ -17,7 +17,9 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
   final TextEditingController _passwordTextInputController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
+  @override
   bool isEmailValid = true;
+  @override
   bool isPasswordValid = true;
 
   LoginWM(super.model);

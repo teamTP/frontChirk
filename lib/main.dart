@@ -54,6 +54,7 @@ class ChirkApp extends StatefulWidget {
 class _ChirkAppState extends State<ChirkApp> {
   MaterialColor colorTheme = Colors.yellow;
   HomeWidget homeWidget = const HomeWidget();
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
