@@ -1,4 +1,3 @@
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/widgetModel/profile/profile_wm.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +34,13 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
                 children: [
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    child:
-                    Container(
+                    child: Container(
                       margin: EdgeInsets.only(top: size / 2, left: size / 2),
                       child: Row(
                         children: [
                           CircleAvatar(
-                              radius: wm.textTheme.headlineMedium!.fontSize! * 2,
+                              radius:
+                                  wm.textTheme.headlineMedium!.fontSize! * 2,
                               backgroundImage: wm.userIcon),
                           Row(
                             children: [

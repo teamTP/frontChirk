@@ -8,7 +8,7 @@ import 'package:chirk/widget/chirk/chirk_list_widget.dart';
 import 'package:chirk/widget/login/signup_widget.dart';
 import 'package:chirk/widget/home_widget.dart';
 import 'package:chirk/widget/login/login_widget.dart';
-import 'package:chirk/widget/onBoarding/onBoarding_widget.dart';
+import 'package:chirk/widget/onBoarding/on_boarding_widget.dart';
 import 'package:chirk/widget/splash.dart';
 import 'package:chirk/widgetModel/chirk/chirk_list_wm.dart';
 import 'package:chirk/widgetModel/login/login_wm.dart';
@@ -22,12 +22,12 @@ import 'package:provider/provider.dart';
 import 'package:chirk/model/login/sign_up_model.dart';
 import 'package:flutter/services.dart';
 
-import 'firebase_options.dart';
+import 'service/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options:DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
@@ -38,10 +38,9 @@ Future<void> main() async {
       ],
       child: const ChirkApp(),
     )));
-    AppMetrica.activate(const AppMetricaConfig("daf40c42-61ed-4ce0-ab6b-f811bd11dfef"));
+    AppMetrica.activate(
+        const AppMetricaConfig("daf40c42-61ed-4ce0-ab6b-f811bd11dfef"));
   });
-
-
 }
 
 class ChirkApp extends StatefulWidget {
@@ -82,16 +81,10 @@ class _ChirkAppState extends State<ChirkApp> {
     );
   }
 
-
   Future<void> fetchAndApplyConfig() async {
-
     final remoteConfig = FirebaseRemoteConfig.instance;
 
     try {
-      // Время ожидания для получения конфигурации (необязательно)
-      final fetchTimeout = Duration(seconds: 10);
-
-      // Задайте значение по умолчанию для каждого параметра конфигурации
       final defaults = <String, dynamic>{
         'theme_color': 'yellow',
       };
@@ -108,13 +101,12 @@ class _ChirkAppState extends State<ChirkApp> {
       // Получите значение для смены темы и примените его в вашем приложении
       final parseColorStr = remoteConfig.getString('theme_color');
       final parsedColor = _getColorFromPalette(parseColorStr);
-      if(parsedColor != null){
+      if (parsedColor != null) {
         setState(() {
           colorTheme = parsedColor;
         });
       }
       // Примените значение themeColor для изменения темы в вашем приложении
-
     } catch (e) {
       // Обработка ошибок
       print('Error fetching remote config: $e');
@@ -124,7 +116,7 @@ class _ChirkAppState extends State<ChirkApp> {
   MaterialColor? _getColorFromPalette(String colorName) {
     colorName = colorName.toLowerCase();
     switch (colorName) {
-    // Основные цвета
+      // Основные цвета
       case 'red':
         return Colors.red;
       case 'blue':
@@ -142,7 +134,7 @@ class _ChirkAppState extends State<ChirkApp> {
       case 'cyan':
         return Colors.cyan;
 
-    // Цвета материала
+      // Цвета материала
       case 'indigo':
         return Colors.indigo;
       case 'teal':

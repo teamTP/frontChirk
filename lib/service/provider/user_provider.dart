@@ -6,13 +6,15 @@ class TokenProvider with ChangeNotifier {
 
   Future<String?> get refreshToken => TokenManager.getRefreshToken();
 
-  void setTokens(String? accessToken, String? refreshToken) {if(refreshToken==null || accessToken==null){
-    TokenManager.removeTokens();
-    notifyListeners();
-  }else{
-    TokenManager.saveTokens(accessToken, refreshToken);
-    notifyListeners();
-  }}
+  void setTokens(String? accessToken, String? refreshToken) {
+    if (refreshToken == null || accessToken == null) {
+      TokenManager.removeTokens();
+      notifyListeners();
+    } else {
+      TokenManager.saveTokens(accessToken, refreshToken);
+      notifyListeners();
+    }
+  }
 
   void deleteTokens() {
     TokenManager.removeTokens();

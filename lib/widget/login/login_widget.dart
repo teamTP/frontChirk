@@ -40,7 +40,7 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                                   : null,
                           decoration: InputDecoration(
                             labelText: 'Введите email',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText:
                                 wm.isEmailValid ? null : "Неправильный email",
                           ),

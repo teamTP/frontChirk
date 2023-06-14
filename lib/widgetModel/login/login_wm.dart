@@ -47,11 +47,8 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
         if (value == null) {
           String? accessToken = await TokenManager.getAccessToken();
           String? refreshToken = await TokenManager.getAccessToken();
-          final tokenProvider =
-              Provider.of<TokenProvider>(context, listen: false);
-          tokenProvider.setTokens(accessToken, refreshToken);
+          setTokens(accessToken, refreshToken);
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-
           AppMetrica.reportEvent("login");
           goBack();
           SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -131,7 +128,6 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
     // Проверка на количество символов
     if (password.length < 6) {
       return 'Пароль должен содержать не менее 6 символов';
-
     }
 
     // Проверка на наличие цифры
@@ -151,6 +147,11 @@ class LoginWM extends WidgetModel<LoginWidget, LoginModel> implements ILoginWM {
 
     // Возвращаем null, если пароль прошел все проверки
     return null;
+  }
+
+  void setTokens(accessToken, refreshToken) {
+    final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
+    tokenProvider.setTokens(accessToken, refreshToken);
   }
 }
 

@@ -16,14 +16,14 @@ class AddChirkWM extends WidgetModel<AddChirkWidget, AddChirkModel>
   @override
   Future<void> addChirk() async {
     if (_validateMessage()) {
-      model.addChirk(_messageController.text).then((value){
+      model.addChirk(_messageController.text).then((value) {
         if (value == 200) {
           _messageController.text = '';
           model.isDisappear = false;
           _disappearState.content(model.isDisappear);
-          SharedPreferences.getInstance().then((prefs){
+          SharedPreferences.getInstance().then((prefs) {
             AppMetrica.reportEvent("add_chirk");
-            if(!(prefs.getBool('firstAddChirk')??false)){
+            if (!(prefs.getBool('firstAddChirk') ?? false)) {
               AppMetrica.reportEvent("add_first_chirk");
               prefs.setBool('firstAddChirk', true);
             }

@@ -1,4 +1,4 @@
-import 'package:chirk/widget/unlogin/log_out_widget_body.dart';
+import 'package:chirk/widget/logOut/log_out_widget_body.dart';
 import 'package:flutter/material.dart';
 
 class LogOutProfileWidget extends StatefulWidget {
@@ -18,7 +18,7 @@ class _LogOutProfileWidgetState extends State<LogOutProfileWidget> {
           child: const Text("Профиль"),
         ),
       ),
-      body: LogOutWidget("Хотите войти?"),
+      body: const LogOutWidget("Хотите войти?"),
     );
   }
 }

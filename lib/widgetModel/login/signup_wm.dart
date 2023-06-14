@@ -64,16 +64,18 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
           name: _nameTextInputController.text,
           surname: _surnameTextInputController.text);
       model.signUp(user).then((value) async {
-        if(value==null) {
-          final tokenProvider = Provider.of<TokenProvider>(context, listen: false);
-          tokenProvider.setTokens(await TokenManager.getAccessToken()??'', await TokenManager.getRefreshToken()??'');
+        if (value == null) {
+          final tokenProvider =
+              Provider.of<TokenProvider>(context, listen: false);
+          tokenProvider.setTokens(await TokenManager.getAccessToken() ?? '',
+              await TokenManager.getRefreshToken() ?? '');
 
           AppMetrica.reportEvent("sign_up");
           goBack();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setBool('firstSeen', false);
           //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-        }else{
+        } else {
           final snackBar = SnackBar(
             content: Text(value),
             duration: const Duration(seconds: 3),
@@ -84,10 +86,10 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     }
   }
 
-
-  void goBack(){
+  void goBack() {
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
   }
+
   bool _validateName() {
     bool isValid = _nameTextInputController.text.isNotEmpty;
     isFirstNameValid = isValid;
@@ -176,7 +178,6 @@ class SignUpWM extends WidgetModel<SignUpWidget, SignUpModel>
     // Проверка на количество символов
     if (password.length < 6) {
       return 'Пароль должен содержать не менее 6 символов';
-
     }
 
     // Проверка на наличие цифры
