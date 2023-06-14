@@ -32,43 +32,47 @@ class ProfileWidget extends ElementaryWidget<IProfileWM> {
               child: ListView(
                 scrollDirection: Axis.vertical,
                 children: [
-                  Container(
-                    margin: EdgeInsets.only(top: size / 2, left: size / 2),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                            radius: wm.textTheme.headlineMedium!.fontSize! * 2,
-                            backgroundImage: wm.userIcon),
-                        Row(
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: size),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    user.name,
-                                    style: wm.textTheme.headlineMedium,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        user.surname,
-                                        style: wm.textTheme.headlineMedium,
-                                      ),
-                                      IconButton(
-                                          onPressed: () {
-                                            wm.toEditProfile();
-                                          },
-                                          icon: const Icon(Icons.edit)),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      margin: EdgeInsets.only(top: size / 2, left: size / 2),
+                      child: Row(
+                        children: [
+                          CircleAvatar(
+                              radius:
+                                  wm.textTheme.headlineMedium!.fontSize! * 2,
+                              backgroundImage: wm.userIcon),
+                          Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: size),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      user.name,
+                                      style: wm.textTheme.headlineMedium,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          user.surname,
+                                          style: wm.textTheme.headlineMedium,
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              wm.toEditProfile();
+                                            },
+                                            icon: const Icon(Icons.edit)),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Card(

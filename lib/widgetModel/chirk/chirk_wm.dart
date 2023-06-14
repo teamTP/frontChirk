@@ -1,11 +1,13 @@
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:chirk/service/managers.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chirk/entity/chirk.dart';
 import 'package:chirk/model/chirk/chirk_model.dart';
-import 'package:chirk/service/userIcons.dart';
+import 'package:chirk/service/user_icons.dart';
 import 'package:chirk/widget/chirk/chirk_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../service/config.dart';
 
@@ -40,10 +42,21 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel> implements IChirkWM {
         newChirk.liked = true;
         newChirk.likeCount += 1;
       }
+      onTapEstimate();
       model.update(newChirk);
     } else {
       _showLikeDialog();
     }
+  }
+
+  void onTapEstimate() {
+    AppMetrica.reportEvent("estimate");
+    SharedPreferences.getInstance().then((prefs) {
+      if (!(prefs.getBool('firstEstimate') ?? false)) {
+        AppMetrica.reportEvent("first_estimate");
+        prefs.setBool('firstEstimate', true);
+      }
+    });
   }
 
   @override
@@ -58,6 +71,7 @@ class ChirkWM extends WidgetModel<ChirkWidget, ChirkModel> implements IChirkWM {
         newChirk.liked = false;
         newChirk.disLikeCount += 1;
       }
+      onTapEstimate();
       model.update(newChirk);
     } else {
       _showLikeDialog();

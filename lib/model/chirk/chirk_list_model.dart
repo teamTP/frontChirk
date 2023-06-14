@@ -45,7 +45,6 @@ class ChirkListModelDIO extends ChirkListModel {
     var list = await getHttp();
     _chirkList = list;
     _chirkListState.content(_chirkList);
-
   }
 
   Future<List<Chirk>> getHttp() async {

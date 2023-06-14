@@ -40,7 +40,7 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                                   : null,
                           decoration: InputDecoration(
                             labelText: 'Введите email',
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             errorText:
                                 wm.isEmailValid ? null : "Неправильный email",
                           ),
@@ -57,6 +57,7 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                             border: const OutlineInputBorder(),
                             errorText:
                                 wm.isPasswordValid ? null : wm.passwordError,
+                            errorMaxLines: null,
                             suffixIcon: GestureDetector(
                               onTap: wm.togglePasswordView,
                               child: Icon(
@@ -79,8 +80,10 @@ class LoginWidget extends ElementaryWidget<ILoginWM> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Wrap(
+                  alignment: WrapAlignment.center,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  runSpacing: 8, // Отступ между элементами при переносе
                   children: [
                     const Text(
                       "Еще нет аккаунта?",

@@ -21,7 +21,7 @@ class _SplashWidgetState extends State<SplashWidget> {
             if (value)
               {
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/onBoarding', (route) => false)
+                    context, '/onBoarding', (route) => false),
               }
             else
               {

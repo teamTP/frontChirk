@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../entity/user.dart';
-import '../../provider/user_provider.dart';
-import '../../service/userIcons.dart';
+import '../../service/provider/user_provider.dart';
+import '../../service/user_icons.dart';
 
 class ProfileWM extends WidgetModel<ProfileWidget, ProfileModel>
     implements IProfileWM {
